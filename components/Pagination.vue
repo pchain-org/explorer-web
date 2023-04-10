@@ -1,6 +1,6 @@
 <template>
   <div class="inline-flex">
-    <button :disabled="disableFirstBtn" :class="[disableFirstBtn?'cursor-not-allowed text-gray-600':'text-blue-600 hover:bg-blue-600 hover:text-white']" class="inline-flex mr-2 items-center px-2 py-2 text-xs font-medium bg-blue-100 rounde" @click="first">
+    <button :disabled="disableFirstBtn" :class="[disableFirstBtn?'cursor-not-allowed text-gray-600':'text-blue-600 hover:bg-blue-600 hover:text-white']" class="inline-flex mr-2 items-center px-2 py-2 text-xs font-medium bg-blue-100 rounded" @click="first">
       First
     </button>
     <button :disabled="disableFirstBtn" :class="[disableFirstBtn?'cursor-not-allowed fill-gray-600 text-gray-600':'text-blue-600 fill-blue-600 hover:fill-white hover:bg-blue-600 hover:text-white']" class="inline-flex items-center mr-2 px-2 py-2 text-xs font-medium text-gray-600 bg-blue-100 rounded" @click="prev">

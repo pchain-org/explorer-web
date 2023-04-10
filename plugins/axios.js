@@ -1,10 +1,9 @@
-// import { Message } from 'element-ui'
 import Vue from 'vue'
-// import Cookies from "js-cookie";
+// import { getChainNum } from '~/utils/chain'
 export default function ({ $axios, redirect }) {
   // 请求拦截
   $axios.onRequest((config) => {
-    config.headers['Chain-Num'] = '0'
+    config.headers['Chain-Num'] = 0
     return config
   })
   // 响应拦截器

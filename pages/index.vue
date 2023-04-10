@@ -3,7 +3,7 @@
     <section class="h-72 pt-12 bg-gray-100">
       <div class="container mx-auto px-4">
         <div class="pt-5 md:w-5/12">
-          <h1 class="text-blue-700 mb-3 text-xl"> Pizzap Chain Explorer</h1>
+          <h1 class="text-blue-700 mb-3 text-xl">Plian Explorer</h1>
           <div class="flex">
             <label for="search-dropdown" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your
               Email</label>
@@ -58,7 +58,7 @@
             </figure>
             <div class="flex-1">
               <h2 class="text-sm">PI Price</h2>
-              <a class="text-size-1 text-link" href="/chart/bnbprice" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="View Historical BNB Price">${{ dashboard.current_price }}<span class="text-secondary">@ {{ dashboard.pi_btc }} BTC</span><span class="text-success small"> (+1.54%)</span></a>
+              <a class="text-size-1 text-link" href="/chart/bnbprice" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="View Historical BNB Price">${{ +dashboard.current_price }}<span class="text-secondary">@ {{ dashboard.pi_btc }} BTC</span></a>
             </div>
           </div>
           <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8">
@@ -67,8 +67,8 @@
               <img src="https://bscscan.com/images/svg/icons/icon-8.svg" class="w-7 h-7 rounded" alt="BNB">
             </figure>
             <div class="media-body">
-              <h2 class="text-sm">PI Market Cap on Pizzap</h2>
-              <a class="text-size-1 text-link" href="/chart/bnbprice" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="View Historical BNB Price">${{ dashboard.market_value }} <span class="text-secondary"> ({{ dashboard.price_content }} PI)</span></a>
+              <h2 class="text-sm">PI Market Cap On Plian</h2>
+              <a class="text-size-1 text-link" href="/chart/bnbprice" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="View Historical BNB Price">${{ dashboard.market_value | toThousandFilter }} <span class="text-secondary"> ({{ dashboard.price_content }} PI)</span></a>
             </div>
           </div>
         </div>
@@ -80,11 +80,11 @@
             </figure>
             <div class="flex-1">
               <h2 class="text-sm">Transactions</h2>
-              <a href="/txs" class="text-size-1 text-link" rel="tooltip" data-toggle="tooltip" data-placement="left" data-html="true" title="" data-original-title="Total Transactions Counter<br>(Update every 5 mins)">{{ dashboard.trade_total }}</a><span class="text-secondary small" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Transactions per Second">({{ dashboard.trade_total_tps }} TPS)</span>
+              <a href="/txs" class="text-size-1 text-link" rel="tooltip" data-toggle="tooltip" data-placement="left" data-html="true" title="" data-original-title="Total Transactions Counter<br>(Update every 5 mins)">{{ dashboard.trade_total | numberFormatter }}</a><span class="text-secondary small" rel="tooltip" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Transactions per Second">({{ dashboard.trade_total_tps }} TPS)</span>
             </div>
             <div class="text-right">
               <h2 class="text-sm">Med Gas Price</h2>
-              <a href="/gastracker" class="text-size-1 text-link">5 Gwei <span class="text-secondary small">($0.04)</span></a>
+              <a href="/gastracker" class="text-size-1 text-link">{{ gasData.gas_moderate | ethToWei }} Gwei</a>
             </div>
           </div>
           <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8">
@@ -93,15 +93,15 @@
             <figure class="mr-2">
               <img src="https://bscscan.com/images/svg/icons/icon-51.svg?v=1.6" class="w-7 h-7 rounded" alt="SVG">
             </figure>
-            <div class="flex-1">
+            <div class="flex-1 truncate">
               <h2 class="text-sm">Latest Block</h2>
               <a class="text-size-1 text-link" href="blocks" rel="tooltip" data-placement="bottom" title="The latest Block No"><span id="lastblock">{{ dashboard.latest_block }}</span></a>
               <a data-toggle="tooltip" href="/chart/blocktime" class="small text-secondary text-link" data-placement="right" data-title="Average Block Time (The latest 5000 blocks)" data-original-title="" title="">(<span id="avgblocktime">3.0s</span>)</a>
             </div>
-            <div class="text-right">
+            <div class="text-right flex-1 truncate">
               <h2 class="text-sm">Voting Power</h2>
               <a class="text-size-1 text-link" href="/chart/hashrate">
-              </a><a class="text-size-1 text-link" href="/chart/votingpower7d">{{ dashboard.current_epoch.total_voting_power }} PI</a>
+              </a><a class="text-size-1 text-link" :title="dashboard.current_epoch.total_voting_power" href="/chart/votingpower7d">{{ dashboard.current_epoch.total_voting_power | toThousandFilter }} PI</a>
             </div>
           </div>
         </div>
@@ -109,7 +109,7 @@
         <div class="p-4 flex flex-col">
 
           <div class="flex justify-between items-center mb-1">
-            <h2 class="text-sm text-uppercase text-secondary">BSC TRANSACTION HISTORY LAST 14 DAYS</h2>
+            <h2 class="text-sm text-uppercase text-secondary">Plian TRANSACTIONS HISTORY LAST 14 DAYS</h2>
             <div class="position-relative float-right z-index-2">
               <a id="customchartsinvoker" class="btn btn-xs btn-icon btn-soft-secondary" href="javascript:;" role="button">
                 <i class="fa fa-ellipsis-v btn-icon__inner"></i>
@@ -117,7 +117,7 @@
             </div>
           </div>
           <div id="container-1" class="flex-1" style="height:130px; overflow: hidden;" data-highcharts-chart="0">
-            <highcharts :options="chartOptions" style="width:100%;height:100%"></highcharts>
+            <highcharts :options="chartOptions" style="width:100%;height:130px"></highcharts>
           </div>
         </div>
       </div>
@@ -140,7 +140,7 @@
                         <a :href="`/block/${item.block_no}`" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.block_no }}</a>
                       </p>
                       <p class="text-xs text-gray-500 truncate dark:text-gray-400">
-                        {{ item.block_time }}
+                        {{ item.block_time | timeAgo }}
                       </p>
                     </div>
                   </div>
@@ -150,7 +150,7 @@
                       Validated By <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" :href="`/address/${item.block_miner}`">{{ item.block_miner }}</a>
                     </p>
                     <p class="text-xs text-gray-500 truncate dark:text-gray-400 max-w-xs">
-                      184 txns in 3 secs
+                      {{ item.block_trade_amount }} txns in {{ item.block_time_interval }} secs
                     </p>
                   </div>
 
@@ -189,7 +189,7 @@
                           <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline " :href="`/tx/${item.trade_hash}`">{{ item.trade_hash }}</a>
                         </p>
                         <p class="text-xs text-gray-500 truncate dark:text-gray-400">
-                          {{ item.trade_time }}
+                          {{ item.trade_time | timeAgo }}
                         </p>
                       </div>
                     </div>
@@ -241,7 +241,10 @@ export default {
       filterLabels: ['All Filters', 'Addresses', 'Tokens', 'Websites'],
       latestBlock: [],
       dashboard: {
-        current_epoch: {},
+        current_epoch: {
+          total_voting_power: 0,
+        },
+        trade_total: 0,
       },
       latestTrade: [],
       tradeHistoryChart: [],
@@ -363,25 +366,23 @@ export default {
             name: 'Transactions',
             type: 'spline',
             data: [
-              {
-                dt: '2023-03-07',
-                formattedValue: '124',
-                friendlydate: 'Tue Mar 07 2023',
-                price: '$307.38',
-                y: 124,
-              },
               // {
-              //   y: 4033871,
-              //   dt: '1677801600',
-              //   formattedValue: '4,033,871',
-              //   friendlydate: 'Friday, March 3, 2023',
-              //   price: '$290.48',
+              //   dt: '2023-03-07',
+              //   formattedValue: '124',
+              //   friendlydate: 'Tue Mar 07 2023',
+              //   price: '$307.38',
+              //   y: 124,
               // },
             ],
             allowPointSelect: true,
             pointStart: 0,
           },
         ],
+      },
+      tradeTimer: null,
+      blockTimer: null,
+      gasData: {
+        gas_moderate: '',
       },
     }
   },
@@ -390,8 +391,16 @@ export default {
     this.getDashboard()
     this.getTradeHistoryChart()
     this.getLatestTrade()
+    this.getGasPrice()
   },
-  mounted() {},
+  mounted() {
+    // this.refreshLatestBlocks()
+    // this.refreshLatestTransactions()
+  },
+  beforeDestroy() {
+    // clearInterval(this.blockTimer)
+    // clearInterval(this.tradeTimer)
+  },
   methods: {
     async getLatestBlock() {
       try {
@@ -540,6 +549,20 @@ export default {
     },
     filterChange(val) {
       this.queryForm.filter = val
+    },
+    refreshLatestBlocks() {
+      this.blockTimer = setInterval(() => {
+        this.getLatestBlock()
+      }, 10000)
+    },
+    refreshLatestTransactions() {
+      this.tradeTimer = setInterval(() => {
+        this.getLatestTrade()
+      }, 10000)
+    },
+    async getGasPrice() {
+      const res = await this.$api.getGasPrice()
+      this.gasData = res.data
     },
   },
 }

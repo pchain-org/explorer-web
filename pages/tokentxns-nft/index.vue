@@ -3,7 +3,8 @@
     <div class="container mx-auto px-4 mt-6">
       <div class="py-3">
         <h1 class="flex items-center flex-wrap">
-          <span class="text-xl mr-2">Transactions</span>
+          <span class="text-xl mr-2">Non Fungible Tokens Transfers</span>
+          <span class="bg-gray-200 rounded px-2 py-1 text-gray-600 text-sm">ERC-721</span>
         </h1>
       </div>
 
@@ -24,12 +25,6 @@
                   Txn Hash
                 </th>
                 <th scope="col" class="px-6 py-3">
-                  Method
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Block
-                </th>
-                <th scope="col" class="px-6 py-3">
                   Age
                 </th>
                 <th scope="col" class="px-6 py-3">
@@ -39,27 +34,20 @@
                   To
                 </th>
                 <th scope="col" class="px-6 py-3">
-                  Value
+                  TokenID
                 </th>
                 <th scope="col" class="px-6 py-3">
-                  Txn Fee
+                  Token
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in data.trade_list" :key="item.trade_interval_time" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <tr v-for="item in data.trade_list" :key="item.block_no" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td scope="row" class="px-6 py-4">
                   <a :href="'/tx/' + item.trade_hash" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.trade_hash }}</a>
                 </td>
-                <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
-                  <div class="w-36">{{ item.method || '-' }}</div>
-                </td>
                 <td class="px-6 py-4">
-                  <a :href="'/block/' + item.block_no" :title="item.block_no" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.block_no }}</a>
-                </td>
-
-                <td class="px-6 py-4">
-                  <div class="w-24 cursor-pointer" :title="item.trade_time">
+                  <div class="w-36" :title="item.trade_time">
                     {{ item.trade_time | timeAgo }}
                   </div>
                 </td>
@@ -72,10 +60,19 @@
                 </td>
 
                 <td class="px-6 py-4">
-                  <div class="w-36">{{ item.trade_amount }} PI</div>
+                  <div class="w-36">
+                    <a :href="'/token/' + item.token_symbol" :title="item.token_symbol" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.token_id }}</a>
+                  </div>
                 </td>
                 <td class="px-6 py-4">
-                  {{ item.trade_fee }}
+                  <a :href="'/token/' + item.token_symbol" :title="item.token_symbol" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                    <div class="w-36 flex items-center">
+                      <img v-if="item.token_image" :src="item.token_image" alt="" class="w-4 h-4 rounded-full mr-3">
+                      <div class="flex-1">
+                        <a :href="'/token/' + item.token_symbol" class="inline-block truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.token_name }}</a>
+                      </div>
+                    </div>
+                  </a>
                 </td>
               </tr>
             </tbody>
@@ -107,19 +104,19 @@ export default {
     }
   },
   created() {
-    this.getTradeList()
+    this.getTokenTradeNFTList()
   },
   methods: {
-    async getTradeList() {
+    async getTokenTradeNFTList() {
       try {
-        const res = await this.$api.getTradeList(this.queryForm)
-        this.data = res.data
+        const res = await this.$api.getTokenTradeNFTList(this.queryForm)
+        this.data = res.data || {}
       } catch (error) {}
     },
     pageChange({ page, size }) {
       this.queryForm.start = String(page)
       this.queryForm.length = String(size)
-      this.getTradeList()
+      this.getTokenTradeNFTList()
     },
   },
 }

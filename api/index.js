@@ -5,6 +5,16 @@ export default class CreateApi {
   }
 
   /** 首页 */
+
+  // gas price
+  async getGasPrice(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/misc/gas/gasPrice',
+      data
+    )
+    return response
+  }
+
   // home dashboard
   async dashboard(data) {
     const response = await this.$axios.$post(
@@ -223,4 +233,110 @@ export default class CreateApi {
     return response
   }
   /** blockchain */
+
+  /** token */
+  // ERC20 Tokens By MarketCap
+  async getTokenListByMarketCap(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/tokens/marketCap/tokenList',
+      data
+    )
+    return response
+  }
+
+  // ERC20 Tokens By Volume
+  async getTokenListByVolume(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/tokens/volume/tokenList',
+      data
+    )
+    return response
+  }
+
+  // View ERC20 Transfers
+  async getTokenTradeList(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/tokens/tokenTrade/tokenTradeList',
+      data
+    )
+    return response
+  }
+
+  // ERC721 Top Tokens
+  async getTokenNFTList(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/tokens/tokenNft/tokenNftList',
+      data
+    )
+    return response
+  }
+
+  // View ERC721 Transfers
+  async getTokenTradeNFTList(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/tokens/tokenTradeNft/tokenTradeNftList',
+      data
+    )
+    return response
+  }
+
+  // ERC1155 Top Tokens
+  async getTokenMultiList(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/tokens/tokenMulti/tokenMultiList',
+      data
+    )
+    return response
+  }
+
+  // View ERC1155 Transfers
+  async getTokenTradeMultiList(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/tokens/tokenTradeMulti/tokenTradeMultiList',
+      data
+    )
+    return response
+  }
+
+  /** tokens */
+
+  /** Resources */
+
+  // Daily Transactions Chart
+  async getDailyTradeChart(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/resources/chartStats/blockChainData/dailyTradeChart',
+      data
+    )
+    return response
+  }
+
+  // Daily Verified Contracts Chart
+  async getDailyVerifiedContractChart(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/resources/chartStats/contractData/dailyVerifiedContractChart',
+      data
+    )
+    return response
+  }
+
+  // Daily Price USD Chart
+  async getDailyPriceUsdChart(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/resources/chartStats/marketData/dailyPriceUsdChart',
+      data
+    )
+    return response
+  }
+
+  // Validators by Blocks
+  async getMinerChart(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/resources/chartStats/validatorsData/minerChart',
+      data
+    )
+    return response
+  }
+
+  /** Resources */
 }

@@ -1,16 +1,19 @@
 <template>
-
   <div class="relative min-h-screen bg-gray-100 pb-6">
     <div class="container mx-auto px-4 mt-6">
       <div class="py-3">
         <h1 class="flex items-center flex-wrap">
-          <span class="text-xl mr-2">Blocks</span>
+          <span class="text-xl mr-2">Token Transfers</span>
+          <span class="bg-gray-200 rounded px-2 py-1 text-gray-600 text-sm">ERC-20</span>
         </h1>
       </div>
 
       <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div class="flex flex-wrap justify-between items-center text-sm font-medium px-4 py-5">
-          <span class="text-gray-500 md:mb-0 mb-3">(Total of {{ data.counts }} blocks)</span>
+          <div class="text-gray-500 md:mb-0 mb-3">
+            <div>More than > {{ data.trade_counts }} transactions found</div>
+            <div class="text-xs">(Showing the last {{ data.counts }} records)</div>
+          </div>
           <Pagination :total="+data.counts" :page-num="+queryForm.start" :page-size="+queryForm.length" @change="pageChange" />
         </div>
 
@@ -19,57 +22,58 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" class="px-6 py-3">
-                  Block
+                  Txn Hash
                 </th>
                 <th scope="col" class="px-6 py-3">
                   Age
                 </th>
                 <th scope="col" class="px-6 py-3">
-                  Txn
+                  From
                 </th>
                 <th scope="col" class="px-6 py-3">
-                  Validator
+                  To
                 </th>
                 <th scope="col" class="px-6 py-3">
-                  Gas Used
+                  Value
                 </th>
                 <th scope="col" class="px-6 py-3">
-                  Gas Limit
+                  Token
                 </th>
-                <th scope="col" class="px-6 py-3">
-                  Reward
-                </th>
-                <!-- <th scope="col" class="px-6 py-3">
-                  Fees Burnt
-                </th> -->
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in data.block_list" :key="item.block_no" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <tr v-for="item in data.trade_list" :key="item.block_no" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td scope="row" class="px-6 py-4">
-                  <a :href="'/block/' + item.block_no" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.block_no }}</a>
+                  <a :href="'/tx/' + item.trade_hash" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.trade_hash }}</a>
                 </td>
-                <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
-                  <div class="w-40 cursor-pointer" :title="item.block_time">{{ item.block_time | timeAgo }}</div>
+
+                <td class="px-6 py-4">
+                  <div class="w-36" :title="item.trade_time">
+                    {{ item.trade_time | timeAgo }}
+                  </div>
+                </td>
+
+                <td class="px-6 py-4">
+                  <a :href="'/address/' + item.trade_from" :title="item.trade_from" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.trade_from }}</a>
                 </td>
                 <td class="px-6 py-4">
-                  {{ item.block_trade_amount }}
+                  <a :href="'/address/' + item.trade_to" :title="item.trade_to" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.trade_to }}</a>
                 </td>
+
                 <td class="px-6 py-4">
-                  <a :href="'/address/' + item.block_miner" :title="item.block_miner" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.block_miner }}</a>
+                  <div class="w-36">{{ item.value }}</div>
                 </td>
+
                 <td class="px-6 py-4">
-                  <div class="">{{ item.gas_used }}</div>
+                  <a :href="'/token/' + item.token_symbol" :title="item.token_symbol" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                    <div class="w-36 flex items-center">
+                      <img v-if="item.token_image" :src="item.token_image" alt="" class="w-4 h-4 rounded-full mr-3">
+                      <div class="flex-1">
+                        <a :href="'/token/' + item.token_symbol" class="inline-block truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.token_name }}</a>
+                      </div>
+                    </div>
+                  </a>
                 </td>
-                <td class="px-6 py-4">
-                  {{ item.gas_limit }}
-                </td>
-                <td class="px-6 py-4">
-                  {{ item.block_reward }} PI
-                </td>
-                <!-- <td class="px-6 py-4">
-                  -
-                </td> -->
               </tr>
             </tbody>
           </table>
@@ -78,7 +82,6 @@
           <Pagination :total="+data.counts" :page-num="+queryForm.start" :page-size="+queryForm.length" @change="pageChange" />
         </div>
       </div>
-      
     </div>
   </div>
 </template>
@@ -94,25 +97,26 @@ export default {
         value: '',
       },
       data: {
-        counts: '0',
-        block_list: [],
+        counts: '',
+        trade_counts: '',
+        trade_list: [],
       },
     }
   },
   created() {
-    this.getBlockList()
+    this.getTokenTradeList()
   },
   methods: {
-    async getBlockList() {
+    async getTokenTradeList() {
       try {
-        const res = await this.$api.getBlockList(this.queryForm)
-        this.data = res.data
+        const res = await this.$api.getTokenTradeList(this.queryForm)
+        this.data = res.data || {}
       } catch (error) {}
     },
     pageChange({ page, size }) {
       this.queryForm.start = String(page)
       this.queryForm.length = String(size)
-      this.getBlockList()
+      this.getTokenTradeList()
     },
   },
 }

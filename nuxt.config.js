@@ -7,7 +7,7 @@ export default {
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'piscan-flowbite',
+    title: 'Plian Explorer',
     htmlAttrs: {
       lang: 'en',
     },
@@ -27,10 +27,15 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: ['@/assets/css/main.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/axios', '~/plugins/api', '~/plugins/message'],
+  plugins: [
+    '~/plugins/axios',
+    '~/plugins/api',
+    '~/plugins/message',
+    '~/plugins/filters',
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -53,14 +58,25 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    baseURL: 'https://api-piscan.plian.org/',
     proxy: true,
   },
+  // publicRuntimeConfig: {
+  //   axios: {
+  //     browserBaseURL: 'https://api-piscan.plian.org/'
+  //   }
+  // },
+
+  // privateRuntimeConfig: {
+  //   axios: {
+  //     baseURL: 'https://api-piscan.plian.org/'
+  //   }
+  // },
   // api proxy
   proxy: {
     '/blockBrowser': {
       changeOrigin: true,
-      target: 'http://54.69.86.125:8008', // production
+      target: 'https://api-piscan.plian.org/', // production
       // pathRewrite: { '^/api': '/' },
     },
   },
