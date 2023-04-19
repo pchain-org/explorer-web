@@ -1,6 +1,6 @@
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
-  ssr: false,
+  // ssr: false,
   mode: 'spa',
   loading: {
     color: 'rgba(37, 99, 235, 1)',
@@ -61,17 +61,17 @@ export default {
     baseURL: 'https://api-piscan.plian.org/',
     proxy: true,
   },
-  // publicRuntimeConfig: {
-  //   axios: {
-  //     browserBaseURL: 'https://api-piscan.plian.org/'
-  //   }
-  // },
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: 'https://api-piscan.plian.org/',
+    },
+  },
 
-  // privateRuntimeConfig: {
-  //   axios: {
-  //     baseURL: 'https://api-piscan.plian.org/'
-  //   }
-  // },
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: 'https://api-piscan.plian.org/',
+    },
+  },
   // api proxy
   proxy: {
     '/blockBrowser': {

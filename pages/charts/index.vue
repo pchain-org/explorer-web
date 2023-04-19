@@ -46,9 +46,9 @@
             <div class="mb-3 shadow rounded">
               <div class="w-full h-full">
                 <div class="border-b p-3 text-sm">
-                  <a href="/stat/miner?blocktype=blocks" class="inline-block font-medium text-blue-600 dark:text-blue-500 hover:underline">Top 25 Validators by Blocks</a>
+                  <a href="/stat/miner" class="inline-block font-medium text-blue-600 dark:text-blue-500 hover:underline">Top 25 Validators by Blocks</a>
                 </div>
-                <a class="p-3 block" href="/stat/miner?blocktype=blocks">
+                <a class="p-3 block" href="/stat/miner">
                   <img class="w-full" src="https://bscscan.com/images/charts/validators.svg?v=0.0.5" alt="Top 25 Validators by Blocks">
                 </a>
               </div>

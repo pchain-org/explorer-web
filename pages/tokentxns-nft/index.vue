@@ -1,6 +1,6 @@
 <template>
   <div class="relative min-h-screen bg-gray-100 pb-6">
-    <div class="container mx-auto px-4 mt-6">
+    <div class="container mx-auto px-4">
       <div class="py-3">
         <h1 class="flex items-center flex-wrap">
           <span class="text-xl mr-2">Non Fungible Tokens Transfers</span>
@@ -11,7 +11,7 @@
       <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div class="flex flex-wrap justify-between items-center text-sm font-medium px-4 py-5">
           <div class="text-gray-500 md:mb-0 mb-3">
-            <div>More than > {{ data.trade_counts }} transactions found</div>
+            <div>More than > {{ data.token_trade_count }} transactions found</div>
             <div class="text-xs">(Showing the last {{ data.counts }} records)</div>
           </div>
           <Pagination :total="+data.counts" :page-num="+queryForm.start" :page-size="+queryForm.length" @change="pageChange" />
@@ -42,7 +42,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in data.trade_list" :key="item.block_no" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <tr v-for="item in data.token_trade_list" :key="item.block_no" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td scope="row" class="px-6 py-4">
                   <a :href="'/tx/' + item.trade_hash" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.trade_hash }}</a>
                 </td>
@@ -98,8 +98,8 @@ export default {
       },
       data: {
         counts: '',
-        trade_counts: '',
-        trade_list: [],
+        token_trade_count: '',
+        token_trade_list: [],
       },
     }
   },

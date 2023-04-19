@@ -1,7 +1,7 @@
 <template>
 
   <div class="relative min-h-screen bg-gray-100 pb-6">
-    <div class="container mx-auto px-4 mt-6">
+    <div class="container mx-auto px-4">
       <div class="py-3">
         <h1 class="flex items-center flex-wrap">
           <span class="text-xl mr-2">Token Tracker</span>

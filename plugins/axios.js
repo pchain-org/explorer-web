@@ -1,16 +1,17 @@
 import Vue from 'vue'
-// import { getChainNum } from '~/utils/chain'
+import { getChain } from '~/utils/chain'
 export default function ({ $axios, redirect }) {
   // 请求拦截
   $axios.onRequest((config) => {
-    config.headers['Chain-Num'] = 0
+    const chainInfo = JSON.parse(getChain())
+    config.headers['Chain-Num'] = chainInfo?.chainNum || 0
     return config
   })
   // 响应拦截器
   $axios.onResponse((response) => {
     const res = response
     // 返回数据逻辑处理
-    if (res.data.code === 0) {
+    if (res.data.code === 0 || res.data.code === 10055) {
       return res
     } else {
       Vue.prototype.$message.error(res.data.enMsg || 'Error')
@@ -51,8 +52,7 @@ export default function ({ $axios, redirect }) {
         error.message = 'HTTP版本不受支持(505)'
         break
       default:
-        error.message = ''
-      // error.message = `连接出错(${code})!`;
+        error.message = `连接出错(${code})!`
     }
     if (error.message) {
       // Message({

@@ -121,6 +121,15 @@ export default class CreateApi {
     return response
   }
 
+  // Block Overview
+  async getBlockDetail(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/blockChain/block/blockDetail',
+      data
+    )
+    return response
+  }
+
   // transications chart
   async getTradeChart(data) {
     const response = await this.$axios.$post(
@@ -339,4 +348,80 @@ export default class CreateApi {
   }
 
   /** Resources */
+
+  /** Token */
+
+  // Token Transfers
+  async getTokenTransactions(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/tokens/address/tokenTransactions',
+      data
+    )
+    return response
+  }
+
+  // Token Detail
+  async getTokenDetail(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/tokens/address/tokenDetail',
+      data
+    )
+    return response
+  }
+
+  // Token Holders
+  async getTokenHolder(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/tokens/address/tokenHolder',
+      data
+    )
+    return response
+  }
+
+  // Inventory(ERC721)
+  async getTokenInventory(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/tokens/address/tokenInventory',
+      data
+    )
+    return response
+  }
+
+  // contractQueryByAddress
+  async contractQueryByAddress(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/contract/contractQueryByAddress',
+      data
+    )
+    return response
+  }
+
+  // contractReadFuncQueryByAddress
+  async contractReadFuncQueryByAddress(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/contract/contractReadFuncQueryByAddress',
+      data
+    )
+    return response
+  }
+
+  // contractWriteFuncQueryByAddress
+  async contractWriteFuncQueryByAddress(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/contract/contractWriteFuncQueryByAddress',
+      data
+    )
+    return response
+  }
+
+  // Analytics(ERC20)
+  async getTokenChart(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/tokens/analysis/tokenChart',
+      data
+    )
+    return response
+  }
+
+  /** Token */
 }

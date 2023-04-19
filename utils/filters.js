@@ -58,10 +58,20 @@ export function numberFormatter(num, digits = 2) {
  * @param {number} num
  */
 export function toThousandFilter(num, digits = 2) {
-  return (+num || 0)
-    .toFixed(digits)
-    .toString()
-    .replace(/^-?\d+/g, (m) => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
+  if (digits !== null) {
+    return (
+      (+num || 0)
+        .toFixed(digits)
+        .toString()
+        // .replace(/^-?\d+/g, (m) => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
+        .replace(/(\d{1,2})(?=(\d{3})+\.)/g, '$1,')
+    )
+  } else {
+    // return (+num || 0).toString().replace(/(\d{1,2})(?=(\d{3})+\.)/g, '$1,')
+    return (+num || 0)
+      .toString()
+      .replace(/^-?\d+/g, (m) => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
+  }
 }
 
 /**
@@ -74,4 +84,19 @@ export function uppercaseFirst(string) {
 
 export function ethToWei(eth) {
   return eth * 10 ** 9
+}
+
+export function timestampToTime(timestamp) {
+  const date = new Date(timestamp * 1000) // 时间戳为10位需*1000，时间戳为13位的话不需乘1000
+  const Y = date.getFullYear() + '-'
+  const M =
+    (date.getMonth() + 1 < 10
+      ? '0' + (date.getMonth() + 1)
+      : date.getMonth() + 1) + '-'
+  const D = date.getDate() + ' '
+  const h = date.getHours() + ':'
+  const m = date.getMinutes() + ':'
+  const s = date.getSeconds()
+  return Y + M + D + h + m + s
+  // return new Date(Y + M + D + h + m + s).toDateString()
 }
