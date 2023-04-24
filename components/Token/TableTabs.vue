@@ -36,12 +36,21 @@
           <InventoryTable v-if="activeTab === 'Inventory'" :token-type="tokenInfo.overview.token_types" />
         </div>
         <div id="info" class="hidden p-4 rounded-lg" role="tabpanel" aria-labelledby="info-tab">
+
+          <div class="text-gray-500 mb-3">OVERVIEW</div>
+          <div>{{ tokenInfo.overview.token_introduction }}</div>
           <!-- <TokentxnsErc721Table v-if="activeTab === 'info'" /> -->
         </div>
         <div id="contract" class="hidden p-4 rounded-lg" role="tabpanel" aria-labelledby="contract-tab">
-          <ContractInfo v-if="activeTab === 'Contract'" />
-          <!-- <ReadContract v-if="activeTab === 'Contract'" /> -->
-          <!-- <WriteContract v-if="activeTab === 'Contract'" /> -->
+          <div class="mb-4">
+            <button type="button" class="px-3 py-2 text-sm font-medium text-center text-white bg-gray-400 rounded-lg hover:bg-gray-600 dark:bg-gray-400 dark:hover:bg-gray-500" @click="activeTab='code'">Code</button>
+            <button type="button" class="px-3 py-2 text-sm font-medium text-center text-white bg-gray-400 rounded-lg hover:bg-gray-600 dark:bg-gray-400 dark:hover:bg-gray-500" @click="activeTab='readContract'">Read Contract</button>
+            <button type="button" class="px-3 py-2 text-sm font-medium text-center text-white bg-gray-400 rounded-lg hover:bg-gray-600 dark:bg-gray-400 dark:hover:bg-gray-500" @click="activeTab='writeContract'">Write Contract</button>
+          </div>
+
+          <ContractInfo v-if="activeTab === 'code' || activeTab==='Contract'" />
+          <ReadContract v-if="activeTab === 'readContract'" />
+          <WriteContract v-if="activeTab === 'writeContract'" />
 
         </div>
         <div id="analytics" class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" role="tabpanel" aria-labelledby="analytics-tab">
@@ -59,8 +68,8 @@ import { Tabs } from 'flowbite'
 import TransactionsTable from '@/components/Token/Tables/TransactionsTable'
 import HoldersTable from '@/components/Token/Tables/HoldersTable'
 import ContractInfo from '@/components/Token/ContractTab/ContractInfo'
-// import ReadContract from '@/components/Token/ContractTab/ReadContract'
-// import WriteContract from '@/components/Token/ContractTab/WriteContract'
+import ReadContract from '@/components/Token/ContractTab/ReadContract'
+import WriteContract from '@/components/Token/ContractTab/WriteContract'
 import InventoryTable from '@/components/Token/Tables/InventoryTable'
 export default {
   name: 'TableTabs',
@@ -69,8 +78,8 @@ export default {
     HoldersTable,
     ContractInfo,
     InventoryTable,
-    // ReadContract,
-    // WriteContract,
+    ReadContract,
+    WriteContract,
   },
   props: {
     tokenInfo: {
@@ -132,7 +141,7 @@ export default {
 
       // options with default values
       const options = {
-        defaultTabId: 'Transactions',
+        defaultTabId: 'Contract',
         activeClasses:
           'text-blue-600 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-400 border-blue-600 dark:border-blue-500',
         inactiveClasses:

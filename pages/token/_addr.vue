@@ -112,10 +112,6 @@ export default {
       const res = await this.$api.getTokenDetail(this.queryForm)
       const data = res.data
       this.detail = data
-      // this.detail = {
-      //   ...data,
-      //   pi_value: (res.data.price_pi * data.balance).toFixed(2),
-      // }
     },
   },
 }
