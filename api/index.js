@@ -424,4 +424,53 @@ export default class CreateApi {
   }
 
   /** Token */
+
+  /** Verify Contract */
+
+  // compilerVersionList
+  async compilerVersionList(data) {
+    const response = await this.$axios.$get(
+      '/blockBrowser/contract/compilerVersionList',
+      data
+    )
+    return response
+  }
+
+  // compilerLicenseList
+  async compilerLicenseList(data) {
+    const response = await this.$axios.$get(
+      '/blockBrowser/contract/compilerLicenseList',
+      data
+    )
+    return response
+  }
+
+  // evmVersionList
+  async evmVersionList(data) {
+    const response = await this.$axios.$get(
+      '/blockBrowser/contract/evmVersionList',
+      data
+    )
+    return response
+  }
+
+  // contractVerifyds
+  async contractVerify(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/contract/contractVerify',
+      data
+    )
+    return response
+  }
+
+  // uploadContractFile
+  async uploadContractFile(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/contract/uploadContractFile',
+      data
+    )
+    return response
+  }
+
+  /** Verify Contract */
 }

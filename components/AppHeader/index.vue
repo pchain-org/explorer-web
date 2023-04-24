@@ -122,13 +122,14 @@
             </button>
             <div id="moreMenu" class="absolute z-10 grid hidden w-auto grid-cols-2 text-sm bg-white border border-gray-100 rounded-lg shadow-md dark:border-gray-700 md:grid-cols-3 dark:bg-gray-700">
               <div class="p-4 pb-0 text-gray-900 md:pb-4 dark:text-white">
+                <strong class="mb-4 inline-block">Developers</strong>
                 <ul class="space-y-4" aria-labelledby="mega-menu-dropdown-button">
                   <li>
-                    <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500">
-                      About Us
+                    <a href="/verifyContract" class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500">
+                      Verify Contract
                     </a>
                   </li>
-                  <li>
+                  <!-- <li>
                     <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500">
                       Library
                     </a>
@@ -142,10 +143,10 @@
                     <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500">
                       Pro Version
                     </a>
-                  </li>
+                  </li> -->
                 </ul>
               </div>
-              <div class="p-4 pb-0 text-gray-900 md:pb-4 dark:text-white">
+              <!-- <div class="p-4 pb-0 text-gray-900 md:pb-4 dark:text-white">
                 <ul class="space-y-4">
                   <li>
                     <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500">
@@ -168,8 +169,8 @@
                     </a>
                   </li>
                 </ul>
-              </div>
-              <div class="p-4 text-gray-900 dark:text-white">
+              </div> -->
+              <!-- <div class="p-4 text-gray-900 dark:text-white">
                 <ul class="space-y-4">
                   <li>
                     <a href="#" class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500">
@@ -187,7 +188,7 @@
                     </a>
                   </li>
                 </ul>
-              </div>
+              </div> -->
             </div>
           </li>
 
