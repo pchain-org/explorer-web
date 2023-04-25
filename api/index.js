@@ -473,4 +473,16 @@ export default class CreateApi {
   }
 
   /** Verify Contract */
+
+  // EpochList
+  async getEpochList(data) {
+    const response = await this.$axios.$post('/blockBrowser/epoch/list', data)
+    return response
+  }
+
+  // EpochDetail
+  async getEpochDetail(data) {
+    const response = await this.$axios.$post('/blockBrowser/epoch/detail', data)
+    return response
+  }
 }

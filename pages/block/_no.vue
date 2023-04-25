@@ -99,7 +99,7 @@
                 </div>
               </div>
               <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
-              <div :class="[isShowMore?'h-auto':'h-0']" class="transition-all overflow-hidden">
+              <div :class="[isShowMore?'max-h-screen':'max-h-0']" class="transition-all duration-500 overflow-hidden">
                 <div class="grid grid-cols-12 gap-4 mb-4">
                   <div class="col-span-4">Hash:</div>
                   <div class="col-span-8">{{ detail.hash }}</div>
