@@ -26,18 +26,6 @@
                 <div class="col-span-4">Number:</div>
                 <div class="col-span-8">
                   <span class="mr-2">{{ detail.number }}</span>
-                  <!-- <a :href="'/block/' + (+ detail.block_no - 1)" class="inline-block p-1 rounded bg-blue-100 truncate align-bottom mr-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="text-blue-600 dark:text-blue-500 w-4 h-4">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                    </svg>
-                  </a>
-
-                  <a :href="'/block/' + (+ detail.block_no + 1)" class="inline-block p-1 rounded bg-blue-100 truncate align-bottom">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="text-blue-600 dark:text-blue-500 w-4 h-4">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                    </svg>
-                  </a> -->
-
                 </div>
               </div>
               <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
@@ -54,12 +42,6 @@
                   <span>{{ detail.vote_end_block }} </span>
                 </div>
               </div>
-              <!-- <div class="grid grid-cols-12 gap-4">
-                <div class="col-span-4">Validated by:</div>
-                <div class="col-span-8">
-                  <a :href="'/address/' + detail.miner" class="inline-block truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ detail.miner }}</a>
-                </div>
-              </div> -->
               <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
               <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-4">Reveal:</div>

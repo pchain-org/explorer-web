@@ -4,13 +4,13 @@
     <div class="container mx-auto px-4 mt-6">
       <div class="py-3">
         <h1 class="flex items-center flex-wrap">
-          <span class="text-xl mr-2">Epoch</span>
+          <span class="text-xl mr-2">Epochs</span>
         </h1>
       </div>
 
       <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div class="flex flex-wrap justify-between items-center text-sm font-medium px-4 py-5">
-          <span class="text-gray-500 md:mb-0 mb-3">(Total of {{ data.counts }} blocks)</span>
+          <span class="text-gray-500 md:mb-0 mb-3">(Total of {{ data.counts }} Epochs)</span>
           <Pagination :total="+data.counts" :page-num="+queryForm.start" :page-size="+queryForm.length" @change="pageChange" />
         </div>
 
