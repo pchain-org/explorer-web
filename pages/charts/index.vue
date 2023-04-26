@@ -7,7 +7,7 @@
         </h1>
       </div>
 
-      <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div id="blockchainData" class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div class="p-4 border-b border-gray-200 dark:border-gray-700">
           Blockchain Data
         </div>
@@ -43,13 +43,13 @@
         </div>
         <div class="p-4">
           <div class="grid md:grid-cols-4 lg:grid-8">
-            <div class="mb-3 shadow rounded">
+            <div id="topstats" class="mb-3 shadow rounded">
               <div class="w-full h-full">
                 <div class="border-b p-3 text-sm">
-                  <a href="/stat/miner" class="inline-block font-medium text-blue-600 dark:text-blue-500 hover:underline">Top 25 Validators by Blocks</a>
+                  <a href="/stat/miner" class="inline-block font-medium text-blue-600 dark:text-blue-500 hover:underline">Top Validators By Blocks</a>
                 </div>
                 <a class="p-3 block" href="/stat/miner">
-                  <img class="w-full" src="https://bscscan.com/images/charts/validators.svg?v=0.0.5" alt="Top 25 Validators by Blocks">
+                  <img class="w-full" src="https://bscscan.com/images/charts/validators.svg?v=0.0.5" alt="Top Validators By Blocks">
                 </a>
               </div>
             </div>

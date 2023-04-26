@@ -124,7 +124,8 @@
                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
               </svg>
             </button>
-            <div id="moreMenu" class="absolute z-10 grid hidden w-auto grid-cols-2 text-sm bg-white border border-gray-100 rounded-lg shadow-md dark:border-gray-700 md:grid-cols-3 dark:bg-gray-700">
+            <!-- grid grid-cols-2 md:grid-cols-3 -->
+            <div id="moreMenu" class="absolute z-10 hidden w-auto  text-sm bg-white border border-gray-100 rounded-lg shadow-md dark:border-gray-700  dark:bg-gray-700">
               <div class="p-4 pb-0 text-gray-900 md:pb-4 dark:text-white">
                 <strong class="mb-4 inline-block">Developers</strong>
                 <ul class="space-y-4" aria-labelledby="mega-menu-dropdown-button">

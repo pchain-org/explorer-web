@@ -23,6 +23,9 @@
                   Nonce
                 </th>
                 <th scope="col" class="px-6 py-3">
+                  Method
+                </th>
+                <th scope="col" class="px-6 py-3">
                   Last Seen
                 </th>
                 <th scope="col" class="px-6 py-3">
@@ -49,6 +52,9 @@
                 </td>
                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
                   <div class="w-36">{{ item.nonce }}</div>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="inline-block bg-blue-100 px-2 py-1 rounded">{{ item.method }}</span>
                 </td>
                 <td class="px-6 py-4">
                   {{ item.trade_time }}

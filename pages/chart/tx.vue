@@ -3,12 +3,19 @@
   <div class="relative min-h-screen bg-gray-100 pb-6">
     <div class="container mx-auto px-4">
       <div class="py-3">
-        <h1 class="flex items-center flex-wrap">
-          <span class="text-xl mr-2">PI Smart Chain Daily Transactions Chart</span>
+        <h1 class="flex items-center flex-wrap justify-between">
+          <span class="text-xl mr-2">Plian Daily Transactions Chart</span>
+          <nav class="text-sm text-gray-600">
+            <a href="/charts" class="text-blue-600 dark:text-blue-500">Charts &amp; Stats</a>
+            <span class="mx-2">/</span>
+            <a href="/charts#blockchainData" class="text-blue-600 dark:text-blue-500">Blockchain Data</a>
+            <span class="mx-2">/</span>
+            <span class="">Plian Daily Transactions Chart</span>
+          </nav>
         </h1>
       </div>
       <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-4 mb-6">
-        The chart highlights the total number of transactions on the BSC blockchain.
+        The Plian daily transactions chart shows the transaction number per day on the Plian blockchain.
       </div>
       <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-4 mb-3">
 
@@ -40,8 +47,12 @@
 
 <script>
 import * as echarts from 'echarts'
+import moment from 'moment'
 import resize from '@/mixins/resize'
 import { getNowDate } from '@/utils'
+import { toThousandFilter } from '@/utils/filters'
+moment.locale('en')
+
 export default {
   mixins: [resize],
   props: {
@@ -99,13 +110,13 @@ export default {
       this.chart.setOption({
         title: {
           top: 40,
-          text: 'PI Smart Chain Daily Transactions Chart',
+          text: 'Plian Daily Transactions Chart',
           textStyle: {
             fontWeight: 'bold',
             fontSize: 16,
             color: '#333333',
           },
-          subtext: 'Source: pizzap.com',
+          subtext: 'source: piscan.plian.org',
           left: 'center',
         },
         tooltip: {
@@ -114,6 +125,19 @@ export default {
             lineStyle: {
               color: '#57617B',
             },
+          },
+          formatter: function (params) {
+            return (
+              moment(params[0].name).format('dddd, MMMM DD, YYYY') +
+              '<br>' +
+              params[0].marker +
+              params[0].seriesName +
+              ': ' +
+              '<strong>' +
+              toThousandFilter(params[0].value, null) +
+              // Number(params[0].value) +
+              '<strong>'
+            )
           },
         },
         toolbox: {
@@ -153,13 +177,20 @@ export default {
                 color: '#57617B',
               },
             },
+            axisLabel: {
+              formatter(value) {
+                return moment(value).format("MMM 'DD")
+              },
+            },
             data: data.map((item) => item.date),
           },
         ],
         yAxis: [
           {
             type: 'value',
-            name: '',
+            name: 'Transactions Per Day',
+            nameLocation: 'middle',
+            nameGap: 64,
             axisTick: {
               show: false,
             },
@@ -231,8 +262,8 @@ export default {
           {
             type: 'inside',
             realtime: true,
-            start: 30,
-            end: 70,
+            start: 0,
+            end: 100,
             xAxisIndex: [0, 1],
           },
           // {

@@ -81,8 +81,6 @@
                   </table>
                 </div>
               </div>
-              <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
-
             </div>
           </div>
 

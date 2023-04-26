@@ -3,23 +3,30 @@
   <div class="relative min-h-screen bg-gray-100 pb-6">
     <div class="container mx-auto px-4">
       <div class="py-3">
-        <h1 class="flex items-center flex-wrap">
-          <span class="text-xl mr-2">Top 25 Validators by Blocks</span>
+        <h1 class="flex items-center justify-between flex-wrap">
+          <span class="text-xl mr-2">Top Validators by Blocks</span>
+          <nav class="text-sm text-gray-600">
+            <a href="/charts" class="text-blue-600 dark:text-blue-500">Charts &amp; Stats</a>
+            <span class="mx-2">/</span>
+            <a href="/charts#topstats" class="text-blue-600 dark:text-blue-500">Top Statistics</a>
+            <span class="mx-2">/</span>
+            <span class="">PI Daily Price (USD) Chart</span>
+          </nav>
         </h1>
       </div>
       <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-4 mb-6">
-        Top 25 Validators by Blocks breakdown the top 25 miner by the number of blocks each validator validated and the percentage validated on the BNB Smart Chain network. The chart can be viewed in last 24 hours, last 7 days and last 14 days.
+        Top Validators by Blocks breakdown the top miner by the number of blocks each validator validated and the percentage validated on the Plian network of the current epoch. The chart can be viewed in last 24 hours, last 7 days and last 14 days.
       </div>
 
       <div class="">
 
         <div class="mb-3">
-          <svg class="w-4 h-4 inline-block mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <svg class="w-4 h-4 inline-block fill-current text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
           </svg>
-
-          <button id="states-button" data-dropdown-toggle="dropdown-states" class="flex-shrink-0 z-10 inline-flex items-center py-2 px-3 text-sm text-center text-gray-500 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">
-            {{ filters[queryForm.data_range-1] }} <svg aria-hidden="true" class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <span class="text-gray-600 mr-2">Range:</span>
+          <button id="states-button" data-dropdown-toggle="dropdown-states" class="flex-shrink-0 w-36 z-10 inline-flex justify-between items-center py-2 px-3 text-sm text-center text-gray-500 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">
+            {{ filters[queryForm.data_range] }} <svg aria-hidden="true" class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
             </svg>
           </button>
@@ -33,12 +40,12 @@
               </button>
             </li>
             <li>
-              <button type="button" class="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" @click="filterChange('2')">
+              <button type="button" class="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" @click="filterChange('7')">
                 Last 7 Days
               </button>
             </li>
             <li>
-              <button type="button" class="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" @click="filterChange('3')">
+              <button type="button" class="inline-flex w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" @click="filterChange('14')">
                 Last 14 Days
               </button>
             </li>
@@ -70,7 +77,7 @@
             <tbody>
               <tr v-for="(item,index) in data" :key="item.index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td class="px-6 py-4">
-                  <div class="w-20">{{ index }}</div>
+                  <div class="w-20">{{ index + 1 }}</div>
                 </td>
                 <td class="px-6 py-4">
                   <a :href="'/address/' + item.verification_address" :title="item.verification_address" class="inline-block truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.verification_address }}</a>
@@ -95,6 +102,7 @@
 <script>
 import * as echarts from 'echarts'
 import resize from '@/mixins/resize'
+import { toThousandFilter } from '@/utils/filters'
 export default {
   mixins: [resize],
   props: {
@@ -118,12 +126,17 @@ export default {
         data_range: '1',
       },
       data: [],
-      filters: ['Last 24 Hours', 'Last 7 Days', 'Last 14 Days'],
+      filters: { 1: 'Last 24 Hours', 7: 'Last 7 Days', 14: 'Last 14 Days' },
+      dashboard: {
+        current_epoch: {
+          number: 0,
+        },
+      },
     }
   },
 
   mounted() {
-    this.getChartData()
+    this.getDashboard()
   },
   beforeDestroy() {
     if (!this.chart) {
@@ -133,6 +146,13 @@ export default {
     this.chart = null
   },
   methods: {
+    async getDashboard() {
+      try {
+        const res = await this.$api.dashboard()
+        this.dashboard = res.data
+        this.getChartData()
+      } catch (error) {}
+    },
     filterChange(val) {
       this.queryForm.data_range = val
       this.getChartData()
@@ -146,22 +166,37 @@ export default {
     },
     initChart(data) {
       this.chart = echarts.init(document.getElementById(this.id))
-
       this.chart.setOption({
         title: {
           top: 30,
-          text: 'Top 25 Validators by Blocks',
+          text: `Top Validators by Blocks - Epoch ${this.dashboard.current_epoch.number}`,
           textStyle: {
             fontWeight: 'bold',
             fontSize: 16,
             color: '#333333',
           },
-          subtext: 'Source: pizzp.io',
+          subtext: 'source: piscan.plian.org',
           left: 'center',
+        },
+        options3d: {
+          enabled: true,
+          alpha: 45,
         },
         tooltip: {
           trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d}%)',
+          // formatter: '{b} <br/> {a} : {c} ',
+          formatter: function (params) {
+            return (
+              params.name +
+              '<br>' +
+              params.marker +
+              params.seriesName +
+              ': ' +
+              '<strong>' +
+              toThousandFilter(params.value, null) +
+              '<strong>'
+            )
+          },
         },
         legend: {
           type: 'scroll',
@@ -180,7 +215,7 @@ export default {
         },
         series: [
           {
-            name: 'Validators by Blocks',
+            name: 'Blocks Validated',
             type: 'pie',
             // roseType: 'radius',
             // radius: [15, 95],
@@ -196,11 +231,8 @@ export default {
             },
             data: data.map((item) => ({
               value: item.verification_block,
-              name: `${item.verification_address}(${item.verification_occupy})`,
+              name: `${item.verification_address} (${item.verification_occupy})`,
             })),
-            // [
-            //   { value: 59, name: 'Forecasts' },
-            // ],
             animationEasing: 'cubicInOut',
             animationDuration: 2600,
           },

@@ -3,12 +3,19 @@
   <div class="relative min-h-screen bg-gray-100 pb-6">
     <div class="container mx-auto px-4">
       <div class="py-3">
-        <h1 class="flex items-center flex-wrap">
+        <h1 class="flex items-center justify-between flex-wrap">
           <span class="text-xl mr-2">PI Daily Verified Contracts Chart</span>
+          <nav class="text-sm text-gray-600">
+            <a href="/charts" class="text-blue-600 dark:text-blue-500">Charts &amp; Stats</a>
+            <span class="mx-2">/</span>
+            <a href="/charts#blockchainData" class="text-blue-600 dark:text-blue-500">Blockchain Data</a>
+            <span class="mx-2">/</span>
+            <span class="">Plian Daily Transactions Chart</span>
+          </nav>
         </h1>
       </div>
       <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-4 mb-6">
-        The chart shows the total number of contracts verified daily. Check out the 500 most recent verified contracts!
+        The chart shows the total number of contracts verified daily. Check out the 500 most recent <a href="/contractsVerified" class="inline truncate text-blue-600 dark:text-blue-500 hover:underline">verified contracts!</a>
       </div>
 
       <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 px-4 py-5">
@@ -20,8 +27,10 @@
 
 <script>
 import * as echarts from 'echarts'
+import moment from 'moment'
 import resize from '@/mixins/resize'
 import { getNowDate } from '@/utils'
+moment.locale('en')
 export default {
   mixins: [resize],
   props: {
@@ -81,7 +90,7 @@ export default {
             fontSize: 16,
             color: '#333333',
           },
-          subtext: 'Source: pizzp.io',
+          subtext: 'source: piscan.plian.org',
           left: 'center',
         },
         tooltip: {
@@ -91,7 +100,20 @@ export default {
               color: '#57617B',
             },
           },
+          formatter: function (params) {
+            return (
+              moment(params[0].name).format('dddd, MMMM DD, YYYY') +
+              '<br>' +
+              params[0].marker +
+              '[ ' +
+              params[0].seriesName +
+              ': ' +
+              params[0].value +
+              ' ]'
+            )
+          },
         },
+
         toolbox: {
           show: true,
           feature: {
@@ -129,13 +151,22 @@ export default {
                 color: '#57617B',
               },
             },
+            axisLabel: {
+              formatter(value) {
+                return moment(value).format("MMM 'DD")
+              },
+            },
             data: data.map((item) => item.date),
           },
         ],
         yAxis: [
           {
             type: 'value',
-            name: '',
+            name: 'Total Verified Contracts per Day',
+            nameLocation: 'center',
+            nameGap: 64,
+            minInterval: 1,
+
             axisTick: {
               show: false,
             },
@@ -165,6 +196,7 @@ export default {
             symbol: 'circle',
             symbolSize: 5,
             showSymbol: false,
+
             lineStyle: {
               normal: {
                 width: 1,

@@ -38,12 +38,12 @@
                 <th scope="col" class="px-6 py-3">
                   Volume (24H)
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <!-- <th scope="col" class="px-6 py-3">
                   Circulating Market Cap
                 </th>
                 <th scope="col" class="px-6 py-3">
                   On-Chain Market Cap
-                </th>
+                </th> -->
                 <th scope="col" class="px-6 py-3">
                   Holders
                 </th>
@@ -78,13 +78,13 @@
                 <td class="px-6 py-4">
                   $ {{ item.volume_24h }}
                 </td>
-                <td class="px-6 py-4">
+                <!-- <td class="px-6 py-4">
                   $ {{ item.market_cap }}
                 </td>
 
                 <td class="px-6 py-4">
                   $ {{ item.on_chain || '-' }}
-                </td>
+                </td> -->
 
                 <td class="px-6 py-4">
                   <div> {{ item.holders }}</div>

@@ -1,4 +1,6 @@
 import * as timeago from 'timeago.js'
+import Web3 from 'web3'
+const web3 = new Web3(Web3.givenProvider)
 
 export function timeAgo(time) {
   return timeago.format(new Date(time))
@@ -99,4 +101,8 @@ export function timestampToTime(timestamp) {
   const s = date.getSeconds()
   return Y + M + D + h + m + s
   // return new Date(Y + M + D + h + m + s).toDateString()
+}
+
+export function hexToNumber(hex) {
+  return web3.utils.hexToNumber(hex)
 }

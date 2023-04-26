@@ -11,10 +11,10 @@
       <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div class="flex flex-wrap justify-between items-center text-sm font-medium px-4 py-5">
           <div class="text-gray-500 md:mb-0 mb-3">
-            <div>More than > {{ data.token_trade_count }} transactions found</div>
-            <div class="text-xs">(Showing the last {{ data.counts }} records)</div>
+            <div>More than > {{ data.counts}} transactions found</div>
+            <div class="text-xs">(Showing the last {{ data.token_trade_count }} records)</div>
           </div>
-          <Pagination :total="+data.counts" :page-num="+queryForm.start" :page-size="+queryForm.length" @change="pageChange" />
+          <Pagination :total="+data.token_trade_count" :page-num="+queryForm.start" :page-size="+queryForm.length" @change="pageChange" />
         </div>
 
         <div class="relative overflow-x-auto sm:rounded-lg">
