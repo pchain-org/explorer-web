@@ -6,6 +6,10 @@ export function timeAgo(time) {
   return timeago.format(new Date(time))
 }
 
+export function timeAgoForSec(age) {
+  return timeago.format(Date.now() - age * 1000)
+}
+
 export function time(item) {
   // const nowTimeStamp = new Date().getTime();
   // const updateTimeStamp = new Date(item.addtime).getTime();
