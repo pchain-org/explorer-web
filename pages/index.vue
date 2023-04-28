@@ -84,7 +84,7 @@
             </div>
             <div class="text-right">
               <h2 class="text-sm text-gray-500">Med Gas Price</h2>
-              <a href="/gastracker" class="text-size-1 text-link">{{ gasData.gas_moderate | ethToWei }} Gwei</a>
+              <a href="/gastracker" class="text-size-1 text-link">{{ gasData.gas_moderate | toWei | fromWei('gwei') }} Gwei</a>
             </div>
           </div>
           <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8">
@@ -382,7 +382,7 @@ export default {
       tradeTimer: null,
       blockTimer: null,
       gasData: {
-        gas_moderate: '',
+        gas_moderate: '0',
       },
     }
   },

@@ -49,8 +49,11 @@
                 <td scope="row" class="px-6 py-4">
                   <a :href="'/block/' + item.block_no" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.block_no }}</a>
                 </td>
-                <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
-                  <div class="w-40 cursor-pointer" :title="item.block_time">{{ item.block_time | timeAgo }}</div>
+                <td scope="row" class="px-6 py-4">
+                  <!-- <div class="w-40 cursor-pointer" :title="item.block_time">{{ item.block_time | timeAgo }}</div> -->
+                  <div class="w-32 cursor-pointer" data-tooltip-target="age-tooltip-bottom" data-tooltip-placement="bottom" @mouseenter="tooltipContent=item.block_time">
+                    {{ item.block_time_interval | timeAgoForSec }}
+                  </div>
                 </td>
                 <td class="px-6 py-4">
                   {{ item.block_trade_amount }}
@@ -78,11 +81,19 @@
           <Pagination :total="+data.counts" :page-num="+queryForm.start" :page-size="+queryForm.length" @change="pageChange" />
         </div>
       </div>
-      
+
+    </div>
+
+    <!-- Show tooltip on bottom -->
+    <div id="age-tooltip-bottom" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+      {{ tooltipContent }}
+      <div class="tooltip-arrow" data-popper-arrow></div>
     </div>
   </div>
 </template>
 <script>
+import { initTooltips } from 'flowbite'
+
 export default {
   data() {
     return {
@@ -97,6 +108,7 @@ export default {
         counts: '0',
         block_list: [],
       },
+      tooltipContent: '',
     }
   },
   created() {
@@ -107,6 +119,7 @@ export default {
       try {
         const res = await this.$api.getBlockList(this.queryForm)
         this.data = res.data
+        this.$nextTick(initTooltips)
       } catch (error) {}
     },
     pageChange({ page, size }) {

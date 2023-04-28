@@ -57,7 +57,9 @@
                   <span class="inline-block bg-blue-100 px-2 py-1 rounded">{{ item.method }}</span>
                 </td>
                 <td class="px-6 py-4">
-                  {{ item.trade_time }}
+                  <div class="w-24 cursor-pointer" data-tooltip-target="age-tooltip-bottom" data-tooltip-placement="bottom" @mouseenter="tooltipContent=item.trade_time">
+                    {{ item.trade_time_interval | timeAgoForSec }}
+                  </div>
                 </td>
                 <td class="px-6 py-4">
                   {{ item.gas }}
@@ -84,9 +86,17 @@
       </div>
 
     </div>
+
+    <!-- Show tooltip on bottom -->
+    <div id="age-tooltip-bottom" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+      {{ tooltipContent | timestampToTime }}
+      <div class="tooltip-arrow" data-popper-arrow></div>
+    </div>
   </div>
 </template>
 <script>
+import { initTooltips } from 'flowbite'
+
 export default {
   data() {
     return {
@@ -101,6 +111,7 @@ export default {
         counts: '',
         pending_trade_list: [],
       },
+      tooltipContent: '',
     }
   },
   created() {
@@ -111,6 +122,7 @@ export default {
       try {
         const res = await this.$api.getPendingTradeList(this.queryForm)
         this.data = res.data
+        this.$nextTick(initTooltips)
       } catch (error) {}
     },
     pageChange({ page, size }) {

@@ -88,8 +88,12 @@ export function uppercaseFirst(string) {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
-export function ethToWei(eth) {
-  return eth * 10 ** 9
+export function toWei(number, unit = 'ether') {
+  return web3.utils.toWei(number, unit)
+}
+
+export function fromWei(number, unit = 'ether') {
+  return web3.utils.fromWei(number, unit)
 }
 
 export function timestampToTime(timestamp) {

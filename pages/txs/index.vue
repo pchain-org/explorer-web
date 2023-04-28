@@ -41,7 +41,7 @@
                 <th scope="col" class="px-6 py-3">
                   Value
                 </th>
-                <th scope="col" class="px-6 py-3">
+                <th scope="col" class="px-6 py-3" data-tooltip-target="age-tooltip-bottom" data-tooltip-placement="bottom">
                   Txn Fee
                 </th>
               </tr>
@@ -59,8 +59,8 @@
                 </td>
 
                 <td class="px-6 py-4">
-                  <div class="w-24 cursor-pointer" :title="item.trade_time">
-                    {{ item.trade_time | timeAgo }}
+                  <div class="w-24 cursor-pointer" data-tooltip-target="age-tooltip-bottom" data-tooltip-placement="bottom" @mouseenter="tooltipContent=item.trade_time">
+                    {{ item.trade_interval_time | timeAgoForSec }}
                   </div>
                 </td>
 
@@ -86,9 +86,16 @@
         </div>
       </div>
     </div>
+
+    <!-- Show tooltip on bottom -->
+    <div id="age-tooltip-bottom" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+      {{ tooltipContent }}
+      <div class="tooltip-arrow" data-popper-arrow></div>
+    </div>
   </div>
 </template>
 <script>
+import { initTooltips } from 'flowbite'
 export default {
   data() {
     return {
@@ -104,9 +111,10 @@ export default {
         trade_counts: '',
         trade_list: [],
       },
+      tooltipContent: '',
     }
   },
-  created() {
+  mounted() {
     this.getTradeList()
   },
   methods: {
@@ -114,6 +122,9 @@ export default {
       try {
         const res = await this.$api.getTradeList(this.queryForm)
         this.data = res.data
+        this.$nextTick(() => {
+          initTooltips()
+        })
       } catch (error) {}
     },
     pageChange({ page, size }) {
