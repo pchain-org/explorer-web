@@ -2,7 +2,7 @@
   <div class="relative pb-6">
     <div class="container mx-auto px-4">
       <div class="py-3">
-        <h1 class="flex items-center flex-wrap text-gray-900 dark:text-white">
+        <h1 class="flex items-center flex-wrap justify-between text-gray-900 dark:text-white">
           <span class="text-xl mr-2">PI Daily Price (USD) Chart</span>
 
           <nav class="text-sm text-gray-600">
