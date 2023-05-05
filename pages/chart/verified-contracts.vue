@@ -8,7 +8,7 @@
           <nav class="text-sm text-gray-600">
             <a href="/charts" class="text-blue-600 dark:text-blue-500">Charts &amp; Stats</a>
             <span class="mx-2">/</span>
-            <a href="/charts#blockchainData" class="text-blue-600 dark:text-blue-500">Blockchain Data</a>
+            <a href="/charts#contractsData" class="text-blue-600 dark:text-blue-500">Contracts Data</a>
             <span class="mx-2">/</span>
             <span class="">Plian Daily Transactions Chart</span>
           </nav>

@@ -7,16 +7,16 @@
           <li class="mr-2" role="presentation">
             <button id="transactions-tab" class="inline-block p-4 border-b-2 rounded-t-lg" data-tabs-target="#transactions" type="button" role="tab" aria-controls="transactions" aria-selected="false">Transactions</button>
           </li>
-          <li class="mr-2" role="presentation">
+          <!-- <li class="mr-2" role="presentation">
             <button id="internaltx-tab" class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" data-tabs-target="#internaltx" type="button" role="tab" aria-controls="internaltx" aria-selected="false">Internal Txns</button>
-          </li>
+          </li> -->
           <li class="mr-2" role="presentation">
             <button id="tokentxns-tab" class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" data-tabs-target="#tokentxns" type="button" role="tab" aria-controls="tokentxns" aria-selected="false">ERC-20 Token Txns</button>
           </li>
           <li role="presentation">
             <button id="tokentxnsErc721-tab" class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" data-tabs-target="#tokentxnsErc721" type="button" role="tab" aria-controls="tokentxnsErc721" aria-selected="false">ERC-721 Token Txns</button>
           </li>
-          <li role="presentation">
+          <li v-show="detail.isValidator" role="presentation">
             <button id="mine-tab" class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" data-tabs-target="#mine" type="button" role="tab" aria-controls="mine" aria-selected="false">Validated Blocks</button>
           </li>
           <li role="presentation">
@@ -29,9 +29,9 @@
         <div id="transactions" class="hidden p-4 rounded-lg" role="tabpanel" aria-labelledby="transactions-tab">
           <TransactionsTable v-if="activeTab === 'Transactions'" />
         </div>
-        <div id="internaltx" class="hidden p-4 rounded-lg" role="tabpanel" aria-labelledby="internaltx-tab">
+        <!-- <div id="internaltx" class="hidden p-4 rounded-lg" role="tabpanel" aria-labelledby="internaltx-tab">
           <InternaltxTable v-if="activeTab === 'Internaltx'" />
-        </div>
+        </div> -->
         <div id="tokentxns" class="hidden p-4 rounded-lg" role="tabpanel" aria-labelledby="tokentxns-tab">
           <TokentxnsTable v-if="activeTab === 'Tokentxns'" />
         </div>
@@ -45,7 +45,6 @@
           <AnalyticsTabs v-if="activeTab === 'Analytics'" />
 
         </div>
-        <!-- <TestDemo /> -->
       </div>
 
     </div>
@@ -55,7 +54,7 @@
 import { Tabs } from 'flowbite'
 
 import TransactionsTable from '@/components/Address/Tables/TransactionsTable'
-import InternaltxTable from '@/components/Address/Tables/InternaltxTable'
+// import InternaltxTable from '@/components/Address/Tables/InternaltxTable'
 import TokentxnsTable from '@/components/Address/Tables/TokentxnsTable'
 import TokentxnsErc721Table from '@/components/Address/Tables/TokentxnsErc721Table'
 import MineTable from '@/components/Address/Tables/MineTable'
@@ -64,11 +63,17 @@ export default {
   name: 'TableTabs',
   components: {
     TransactionsTable,
-    InternaltxTable,
+    // InternaltxTable,
     TokentxnsTable,
     TokentxnsErc721Table,
     MineTable,
     AnalyticsTabs,
+  },
+  props: {
+    detail: {
+      type: Object,
+      default: () => {},
+    },
   },
   data() {
     return {
@@ -88,11 +93,11 @@ export default {
           triggerEl: document.querySelector('#transactions-tab'),
           targetEl: document.querySelector('#transactions'),
         },
-        {
-          id: 'Internaltx',
-          triggerEl: document.querySelector('#internaltx-tab'),
-          targetEl: document.querySelector('#internaltx'),
-        },
+        // {
+        //   id: 'Internaltx',
+        //   triggerEl: document.querySelector('#internaltx-tab'),
+        //   targetEl: document.querySelector('#internaltx'),
+        // },
         {
           id: 'Tokentxns',
           triggerEl: document.querySelector('#tokentxns-tab'),

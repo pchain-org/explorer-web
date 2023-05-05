@@ -114,3 +114,16 @@ export function timestampToTime(timestamp) {
 export function hexToNumber(hex) {
   return web3.utils.hexToNumber(hex)
 }
+
+export function str2num(n) {
+  const _n = parseFloat(n)
+  if (isNaN(_n) || _n !== n) return
+
+  if (
+    !(Number(_n) === _n && _n % 1 !== 0) &&
+    !(Number(_n) === _n && _n % 1 === 0)
+  ) {
+    return
+  }
+  return _n
+}

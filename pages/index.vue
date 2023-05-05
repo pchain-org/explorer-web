@@ -183,7 +183,7 @@
                 <div class="grid grid-cols-12">
                   <div class="col-span-4">
                     <div class="flex item-center mr-4">
-                      <div class="w-10 h-10 rounded-md bg-gray-100 text-center leading-10">TX</div>
+                      <div class="w-10 h-10 rounded-full bg-gray-100 text-center leading-10">TX</div>
                       <div class="min-w-0 ml-3 flex-1">
                         <p class="text-sm font-medium text-blue-500 truncate dark:text-white">
                           <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline " :href="`/tx/${item.trade_hash}`">{{ item.trade_hash }}</a>

@@ -43,7 +43,7 @@
               <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
               <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-4 mb-1 md:mb-0">Timestamp:</div>
-                <div class="col-span-8">{{ detail.block_time_interval * 1000 | time }}({{ detail.time_stamp | timestampToTime }})</div>
+                <div class="col-span-8">{{ detail.block_time | timeAgo }} ({{ detail.block_time }})</div>
               </div>
               <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
               <div class="grid grid-cols-12 gap-4 mb-4">
@@ -58,7 +58,8 @@
               <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-4">Validated by:</div>
                 <div class="col-span-8">
-                  <a :href="'/address/' + detail.miner" class="inline-block truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ detail.miner }}</a>
+                  <a :href="'/address/' + detail.miner" class="truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ detail.miner }}</a>
+                  <span class="inline-block ml-1">in {{ detail.time_stamp_interval }} secs</span>
                 </div>
               </div>
               <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">

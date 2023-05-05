@@ -37,7 +37,7 @@
         </div>
       </div>
 
-      <div class="w-full mt-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div id="validatorsData" class="w-full mt-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div class="p-4 border-b border-gray-200 dark:border-gray-700">
           Validators Data
         </div>
@@ -57,7 +57,7 @@
         </div>
       </div>
 
-      <div class="w-full mt-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div id="contractsData" class="w-full mt-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
 
         <div class="p-4 border-b border-gray-200 dark:border-gray-700">
           Contracts Data

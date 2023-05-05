@@ -67,12 +67,27 @@ export default {
           },
         },
         legend: {
-          top: 20,
+          top: 50,
           icon: 'rect',
           itemWidth: 14,
           itemHeight: 5,
           itemGap: 13,
-          data: ['Token Transfers', 'Token Contracts Count'],
+          data: [
+            'Token Transfers',
+            'Token Contracts Count',
+            'Outbound Transfers',
+            'Inbound Transfers',
+            'Unique Address Sent',
+            'Unique Address Received',
+          ],
+          selected: {
+            'Token Transfers': true,
+            'Token Contracts Count': true,
+            'Outbound Transfers': false,
+            'Inbound Transfers': false,
+            'Unique Address Sent': false,
+            'Unique Address Received': false,
+          },
           right: '4%',
           textStyle: {
             fontSize: 12,
@@ -211,6 +226,62 @@ export default {
               },
             },
             data: data.map((item) => item.token_contracts_count),
+          },
+          {
+            name: 'Outbound Transfers',
+            type: 'line',
+            smooth: true,
+            symbol: 'circle',
+            symbolSize: 5,
+            showSymbol: false,
+            lineStyle: {
+              normal: {
+                width: 1,
+              },
+            },
+            data: data.map((item) => item.outbound_transfers),
+          },
+          {
+            name: 'Inbound Transfers',
+            type: 'line',
+            smooth: true,
+            symbol: 'circle',
+            symbolSize: 5,
+            showSymbol: false,
+            lineStyle: {
+              normal: {
+                width: 1,
+              },
+            },
+            data: data.map((item) => item.inbound_transfers),
+          },
+          {
+            name: 'Unique Address Sent',
+            type: 'line',
+            smooth: true,
+            symbol: 'circle',
+            symbolSize: 5,
+            showSymbol: false,
+            lineStyle: {
+              normal: {
+                width: 1,
+              },
+            },
+            data: data.map((item) => item.unique_address_sent),
+          },
+          {
+            name: 'Unique Address Received',
+            type: 'line',
+            smooth: true,
+            symbol: 'circle',
+            symbolSize: 5,
+            showSymbol: false,
+            lineStyle: {
+              normal: {
+                width: 1,
+              },
+            },
+            data: data.map((item) => item.unique_address_received),
           },
         ],
         dataZoom: [

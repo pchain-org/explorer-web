@@ -25,7 +25,7 @@
             <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
             <div class="grid grid-cols-12">
               <div class="col-span-4">PI Value:</div>
-              <div class="col-span-8">${{ detail.pi_value }} (@ {{ detail.price_pi }}/PI)</div>
+              <div class="col-span-8">${{ detail.pi_value }} (@ ${{ detail.price_pi }}/PI)</div>
             </div>
             <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
             <div class="grid grid-cols-12">
@@ -42,11 +42,29 @@
               <div class="col-span-8">{{ detail.validatorInfo?.blockNum || '' }} blocks（{{ detail.validatorInfo?.totalReward || '' }} PI VP）</div>
             </div>
           </div>
+          <div v-if="detail.contract" class="p-4 text-sm">
+            <div class="grid grid-cols-1 md:grid-cols-12">
+              <div class="col-span-4">ContractCreator:</div>
+              <div class="col-span-8">
+                <a :href="'/address/' + detail.contract.creatorAddress" class="inline-block w-32 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ detail.contract.creatorAddress }}</a>
+                <span class="inline-block align-top">at txn</span>
+                <a :href="'/tx/' + detail.contract.creatorHash" class="inline-block w-32 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ detail.contract.creatorHash }}</a>
+              </div>
+            </div>
+            <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
+            <div class="grid grid-cols-1 md:grid-cols-12">
+              <div class="col-span-4">TokenTracker:</div>
+              <div class="col-span-8">
+                <a :href="'/token/' + detail.contract.address" class="inline-block max-w-full truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ detail.contract.name }} ({{ detail.contract.symbol }})</a>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
 
-    <TableTabs />
+    <TableTabs :detail="detail" />
 
   </div>
 </template>
