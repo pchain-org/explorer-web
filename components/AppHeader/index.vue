@@ -7,7 +7,7 @@
         <!-- <img src="https://flowbite.com/docs/images/logo.svg" class="h-6 mr-3 sm:h-9" alt="Flowbite Logo" />
         <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">PlianScan</span> -->
         <svg class="h-6 sm:h-9" viewBox="0 0 519 121" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <title>编组</title>
+          <title>Plian</title>
           <defs>
             <polygon id="path-1" points="-5.68434189e-14 0 77.3879 0 77.3879 73.466 -5.68434189e-14 73.466"></polygon>
             <polygon id="path-3" points="0 120.099 518.577 120.099 518.577 0 0 0"></polygon>
@@ -91,7 +91,7 @@
           </li> -->
           <li>
             <button id="epochsButton" data-dropdown-toggle="epochsMenu" class="flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
-              epochs
+              Epochs
               <svg class="w-5 h-5 ml-1" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
               </svg>

@@ -22,7 +22,14 @@
           </ul>
         </div>
 
-        <div id="myTabContent">
+        <div v-if="resCode === 10055" class="text-center p-10 text-gray-500">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 inline-block">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+          </svg>
+          <p class="mt-5">Sorry, We are unable to locate this TxnHash</p>
+        </div>
+
+        <div v-else id="myTabContent">
           <div id="overview" class="p-4 rounded-lg break-words" role="tabpanel" aria-labelledby="overview-tab">
             <div class="text-sm">
               <div class="grid grid-cols-1 md:grid-cols-12 mb-4">
@@ -246,6 +253,7 @@ export default {
       },
       isShowMore: false,
       inputDataDefault: true,
+      resCode: '',
     }
   },
   created() {
@@ -261,6 +269,8 @@ export default {
     async getTradeDetail() {
       const res = await this.$api.getTradeDetail(this.queryForm)
       this.detail = res.data || {}
+      this.resCode = res.code
+      console.log(res, 'data')
     },
     async getTradeDetailLogs() {
       const res = await this.$api.getTradeDetailLogs(this.queryForm)

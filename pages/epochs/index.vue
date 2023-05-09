@@ -22,39 +22,32 @@
                   Number
                 </th>
                 <th scope="col" class="px-6 py-3">
-                  Start Block
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  End Block
-                </th>
-                <th scope="col" class="px-6 py-3">
                   Start Time
                 </th>
                 <th scope="col" class="px-6 py-3">
                   End Time
                 </th>
                 <th scope="col" class="px-6 py-3">
-                  Validator Number
+                  Reward Per Block
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Validators
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in data.epoch_list" :key="item.number" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <tr v-for="item in epoch_list" :key="item.number" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td scope="row" class="px-6 py-4">
                   <a :href="'/epoch/' + item.number" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.number }}</a>
                 </td>
-                <td scope="row" class="px-6 py-4">
-                  <a :href="'/block/' + item.start_block" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.start_block }}</a>
-                </td>
-                <td scope="row" class="px-6 py-4">
-                  <a :href="'/block/' + item.end_block" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.end_block }}</a>
-                </td>
-
                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
-                  <div class="w-48 cursor-pointer" :title="item.start_time">{{ item.start_time }}</div>
+                  <div class="inline-block cursor-pointer" data-tooltip-target="age-tooltip-bottom" data-tooltip-placement="bottom" @mouseenter="tooltipContent=item.start_block">{{ item.start_time }}</div>
                 </td>
                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
-                  <div class="w-48 cursor-pointer" :title="item.end_time">{{ item.end_time }}</div>
+                  <div class="inline-block cursor-pointer" data-tooltip-target="age-tooltip-bottom" data-tooltip-placement="bottom" @mouseenter="tooltipContent=item.end_block">{{ item.end_time }}</div>
+                </td>
+                <td class="px-6 py-4">
+                  {{ item.reward_per_block }}
                 </td>
                 <td class="px-6 py-4">
                   {{ item.validator_num }}
@@ -69,9 +62,17 @@
       </div>
 
     </div>
+
+    <!-- Show tooltip on bottom -->
+    <div id="age-tooltip-bottom" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+      {{ tooltipContent }}
+      <div class="tooltip-arrow" data-popper-arrow></div>
+    </div>
   </div>
 </template>
 <script>
+import { initTooltips } from 'flowbite'
+
 export default {
   data() {
     return {
@@ -83,7 +84,14 @@ export default {
         counts: '0',
         epoch_list: [],
       },
+      epoch_list: [],
+      tooltipContent: '',
     }
+  },
+  computed: {
+    totalPage() {
+      return Math.ceil(Number(this.data.counts) / Number(this.queryForm.length))
+    },
   },
   created() {
     this.getEpochList()
@@ -93,12 +101,34 @@ export default {
       try {
         const res = await this.$api.getEpochList(this.queryForm)
         this.data = res.data
+        this.epoch_list = this.setCurrentPageData(
+          this.data.epoch_list,
+          +this.queryForm.start,
+          +this.queryForm.length
+        )
+        this.$nextTick(() => {
+          initTooltips()
+        })
       } catch (error) {}
     },
     pageChange({ page, size }) {
       this.queryForm.start = String(page)
       this.queryForm.length = String(size)
-      this.getEpochList()
+      this.epoch_list = this.setCurrentPageData(
+        this.data.epoch_list,
+        +this.queryForm.start,
+        +this.queryForm.length
+      )
+    },
+    /**
+     * setCurrentPageData 前端分页
+     * @param {*} data 源数据
+     * @param {*} curPage 当前页
+     * @param {*} curPageSize
+     */
+    setCurrentPageData(data, curPage, pageSize) {
+      const begin = (curPage - 1) * pageSize
+      return data.slice(begin, begin + pageSize)
     },
   },
 }

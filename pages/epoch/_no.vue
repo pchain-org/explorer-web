@@ -28,29 +28,73 @@
                   <span class="mr-2">{{ detail.number }}</span>
                 </div>
               </div>
-              <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
-              <div class="grid grid-cols-12 gap-4">
-                <div class="col-span-4 mb-1 md:mb-0">Time:</div>
-                <div class="col-span-8">{{ detail.start_time }} - {{ detail.end_time }}</div>
-              </div>
-              <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
               <div class="grid grid-cols-12 gap-4 mb-4">
-                <div class="col-span-4">Vote:</div>
+                <div class="col-span-4">Reward Per Block:</div>
                 <div class="col-span-8">
-                  <span>{{ detail.vote_start_block }}</span>
-                  -
-                  <span>{{ detail.vote_end_block }} </span>
+                  <span class="mr-2">{{ detail.reward_per_block }}</span>
                 </div>
               </div>
               <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
-              <div class="grid grid-cols-12 gap-4">
-                <div class="col-span-4">Reveal:</div>
-                <div class="col-span-8">{{ detail.reveal_start_block }} - {{ detail.reveal_end_block }}</div>
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+                <div class="col-span-4">Epoch Info:</div>
+                <div class="col-span-8 overflow-x-auto">
+                  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                      <tr>
+                        <th scope="col" class="px-6 py-3">
+                          Stage
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                          Time(UTC)
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                          <div class="w-36 cursor-pointer">Delegate/Candidate</div>
+                        </td>
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                          <div class="inline-block cursor-pointer" data-tooltip-target="age-tooltip-bottom" data-tooltip-placement="bottom" @mouseenter="tooltipContent=detail.start_block">Start: {{ detail.start_time }}</div> <br>
+                          <div class="inline-block cursor-pointer" data-tooltip-target="age-tooltip-bottom" data-tooltip-placement="bottom" @mouseenter="tooltipContent=detail.vote_start_block - 1">End: {{ detail.vote_start_time }}</div>
+                        </td>
+                      </tr>
+                      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                          <div class="w-36 cursor-pointer">Vote</div>
+                        </td>
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                          <div class="inline-block cursor-pointer" data-tooltip-target="age-tooltip-bottom" data-tooltip-placement="bottom" @mouseenter="tooltipContent=detail.vote_start_block">Start: {{ detail.vote_start_time }}</div> <br>
+                          <div class="inline-block cursor-pointer" data-tooltip-target="age-tooltip-bottom" data-tooltip-placement="bottom" @mouseenter="tooltipContent=detail.vote_end_block">End: {{ detail.vote_end_time }}</div>
+                        </td>
+                      </tr>
+                      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                          <div class="w-36 cursor-pointer">Reveal Vote</div>
+                        </td>
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                          <div class="inline-block cursor-pointer" data-tooltip-target="age-tooltip-bottom" data-tooltip-placement="bottom" @mouseenter="tooltipContent=detail.reveal_start_block">Start: {{ detail.reveal_start_time }}</div> <br>
+                          <div class="inline-block cursor-pointer" data-tooltip-target="age-tooltip-bottom" data-tooltip-placement="bottom" @mouseenter="tooltipContent=detail.reveal_end_block">End: {{ detail.reveal_end_time }}</div>
+                        </td>
+                      </tr>
+                      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                          <div class="w-36 cursor-pointer">Check</div>
+                        </td>
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
+                          <div class="inline-block cursor-pointer" data-tooltip-target="age-tooltip-bottom" data-tooltip-placement="bottom" @mouseenter="tooltipContent=detail.reveal_end_block + 1">Start: {{ detail.reveal_end_time }}</div> <br>
+                          <div class="inline-block cursor-pointer" data-tooltip-target="age-tooltip-bottom" data-tooltip-placement="bottom" @mouseenter="tooltipContent=detail.end_block">End: {{ detail.end_time }}</div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
               </div>
               <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
-              <div class="grid grid-cols-12 gap-4">
-                <div class="col-span-12">Validators:</div>
-                <div class="col-span-12 overflow-x-auto">
+              <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+                <div class="col-span-4">Validators:</div>
+                <div class="col-span-8 overflow-x-auto">
                   <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                       <tr>
@@ -74,7 +118,7 @@
                           <div class="w-60 cursor-pointer" :title="item.voting_power">{{ item.voting_power }}</div>
                         </td>
                         <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
-                          <div class="w-36 cursor-pointer" :title="item.block_num">{{ item.block_num }}</div>
+                          <div class="cursor-pointer" :title="item.block_num">{{ item.block_num }}</div>
                         </td>
                       </tr>
                     </tbody>
@@ -89,10 +133,15 @@
       </div>
     </div>
 
+    <!-- Show tooltip on bottom -->
+    <div id="age-tooltip-bottom" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+      {{ tooltipContent }}
+      <div class="tooltip-arrow" data-popper-arrow></div>
+    </div>
   </div>
 </template>
 <script>
-import { Tabs } from 'flowbite'
+import { Tabs, initTooltips } from 'flowbite'
 export default {
   components: {},
   data() {
@@ -106,6 +155,7 @@ export default {
         validator_list: [],
       },
       isShowMore: false,
+      tooltipContent: '',
     }
   },
   created() {
@@ -119,6 +169,9 @@ export default {
     async getEpochDetail() {
       const res = await this.$api.getEpochDetail(this.queryForm)
       this.detail = res.data || {}
+      this.$nextTick(() => {
+        initTooltips()
+      })
     },
     initTabs() {
       // create an array of objects with the id, trigger element (eg. button), and the content element

@@ -48,7 +48,7 @@
             <tbody>
               <tr v-for="item in data.pending_trade_list" :key="item.block_no" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td scope="row" class="px-6 py-4">
-                  <a :href="'/tx/' + item.block_hash" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.block_hash }}</a>
+                  <a :href="'/tx/' + item.hash" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.hash }}</a>
                 </td>
                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
                   <div class="w-36">{{ item.nonce }}</div>
