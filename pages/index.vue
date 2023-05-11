@@ -58,7 +58,12 @@
             </figure>
             <div class="flex-1">
               <h2 class="text-sm text-gray-500">PI Price</h2>
-              <a class="text-size-1 text-link" href="/chart/bnbprice">${{ +dashboard.current_price }}<span class="text-gray-500"> @ {{ dashboard.pi_btc }} BTC</span></a>
+              <a class="text-size-1 text-link" href="/chart/bnbprice">
+                ${{ +dashboard.current_price }}<span class="text-gray-500"> @ {{ dashboard.pi_btc }} BTC</span>
+
+                <span v-if="pricePercentage>0" class="text-xs text-green-600">(+{{ pricePercentage }}%)</span>
+                <span v-else class="text-xs text-red-600">({{ pricePercentage }}%)</span>
+              </a>
             </div>
           </div>
           <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8">
@@ -68,7 +73,7 @@
             </figure>
             <div class="media-body">
               <h2 class="text-sm text-gray-500">PI Market Cap On Plian</h2>
-              <a class="text-size-1 text-link" href="/chart/bnbprice">${{ dashboard.market_value | toThousandFilter }} <span class="text-gray-500"> ({{ dashboard.price_content | toThousandFilter }} PI)</span></a>
+              <a class="text-size-1 text-link" href="/chart">${{ dashboard.market_value | toThousandFilter }} <span class="text-gray-500"> ({{ dashboard.price_content | toThousandFilter }} PI)</span></a>
             </div>
           </div>
         </div>
@@ -84,7 +89,7 @@
             </div>
             <div class="text-right">
               <h2 class="text-sm text-gray-500">Med Gas Price</h2>
-              <a href="/gastracker" class="text-size-1 text-link">{{ gasData.gas_moderate | toWei | fromWei('gwei') }} Gwei</a>
+              <a href="#" class="text-size-1 text-link">{{ gasData.gas_moderate | toWei | fromWei('gwei') }} Gwei</a>
             </div>
           </div>
           <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8">
@@ -95,13 +100,17 @@
             </figure>
             <div class="flex-1 truncate">
               <h2 class="text-sm text-gray-500">Latest Block</h2>
-              <a class="text-size-1 text-link" href="blocks" rel="tooltip" data-placement="bottom" title="The latest Block No"><span id="lastblock">{{ dashboard.latest_block }}</span></a>
-              <a data-toggle="tooltip" href="/chart/blocktime" class="small text-secondary text-link" data-placement="right" data-title="Average Block Time (The latest 5000 blocks)"><span class="text-sm text-gray-500">({{ dashboard.avg_block_time }} s)</span></a>
+              <a class="text-size-1 text-link" href="/blocks" rel="tooltip" data-placement="bottom" title="The latest Block No"><span id="lastblock">{{ dashboard.latest_block }}</span></a>
+              <span class="text-sm text-gray-500">({{ dashboard.avg_block_time }} s)</span>
             </div>
             <div class="text-right flex-1 truncate">
               <h2 class="text-sm text-gray-500">Voting Power</h2>
-              <a class="text-size-1 text-link" href="/chart/hashrate">
-              </a><a class="text-size-1 text-link" :title="dashboard.current_epoch.total_voting_power" href="/chart/votingpower7d">{{ dashboard.current_epoch.total_voting_power | toThousandFilter }} PI</a>
+              <a class="text-size-1 text-link" :title="dashboard.current_epoch.total_voting_power" href="#">
+                {{ dashboard.current_epoch.total_voting_power | toThousandFilter }} PI
+              </a>
+              <a class="text-size-1 text-link text-gray-500" :title="dashboard.current_epoch.total_voting_power" :href="'/epoch/'+dashboard.current_epoch.number">
+                (Ep. {{ dashboard.current_epoch.number }})
+              </a>
             </div>
           </div>
         </div>
@@ -245,6 +254,8 @@ export default {
           total_voting_power: 0,
         },
         trade_total: 0,
+        current_price: 0.001,
+        open_price: 0.001,
       },
       latestTrade: [],
       tradeHistoryChart: [],
@@ -273,24 +284,7 @@ export default {
           labels: {
             step: 7,
           },
-          categories: [
-            'Mar 07',
-            // 'Mar 3',
-            // 'Mar 4',
-            // 'Mar 5',
-            // 'Mar 6',
-            // 'Mar 7',
-            // 'Mar 8',
-            // 'Mar 9',
-            // 'Mar 10',
-            // 'Mar 11',
-            // 'Mar 12',
-            // 'Mar 13',
-            // 'Mar 14',
-            // 'Mar 15',
-            // 'Mar 16',
-            // 'Mar 17',
-          ],
+          categories: ['Mar 07'],
         },
 
         yAxis: {
@@ -385,6 +379,13 @@ export default {
         gas_moderate: '0',
       },
     }
+  },
+  computed: {
+    pricePercentage() {
+      const priceDifference =
+        Number(this.dashboard.current_price) - Number(this.dashboard.open_price)
+      return ((priceDifference / this.dashboard.open_price) * 100).toFixed(2)
+    },
   },
   created() {
     this.getLatestBlock()

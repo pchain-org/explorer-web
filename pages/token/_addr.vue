@@ -16,8 +16,7 @@
             <span class="ml-2 rounded px-2 py-1 bg-gray-200 text-gray-600 text-sm">{{ detail.overview.token_types === 1 ? 'ERC20' : detail.overview.token_types === 2 ? 'ERC721' : 'ERC1155' }}</span>
           </div>
           <div class="p-4 text-sm">
-            <div class="grid grid-cols-12">
-
+            <div v-if="detail.overview.token_types === 1" class="grid grid-cols-12">
               <div class="col-span-6 border-r pr-3">
                 <div class="text-gray-500">PRICE</div>
                 <div>${{ detail.overview.price_dollar | toThousandFilter }} <span class="ml-1 text-gray-500 text-xs">@{{ detail.overview.price_pi }} PI</span> </div>
@@ -27,12 +26,11 @@
                 <div class="text-gray-500">FULLY DILUTED MARKET CAP </div>
                 <div>${{ detail.overview.market_cap }}</div>
               </div>
-
             </div>
-            <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
+            <hr v-if="detail.overview.token_types === 1" class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
             <div class="grid grid-cols-12">
               <div class="col-span-4">Total Supply::</div>
-              <div class="col-span-8">${{ detail.overview.total_supply }} PI <span class="text-gray-500">(CSupply: {{ detail.overview.circulating_supply }})</span></div>
+              <div class="col-span-8">${{ detail.overview.total_supply }} {{ detail.overview.token_symbol }} <span v-if="detail.overview.circulating_supply" class="text-gray-500">(CSupply: {{ detail.overview.circulating_supply }})</span></div>
             </div>
             <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
             <div class="grid grid-cols-12">

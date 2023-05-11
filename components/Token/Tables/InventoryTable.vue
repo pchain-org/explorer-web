@@ -20,7 +20,7 @@
       <tbody>
         <tr v-for="item in data.token_inventory_list" :key="item.order_no" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
           <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
-            <a :href="`/token/${$route.params.addr}?a=${item.token_id}`" class="truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.token_id }}</a>
+            <a :href="`/token/${$route.params.addr}?a=${hexToNumber(item.token_id)}`" class="truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.token_id | hexToNumber }}</a>
           </td>
           <td class="px-6 py-4">
             <a :href="`/token/${$route.params.addr}?a=${item.holders_address}`" :title="item.holders_address" class="truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.holders_address }}</a>
@@ -35,6 +35,7 @@
 
 </template>
 <script>
+import { hexToNumber } from '@/utils/filters'
 export default {
   props: {
     tokenType: {
@@ -74,6 +75,7 @@ export default {
   },
   created() {},
   methods: {
+    hexToNumber,
     async getTokenInventory() {
       try {
         const res = await this.$api.getTokenInventory(this.queryForm)

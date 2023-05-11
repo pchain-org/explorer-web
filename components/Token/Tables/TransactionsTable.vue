@@ -18,19 +18,18 @@
             Method
           </th>
           <th scope="col" class="px-6 py-3">
-            Block
-          </th>
-          <th scope="col" class="px-6 py-3">
             Age
           </th>
           <th scope="col" class="px-6 py-3">
             From
           </th>
           <th scope="col" class="px-6 py-3">
-            To
           </th>
           <th scope="col" class="px-6 py-3">
-            Quantity
+            To
+          </th>
+          <th v-if="tokenType !== 1" scope="col" class="px-6 py-3">
+            TokenID
           </th>
         </tr>
       </thead>
@@ -40,10 +39,7 @@
             <a :href="'/tx/' + item.trade_hash" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.trade_hash }}</a>
           </td>
           <td class="px-6 py-4">
-            -
-          </td>
-          <td scope="row" class="px-6 py-4">
-            <a :href="'/block/' + item.block_no" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.block_no }}</a>
+            <span class="inline-block bg-blue-100 px-2 py-1 rounded">{{ item.method | '-' }}</span>
           </td>
           <td class="px-6 py-4">
             <div class="inline-block w-40">{{ item.trade_time | timeAgo }}</div>
@@ -53,11 +49,19 @@
             <a v-else :href="'/address/' + item.trade_from" :title="item.trade_from" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.trade_from }}</a>
           </td>
           <td class="px-6 py-4">
+            <span class="bg-green-100 rounded-2xl w-5 h-5 flex justify-center items-center">
+              <svg class="inline-block w-4 h-4 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+              </svg>
+            </span>
+          </td>
+
+          <td class="px-6 py-4">
             <div v-if="item.trade_to === queryForm.value" :title="item.trade_to" class="inline-block w-36 truncate">{{ item.trade_to }}</div>
             <a v-else :href="'/address/' + item.trade_to" :title="item.trade_to" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.trade_to }}</a>
           </td>
-          <td class="px-6 py-4">
-            {{ item.quantity | toThousandFilter(null) }}
+          <td v-if="tokenType !== 1" class="px-6 py-4">
+            {{ item.token_id | hexToNumber }}
           </td>
         </tr>
       </tbody>

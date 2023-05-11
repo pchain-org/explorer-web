@@ -1,6 +1,12 @@
 <template>
 
   <div class="relative overflow-x-auto sm:rounded-lg">
+    <div v-if="data.IsVerfied === 1" class="mb-5 font-medium">
+      <svg class="inline-block w-5 h-5 text-green-500 align-middle" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+      Contract Source Code Verified <span class="text-gray-500">(Exact Match)</span>
+    </div>
     <div class="grid grid-cols-1 md:grid-cols-12 gap-4 mb-5">
       <div class="md:col-span-6">
         <div class="grid grid-cols-12 items-center">
@@ -47,9 +53,7 @@
       </div>
 
       <div class="overflow-x-hidden">
-        <pre class="w-full p-3 my-2 max-h-72 text-sm overflow-y-auto bg-gray-100 border rounded">
-          {{ data.SourceCode }}
-        </pre>
+        <pre class="w-full p-3 my-2 max-h-72 text-sm overflow-y-auto bg-gray-100 border rounde">{{ data.SourceCode }}</pre>
       </div>
 
     </div>
@@ -60,9 +64,7 @@
       </div>
 
       <div class="overflow-x-hidden">
-        <pre class="w-full p-3 my-2 max-h-72 text-sm overflow-y-auto bg-gray-100 border rounded">
-          {{ data.Abi }}
-        </pre>
+        <pre class="w-full p-3 my-2 max-h-72 text-sm overflow-y-auto bg-gray-100 border rounded">{{ data.Abi }}</pre>
       </div>
     </div>
 
@@ -72,9 +74,7 @@
       </div>
 
       <div class="overflow-x-hidden">
-        <pre class="w-full p-3 my-2 max-h-72 text-sm overflow-y-auto bg-gray-100 border rounded">
-          {{ data.ContractCode }}
-        </pre>
+        <pre class="w-full p-3 my-2 max-h-72 text-sm overflow-y-auto bg-gray-100 border rounded">{{ data.ContractCode }}</pre>
       </div>
     </div>
 
@@ -95,7 +95,10 @@ export default {
       queryForm: {
         contract_address: '',
       },
-      data: {},
+      data: {
+        SourceCode: '',
+        IsVerfied: '',
+      },
     }
   },
   created() {
@@ -107,6 +110,11 @@ export default {
       try {
         const res = await this.$api.contractQueryByAddress(this.queryForm)
         this.data = res.data || {}
+        this.data.SourceCode = window.prettier.format(res.data.SourceCode, {
+          parser: 'solidity-parse',
+          plugins: window.prettierPlugins,
+        })
+        this.$emit('getVerifiedStatus', res.data.IsVerfied === 1)
       } catch (error) {}
     },
   },

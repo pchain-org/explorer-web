@@ -17,7 +17,11 @@
             <button id="info-tab" class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" data-tabs-target="#info" type="button" role="tab" aria-controls="info" aria-selected="false">Info</button>
           </li>
           <li role="presentation">
-            <button id="contract-tab" class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" data-tabs-target="#contract" type="button" role="tab" aria-controls="contract" aria-selected="false">Contract</button>
+            <button id="contract-tab" class="inline-block relative p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" data-tabs-target="#contract" type="button" role="tab" aria-controls="contract" aria-selected="false">Contract
+              <svg v-show="IsVerfied" class="absolute inline-block w-4 h-4 text-green-500 align-middle top-2 -right-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </button>
           </li>
           <li role="presentation">
             <button id="analytics-tab" class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" data-tabs-target="#analytics" type="button" role="tab" aria-controls="analytics" aria-selected="false">Analytics</button>
@@ -48,7 +52,7 @@
             <button type="button" class="px-3 py-2 text-sm font-medium text-center text-white bg-gray-400 rounded-lg hover:bg-gray-600 dark:bg-gray-400 dark:hover:bg-gray-500" @click="activeTab='writeContract'">Write Contract</button>
           </div>
 
-          <ContractInfo v-if="activeTab === 'code' || activeTab==='Contract'" />
+          <ContractInfo v-if="activeTab === 'code' || activeTab==='Contract'" ref="contractInfo" @getVerifiedStatus="IsVerfied = $event" />
           <ReadContract v-if="activeTab === 'readContract'" />
           <WriteContract v-if="activeTab === 'writeContract'" />
 
@@ -91,6 +95,7 @@ export default {
     return {
       tabs: null,
       activeTab: 'Transactions',
+      IsVerfied: false,
     }
   },
   mounted() {
