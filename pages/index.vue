@@ -4,45 +4,7 @@
       <div class="container mx-auto px-4">
         <div class="pt-5 md:w-5/12">
           <h1 class="text-blue-700 mb-3 text-xl">Plian Explorer</h1>
-          <div class="flex">
-            <label for="search-dropdown" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Your
-              Email</label>
-            <button id="dropdown-button" data-dropdown-toggle="dropdown" class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" type="button">
-              {{ filterLabels[queryForm.filter] }}
-
-              <svg aria-hidden="true" class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-              </svg>
-            </button>
-
-            <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-button">
-                <li>
-                  <button type="button" data-id="token" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" @click="filterChange(0)">All Filters</button>
-                </li>
-                <li>
-                  <button type="button" data-id="address" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" @click="filterChange(1)">Addresses</button>
-                </li>
-                <li>
-                  <button type="button" data-id="address" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" @click="filterChange(2)">Tokens</button>
-                </li>
-                <li>
-                  <button type="button" data-id="address" class="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" @click="filterChange(3)">Websites</button>
-                </li>
-              </ul>
-            </div>
-
-            <div class="relative w-full">
-              <input id="search-dropdown" v-model="queryForm.value" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search by Address / Txn Hash / Block / Token" @keyup.enter="handleSearch">
-              <button type="submit" class="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" @click="handleSearch">
-                <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                </svg>
-                <span class="sr-only">Search</span>
-              </button>
-            </div>
-          </div>
-
+          <SearchBox />
         </div>
 
       </div>
@@ -54,7 +16,7 @@
         <div class="p-4 md:border-r">
           <div class="flex items-center">
             <figure class="mr-2">
-              <img class="w-7 h-7 rounded" src="https://bscscan.com/images/svg/brands/bnb-1.svg?v=1.3" alt="PI">
+              <img class="w-7 h-7 rounded" :src="iconPi" alt="PI">
             </figure>
             <div class="flex-1">
               <h2 class="text-sm text-gray-500">PI Price</h2>
@@ -69,7 +31,7 @@
           <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8">
           <div class="flex items-center">
             <figure class="mr-2">
-              <img src="https://bscscan.com/images/svg/icons/icon-8.svg" class="w-7 h-7 rounded" alt="BNB">
+              <img :src="iconMarketCap" class="w-7 h-7 rounded" alt="Pi">
             </figure>
             <div class="media-body">
               <h2 class="text-sm text-gray-500">PI Market Cap On Plian</h2>
@@ -81,7 +43,7 @@
         <div class="p-4 md:border-r">
           <div class="flex items-center">
             <figure class="mr-2">
-              <img src="https://bscscan.com/images/svg/icons/icon-2-1.svg?v=1.3" class="w-7 h-7 rounded" alt="Network Difficulty">
+              <img :src="iconTransactions" class="w-7 h-7 rounded" alt="transitions">
             </figure>
             <div class="flex-1">
               <h2 class="text-sm text-gray-500">Transactions</h2>
@@ -96,7 +58,7 @@
 
           <div class="flex items-center">
             <figure class="mr-2">
-              <img src="https://bscscan.com/images/svg/icons/icon-51.svg?v=1.6" class="w-7 h-7 rounded" alt="SVG">
+              <img :src="iconBlock" class="w-7 h-7 rounded" alt="block">
             </figure>
             <div class="flex-1 truncate">
               <h2 class="text-sm text-gray-500">Latest Block</h2>
@@ -239,7 +201,10 @@
 </template>
 <script>
 import { Chart } from 'highcharts-vue'
-
+const iconBlock = require('@/static/svg/Block.svg')
+const iconTransactions = require('@/static/svg/Transactions.svg')
+const iconMarketCap = require('@/static/svg/MarketCap.svg')
+const iconPi = require('@/static/svg/Pi.svg')
 export default {
   name: 'IndexPage',
   components: {
@@ -247,7 +212,10 @@ export default {
   },
   data() {
     return {
-      filterLabels: ['All Filters', 'Addresses', 'Tokens', 'Websites'],
+      iconBlock,
+      iconTransactions,
+      iconMarketCap,
+      iconPi,
       latestBlock: [],
       dashboard: {
         current_epoch: {
@@ -259,10 +227,7 @@ export default {
       },
       latestTrade: [],
       tradeHistoryChart: [],
-      queryForm: {
-        filter: 0, // 0: All 1: Addresses 2: Tokens 3: Websites
-        key: '',
-      },
+
       chartOptions: {
         chart: {
           spacingTop: 10,
@@ -542,15 +507,7 @@ export default {
         }
       } catch (error) {}
     },
-    async handleSearch() {
-      try {
-        const res = await this.$api.keySearch(this.queryForm)
-        console.log('%cres: ', 'color: pink; background: #aaa;', res)
-      } catch (error) {}
-    },
-    filterChange(val) {
-      this.queryForm.filter = val
-    },
+
     refreshLatestBlocks() {
       this.blockTimer = setInterval(() => {
         this.getLatestBlock()

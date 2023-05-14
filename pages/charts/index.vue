@@ -57,7 +57,7 @@
         </div>
       </div>
 
-      <div id="contractsData" class="w-full mt-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div v-show="chainNum === '1'" id="contractsData" class="w-full mt-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
 
         <div class="p-4 border-b border-gray-200 dark:border-gray-700">
           Contracts Data
@@ -85,9 +85,12 @@
 </template>
 
 <script>
+import { getChainNum } from '@/utils/chain'
 export default {
   data() {
-    return {}
+    return {
+      chainNum: getChainNum(),
+    }
   },
   mounted() {},
 

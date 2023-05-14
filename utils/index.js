@@ -1,3 +1,5 @@
+import Web3 from 'web3'
+
 /**
  * @param {Function} func
  * @param {number} wait
@@ -75,4 +77,8 @@ export function getNowDate() {
   }
   const currentdate = year + seperator1 + month + seperator1 + strDate
   return currentdate
+}
+
+export function isAddress(address) {
+  return Web3.utils.isAddress(address)
 }

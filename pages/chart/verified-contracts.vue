@@ -10,7 +10,7 @@
             <span class="mx-2">/</span>
             <a href="/charts#contractsData" class="text-blue-600 dark:text-blue-500">Contracts Data</a>
             <span class="mx-2">/</span>
-            <span class="">Plian Daily Transactions Chart</span>
+            <span class="">PI Daily Verified Contracts Chart</span>
           </nav>
         </h1>
       </div>

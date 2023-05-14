@@ -123,7 +123,7 @@ export default {
     return {
       chart: null,
       queryForm: {
-        data_range: '1',
+        data_range: 1,
       },
       data: [],
       filters: { 1: 'Last 24 Hours', 7: 'Last 7 Days', 14: 'Last 14 Days' },

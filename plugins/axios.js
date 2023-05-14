@@ -1,10 +1,10 @@
 import Vue from 'vue'
-import { getChain } from '~/utils/chain'
+import { getChainNum } from '~/utils/chain'
 export default function ({ $axios, redirect }) {
   // 请求拦截
   $axios.onRequest((config) => {
-    const chainInfo = JSON.parse(getChain())
-    config.headers['Chain-Num'] = chainInfo?.chainNum || 0
+    const chainNum = getChainNum()
+    config.headers['Chain-Num'] = chainNum || 0
     return config
   })
   // 响应拦截器
