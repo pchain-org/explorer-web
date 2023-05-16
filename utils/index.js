@@ -1,4 +1,5 @@
 import Web3 from 'web3'
+const web3 = new Web3(Web3.givenProvider)
 
 /**
  * @param {Function} func
@@ -81,4 +82,37 @@ export function getNowDate() {
 
 export function isAddress(address) {
   return Web3.utils.isAddress(address)
+}
+
+export function StrCut2Arr(text, n) {
+  // var str = this
+  let str = text
+  const arr = []
+  const len = Math.ceil(str.length / n)
+  for (let i = 0; i < len; i++) {
+    if (str.length >= n) {
+      const strCut = str.substring(0, n)
+      arr.push(strCut)
+      str = str.substring(n)
+    } else {
+      // str = str
+      arr.push(str)
+    }
+  }
+  return arr
+}
+
+// hex to number
+export function hexToNumberString(hex) {
+  return Web3.utils.hexToNumberString(hex)
+}
+
+// hex to address
+export function hexToAddress(hex) {
+  return web3.eth.abi.decodeParameter('address', hex).toString().toLowerCase()
+}
+
+// hex to text
+export function hexToText(hex) {
+  return Web3.utils.hexToAscii(hex)
 }

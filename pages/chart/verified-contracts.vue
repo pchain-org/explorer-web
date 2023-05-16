@@ -212,11 +212,11 @@ export default {
                   [
                     {
                       offset: 0,
-                      color: 'rgba(137, 189, 27, 0.3)',
+                      color: 'rgba(37, 99, 235, 0.3)',
                     },
                     {
                       offset: 0.8,
-                      color: 'rgba(137, 189, 27, 0)',
+                      color: 'rgba(37, 99, 235, 0)',
                     },
                   ],
                   false
@@ -227,8 +227,8 @@ export default {
             },
             itemStyle: {
               normal: {
-                color: 'rgb(137,189,27)',
-                borderColor: 'rgba(137,189,2,0.27)',
+                color: 'rgb(37, 99, 235)',
+                borderColor: 'rgba(37, 99, 215,0.27)',
                 borderWidth: 12,
               },
             },

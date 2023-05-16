@@ -101,7 +101,11 @@
                       <span class="font-medium">For</span> ERC-721 TokenID[
                       <a :href="'/token/' + item.contact_address" class="inline-block align-bottom truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.token_id | hexToNumber }}</a>
                       ]
-                      <a :href="'/token/' + item.contact_address" class="inline-block align-bottom w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.contact_name }}</a>
+                      <a :href="'/token/' + item.contact_address" class="inline-block align-bottom w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                        <img v-if="item.contact_image" :src="item.contact_image" alt="" class="h-4 inline-block">
+                        <img v-else src="@/static/logo_gray.png" alt="" class="h-4 inline-block">
+                        {{ item.contact_name }}
+                      </a>
                     </div>
                   </template>
                   <template v-if="detail.tokens_transferred.length">
@@ -112,9 +116,12 @@
                       <a :href="'/address/' + item.trade_to" :title="item.trade_to" class="inline-block align-bottom w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline mr-2">{{ item.trade_to }}</a>
 
                       <span class="font-medium">For</span>
-                      <span>{{ item.amount }} ({{ item.token_price  }})</span>
+                      <span>{{ item.amount }} <span class="text-xs text-blue-600">(${{ item.token_price | toThousandFilter }})</span></span>
 
-                      <a :href="'/token/' + item.contact_address" class="inline-block align-bottom w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline mr-2">{{ item.contact_name }}</a>
+                      <a :href="'/token/' + item.contact_address" class="inline-block align-bottom w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline mr-2">
+                        <img v-if="item.contact_image" :src="item.contact_image" alt="" class="h-4 inline-block">
+                        <img v-else src="@/static/logo_gray.png" alt="" class="h-4 inline-block">
+                        {{ item.contact_name }}</a>
                     </div>
                   </template>
                 </div>
@@ -175,7 +182,7 @@
             <div class="text-gray-600 mb-4">Transaction Receipt Event Logs</div>
 
             <div class="divide-y">
-              <div v-for="item in logs.logs_list" :key="item.order_no" class="flex py-4">
+              <div v-for="(item,index1) in logs.logs_list" :key="item.order_no" class="flex py-4">
                 <div class="w-10 h-10 p-4 flex justify-center items-center text-sm rounded-full bg-green-100 text-green-400 mr-5">{{ item.order_no }}</div>
                 <div class="flex-1">
                   <div class="grid grid-cols-1 md:grid-cols-12 mb-4">
@@ -202,19 +209,70 @@
                   </div>
                   <div class="grid grid-cols-1 md:grid-cols-12 mb-4">
                     <div class="col-span-2 mb-1 md:mb-0 font-medium">Data</div>
-                    <div class="col-span-10 break-all bg-gray-100 p-4 rounded flex">
-                      <div class="flex-1">
+
+                    <div v-if="item.data_decode" class="col-span-10 break-all bg-gray-100 p-4 rounded flex">
+                      <div v-if="item.showType==='dec'" class="flex-1">
                         <div v-for="(value, key) in item.data_decode_json" :key="key" class=""><span class="text-gray-500">{{ key }}</span>: {{ String(value) }}</div>
                       </div>
+                      <div v-else class="flex-1">{{ item.data }}</div>
                       <div v-if="item.data !== '' && item.data !== '0x'" class="inline-flex rounded-md shadow-sm" role="group">
-                        <button type="button" class="px-3 py-1 text-xs font-medium text-gray-900 bg-transparent border border-gray-900 rounded-l-md hover:bg-gray-900 hover:text-white focus:z-10 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
+                        <button type="button" :class="[item.showType==='dec'?'bg-gray-900 text-white':'']" class="px-3 py-1 text-xs font-medium text-gray-900  border border-gray-900 rounded-l-md hover:bg-gray-900 hover:text-white focus:z-10 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700" @click="item.showType='dec'">
                           Dec
                         </button>
-                        <button type="button" class="px-3 py-1 text-xs font-medium text-gray-900 bg-transparent border border-gray-900 rounded-r-md hover:bg-gray-900 hover:text-white focus:z-10 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700">
+                        <button type="button" :class="[item.showType==='hex'?'bg-gray-900 text-white':'']" class="px-3 py-1 text-xs font-medium text-gray-900  border border-gray-900 rounded-r-md hover:bg-gray-900 hover:text-white focus:z-10 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700" @click="item.showType='hex'">
                           Hex
                         </button>
                       </div>
                     </div>
+
+                    <div v-else class="col-span-10 break-all bg-gray-100 p-4 rounded flex">
+                      <div v-if="item.data === '' && item.data === '0x'" class="flex-1">{{ item.data }}</div>
+
+                      <div v-else class="flex-1">
+                        <div v-for="(hex, index) in item.data_hex_list" :key="index" class="mb-2">
+                          <button :id="'dropdownButton'+index1 + '-' +index" :data-dropdown-toggle="'data-dropdown'+index1 + '-' +index" class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                            {{ hex.type }}
+                            <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                          </button>
+                          <!-- Dropdown menu -->
+                          <div :id="'data-dropdown'+index1 + '-' +index" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-32 dark:bg-gray-700">
+                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" :aria-labelledby="'dropdownButton'+index1 + '-' +index">
+                              <li @click="dataTypeChange(index1,index,'Hex', hex.hex)">
+                                <a href="javascript:;" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">HEX</a>
+                              </li>
+                              <li @click="dataTypeChange(index1,index,'Num',hex.hex)">
+                                <a href="javascript:;" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Number</a>
+                              </li>
+                              <li @click="dataTypeChange(index1,index,'Text',hex.hex)">
+                                <a href="javascript:;" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Text</a>
+                              </li>
+                              <li @click="dataTypeChange(index1,index,'Addr',hex.hex)">
+                                <a href="javascript:;" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Address</a>
+                              </li>
+                            </ul>
+                          </div>
+
+                          <svg fill="none" class="inline-block h-4" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                          </svg>
+
+                          {{ hex.text }}
+                        </div>
+                      </div>
+
+                      <!-- <div v-if="item.data !== '' && item.data !== '0x'" class="inline-flex rounded-md shadow-sm" role="group">
+                        <button type="button" :class="[item.showType==='dec'?'bg-gray-900 text-white':'']" class="px-3 py-1 text-xs font-medium text-gray-900  border border-gray-900 rounded-l-md hover:bg-gray-900 hover:text-white focus:z-10 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700" @click="item.showType='dec'">
+                          Dec
+                        </button>
+                        <button type="button" :class="[item.showType==='hex'?'bg-gray-900 text-white':'']" class="px-3 py-1 text-xs font-medium text-gray-900  border border-gray-900 rounded-r-md hover:bg-gray-900 hover:text-white focus:z-10 focus:bg-gray-900 focus:text-white dark:border-white dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:bg-gray-700" @click="item.showType='hex'">
+                          Hex
+                        </button>
+                      </div> -->
+
+                    </div>
+
                   </div>
                 </div>
               </div>
@@ -230,8 +288,9 @@
   </div>
 </template>
 <script>
-import { Tabs } from 'flowbite'
+import { Tabs, initFlowbite } from 'flowbite'
 import { toThousandFilter } from '@/utils/filters'
+import { StrCut2Arr, hexToNumberString, hexToAddress, hexToText } from '@/utils'
 export default {
   components: {},
   data() {
@@ -264,21 +323,51 @@ export default {
   mounted() {
     this.initTabs()
   },
+  updated() {
+    initFlowbite()
+  },
   methods: {
     toThousandFilter,
+    dataTypeChange(index1, index2, type, hex) {
+      this.logs.logs_list[index1].data_hex_list[index2].type = type
+      if (type === 'Hex') {
+        this.logs.logs_list[index1].data_hex_list[index2].text = hex
+      } else if (type === 'Addr') {
+        this.logs.logs_list[index1].data_hex_list[index2].text = hexToAddress(
+          '0x' + hex
+        )
+      } else if (type === 'Text') {
+        this.logs.logs_list[index1].data_hex_list[index2].text = hexToText(
+          '0x' + hex
+        )
+      } else if (type === 'Num') {
+        this.logs.logs_list[index1].data_hex_list[index2].text =
+          hexToNumberString('0x' + hex)
+      }
+    },
     async getTradeDetail() {
       const res = await this.$api.getTradeDetail(this.queryForm)
       this.detail = res.data || {}
       this.resCode = res.code
-      console.log(res, 'data')
     },
     async getTradeDetailLogs() {
       const res = await this.$api.getTradeDetailLogs(this.queryForm)
       this.logs = res.data || this.logs
       this.logs.logs_list = res.data.logs_list.map((item) => {
+        let dataHexList = []
+        if (item.data && item.data.length >= 64) {
+          const text = item.data.substring(2, item.data.length)
+          dataHexList = StrCut2Arr(text, 64)
+        }
         return {
           ...item,
           data_decode_json: item.data_decode && JSON.parse(item.data_decode),
+          showType: 'dec',
+          data_hex_list: dataHexList.map((item) => ({
+            text: item,
+            type: 'Hex',
+            hex: item,
+          })),
         }
       })
     },

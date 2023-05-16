@@ -72,16 +72,12 @@
                   {{ item.value }}
                 </td>
                 <td class="px-6 py-4">
-                  <a :href="'/token/' + item.token_symbol" :title="item.token_symbol" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                    <div class="w-36 flex items-center">
-                      <img v-if="item.token_image" :src="item.token_image" alt="" class="w-4 h-4 rounded-full mr-3">
-                      <div class="flex-1">
-                        <a :href="'/token/' + item.token_symbol" class="inline-block truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.token_name }}</a>
-                      </div>
-                    </div>
+                  <a :href="'/token/' + item.token_address" :title="item.token_address" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                    <img v-if="item.token_image" :src="item.token_image" alt="" class="h-4 inline-block">
+                    <img v-else src="@/static/logo_gray.png" alt="" class="h-4 inline-block">
+                    {{ item.token_name }}
                   </a>
                 </td>
-
               </tr>
             </tbody>
           </table>

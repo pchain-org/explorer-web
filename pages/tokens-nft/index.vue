@@ -41,7 +41,8 @@
                 </td>
                 <td scope="row" class="px-6 py-4">
                   <div class="w-36 flex">
-                    <img v-if="item.token_image" :src="item.token_image" alt="img" class="w-4 h-4 rounded-full mr-3">
+                    <img v-if="item.token_image" :src="item.token_image" alt="" class="h-4 inline-block mr-3">
+                    <img v-else src="@/static/logo_gray.png" alt="" class="h-4 mr-3 inline-block">
                     <div class="flex-1">
                       <a :href="'/token/' + item.token_address" class="inline-block truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.token_name }}</a>
                       <div class="text-sm">{{ item.token_description }}</div>

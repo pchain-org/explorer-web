@@ -34,6 +34,7 @@ import * as echarts from 'echarts'
 import DateRangePicker from 'flowbite-datepicker/js/DateRangePicker'
 
 import resize from '@/mixins/resize'
+import { getNowDate } from '@/utils'
 
 export default {
   mixins: [resize],
@@ -57,7 +58,7 @@ export default {
       queryForm: {
         field: 'address',
         start_date: '2019-03-29',
-        end_date: '2023-03-27',
+        end_date: getNowDate(),
         value: '',
       },
       rangePicker: null,

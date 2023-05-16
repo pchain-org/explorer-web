@@ -52,9 +52,10 @@
                   {{ item.order_no }}
                 </td>
                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
-                  <div class="w-40 flex">
-                    <img v-if="item.token_image" :src="item.token_image" alt="" class="w-4 h-4 rounded-full mr-3">
-                    <a :href="'/token/' + item.token_address" :title="item.token_address" class="flex-1  font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.token_name }}</a>
+                  <div class="w-40 flex items-center">
+                    <img v-if="item.token_image" :src="item.token_image" alt="" class="h-4 inline-block mr-3">
+                    <img v-else src="@/static/logo_gray.png" alt="" class="h-4 mr-3 inline-block">
+                    <a :href="'/token/' + item.token_address" :title="item.token_address" class="flex-1 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.token_name }}</a>
                   </div>
                 </td>
                 <td class="px-6 py-4">

@@ -22,6 +22,9 @@
           <th scope="col" class="px-6 py-3">
             Percentage
           </th>
+          <th scope="col" class="px-6 py-3">
+            Value
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -49,6 +52,9 @@
 
           <td class="px-6 py-4">
             {{ item.percentage }}
+          </td>
+          <td class="px-6 py-4">
+            ${{ item.value }}
           </td>
         </tr>
       </tbody>

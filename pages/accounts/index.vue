@@ -45,7 +45,7 @@
                   {{ item.order_no }}
                 </td>
                 <td class="px-6 py-4">
-                  <a :href="'/address/' + item.account_address" :title="item.account_address" class="inline-block truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.account_address }}</a>
+                  <a :href="'/address/' + item.account_address" :title="item.account_address" class="inline truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.account_address }}</a>
                 </td>
                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
                   <div class="w-36">{{ item.name_tag }}</div>
@@ -54,7 +54,7 @@
                   {{ item.balance }} PI
                 </td>
                 <td class="px-6 py-4">
-                  {{ item.percentage }} %
+                  {{ item.percentage }}%
                 </td>
                 <td class="px-6 py-4">
                   {{ item.trade_count }}

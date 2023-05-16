@@ -7,7 +7,7 @@ export function timeAgo(time) {
 }
 
 export function timeAgoForSec(age) {
-  return timeago.format(Date.now() - age * 1000)
+  return timeago.format(new Date().getTime() - age * 1000)
 }
 
 export function time(item) {
