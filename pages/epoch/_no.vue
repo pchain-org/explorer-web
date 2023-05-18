@@ -25,7 +25,12 @@
               <div class="grid grid-cols-12 gap-4 mb-4">
                 <div class="col-span-4">Number:</div>
                 <div class="col-span-8">
-                  <span class="mr-2">{{ detail.number }}</span>
+                  <div class="w-full inline-flex items-center">
+                    <div v-if="psrocess" class="w-2/4 bg-gray-200 rounded-full h-1 dark:bg-gray-700">
+                      <div class="bg-blue-600 h-1 rounded-full dark:bg-blue-500" :style="{width: psrocess}"></div>
+                    </div>
+                    <span class="mx-2">{{  psrocess }}</span>
+                  </div>
                 </div>
               </div>
               <div class="grid grid-cols-12 gap-4 mb-4">
@@ -157,6 +162,28 @@ export default {
       isShowMore: false,
       tooltipContent: '',
     }
+  },
+  computed: {
+    psrocess() {
+      const detail = this.detail
+      let percent = null
+      if (detail.latest_block < detail.start_block) {
+        percent = '0%'
+      } else if (
+        detail.start_block <= detail.latest_block &&
+        detail.latest_block < detail.end_block
+      ) {
+        percent =
+          (
+            ((detail.latest_block - detail.start_block) /
+              (detail.end_block - detail.start_block)) *
+            100
+          ).toFixed(2) + '%'
+      } else if (detail.latest_block >= detail.end_block) {
+        percent = '100%'
+      }
+      return percent
+    },
   },
   created() {
     this.queryForm.epoch_no = +this.$route.params.no

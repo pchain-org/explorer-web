@@ -10,7 +10,7 @@
       <div class="border-top py-4">
         <div class="grid grid-cols-10 mb-4">
           <div class="md:col-span-1 col-span-12 text-secondary mt-3 mb-2">
-            <img src="https://bscscan.com/images/undraw/undraw_Security_on_s9ym.svg" width="115" align="left" style="margin-top: -15px; margin-bottom: 10px;margin-right:10px">
+            <img :src="undrawSvg" width="115" align="left" style="margin-top: -15px; margin-bottom: 10px;margin-right:10px">
           </div>
           <div class="md:col-span-9 col-span-12 text-secondary text-sm text-gray-500 mt-3 mb-2 ml-2">
             Source code verification provides <b>transparency</b> for users interacting with smart contracts.
@@ -64,9 +64,12 @@
 </template>
 
 <script>
+const undrawSvg = require('@/static/svg/undraw_security.svg')
+
 export default {
   data() {
     return {
+      undrawSvg,
       compilerVersionList: [],
       compilerLicenseList: [],
       formData: {

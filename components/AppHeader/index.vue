@@ -6,6 +6,7 @@
         <a href="/" class="flex items-center">
           <img src="@/static/logo.png" class="h-6 mr-3 sm:h-9" alt="PI Logo" />
           <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">PiScan</span>
+          <span v-if="network==='test'" class="bg-red-600 text-white ml-2 text-sm font-medium rounded-xl px-2">Testnet</span>
         </a>
 
         <PIPrice v-if="$route.path !== '/'" />
@@ -29,35 +30,37 @@
 
         <ul class="flex flex-col mt-4 font-medium md:flex-row md:space-x-8 md:mt-0 md:items-center">
           <li>
-            <a href="/" class="block py-2 pl-3 pr-4 text-blue-600 border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:hover:text-blue-600 md:p-0 dark:text-blue-500 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">Home</a>
+            <a href="/" :class="[activeMenu==='/'?activeTextClass:defaultTextClass]" class="block py-2 pl-3 pr-4 border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:hover:text-blue-600 md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">Home</a>
           </li>
 
           <li>
-            <button id="blockchainButton" data-dropdown-toggle="blockchainMenu" class="flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-gray-400 dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">Blockchain
+            <button id="blockchainButton" data-dropdown-toggle="blockchainMenu" :class="[activeBlockchainMenu?activeTextClass:defaultTextClass]" class="flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
+              Blockchain
               <svg class="w-5 h-5 ml-1" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-              </svg></button>
+              </svg>
+            </button>
             <!-- Dropdown menu -->
             <div id="blockchainMenu" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-              <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
+              <ul class="py-2 text-sm" aria-labelledby="dropdownLargeButton">
                 <li>
-                  <a href="/txs" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Transactions</a>
+                  <a href="/txs" :class="[activeMenu==='/txs'?activeTextClass:defaultTextClass]" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Transactions</a>
                 </li>
                 <li>
-                  <a href="/txsPending" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pending Transactions</a>
-                </li>
-              </ul>
-              <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
-                <li>
-                  <a href="/blocks" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">View Blocks</a>
+                  <a href="/txsPending" :class="[activeMenu==='/txsPending'?activeTextClass:defaultTextClass]" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pending Transactions</a>
                 </li>
               </ul>
-              <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
+              <ul class="py-2 text-sm" aria-labelledby="dropdownLargeButton">
                 <li>
-                  <a href="/accounts" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Top Accounts</a>
+                  <a href="/blocks" :class="[activeMenu==='/blocks'?activeTextClass:defaultTextClass]" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">View Blocks</a>
+                </li>
+              </ul>
+              <ul class="py-2 text-sm" aria-labelledby="dropdownLargeButton">
+                <li>
+                  <a href="/accounts" :class="[activeMenu==='/accounts'?activeTextClass:defaultTextClass]" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Top Accounts</a>
                 </li>
                 <li v-show="chainNum">
-                  <a href="/contractsVerified" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Verified Contracts</a>
+                  <a href="/contractsVerified" :class="[activeMenu==='/contractsVerified'?activeTextClass:defaultTextClass]" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Verified Contracts</a>
                 </li>
               </ul>
             </div>
@@ -270,9 +273,32 @@ export default {
       tokenMenu: null,
       resourcesMenu: null,
       chainNum: true,
+      defaultTextClass: 'text-gray-700 dark:text-gray-400',
+      activeTextClass: 'text-blue-600 dark:text-blue-500',
+      network: process.env.NETWORK,
     }
   },
+  computed: {
+    activeMenu() {
+      return this.$route.path
+    },
+    activeBlockchainMenu() {
+      const path = this.$route.path
+      return (
+        path === '/txs' ||
+        path === '/txsPending' ||
+        path === '/blocks' ||
+        path === '/accounts' ||
+        path === '/contractsVerified'
+      )
+    },
+    activeEpochsMenu() {
+      const path = this.$route.path
+      return path.includes('/epoch')
+    },
+  },
   mounted() {
+    // console.log(this.network, 'net')
     this.initBlockchainMenu()
     this.initTokensMenu()
     this.initResourcesMenu()

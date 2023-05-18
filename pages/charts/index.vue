@@ -19,7 +19,7 @@
                   <a href="/chart/tx" class="inline-block font-medium text-blue-600 dark:text-blue-500 hover:underline">Daily Transactions Chart</a>
                 </div>
                 <a class="p-3 block" href="/chart/tx">
-                  <img class="w-full" src="https://bscscan.com/images/charts/transactionhistory.svg?v=0.0.5" alt="Daily Transactions Chart">
+                  <img class="w-full" :src="transactionhistorySvg" alt="Daily Transactions Chart">
                 </a>
               </div>
             </div>
@@ -29,7 +29,7 @@
                   <a href="/chart" class="inline-block font-medium text-blue-600 dark:text-blue-500 hover:underline">Daily Price USD Chart</a>
                 </div>
                 <a class="p-3 block" href="/chart">
-                  <img class="w-full" src="https://bscscan.com/images/charts/tokenerc-20txns.svg?v=0.0.5.7" alt="Daily Price USD Chart">
+                  <img class="w-full" :src="tokenerc20txnsSvg" alt="Daily Price USD Chart">
                 </a>
               </div>
             </div>
@@ -49,7 +49,7 @@
                   <a href="/stat/miner" class="inline-block font-medium text-blue-600 dark:text-blue-500 hover:underline">Top Validators By Blocks</a>
                 </div>
                 <a class="p-3 block" href="/stat/miner">
-                  <img class="w-full" src="https://bscscan.com/images/charts/validators.svg?v=0.0.5" alt="Top Validators By Blocks">
+                  <img class="w-full" :src="validatorsSvg" alt="Top Validators By Blocks">
                 </a>
               </div>
             </div>
@@ -70,7 +70,7 @@
                   <a href="/chart/verified-contracts" class="inline-block font-medium text-blue-600 dark:text-blue-500 hover:underline">Verified Contracts Chart</a>
                 </div>
                 <a class="p-3 block" href="/chart/verified-contracts">
-                  <img class="w-full" src="https://bscscan.com/images/charts/verified-contracts.svg?v=0.0.5.11" alt="Verified Contracts Chart">
+                  <img class="w-full" :src="verifiedContractsSvg" alt="Verified Contracts Chart">
                 </a>
               </div>
             </div>
@@ -86,10 +86,18 @@
 
 <script>
 import { getChainNum } from '@/utils/chain'
+const tokenerc20txnsSvg = require('@/static/svg/tokenerc-20txns.svg')
+const transactionhistorySvg = require('@/static/svg/transactionhistory.svg')
+const verifiedContractsSvg = require('@/static/svg/verified-contracts.svg')
+const validatorsSvg = require('@/static/svg/validators.svg')
 export default {
   data() {
     return {
       chainNum: getChainNum(),
+      tokenerc20txnsSvg,
+      transactionhistorySvg,
+      verifiedContractsSvg,
+      validatorsSvg,
     }
   },
   mounted() {},

@@ -1,13 +1,14 @@
+import network from './network'
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
-  // ssr: false,
-  mode: 'spa',
+  ssr: false,
+  // mode: 'spa',
   loading: {
     color: 'rgba(37, 99, 235, 1)',
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Plian Explorer',
+    title: 'PiScan',
     htmlAttrs: {
       lang: 'en',
     },
@@ -54,29 +55,33 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/tailwindcss',
   ],
-
+  env: {
+    // BASE_API: network[process.env.NETWORK].BASE_API,
+    ...network[process.env.NETWORK],
+  },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: 'https://api-piscan.plian.org/',
+    baseURL: network[process.env.NETWORK].BASE_API,
+    browserBaseURL: network[process.env.NETWORK].BASE_API,
     proxy: true,
   },
-  publicRuntimeConfig: {
-    axios: {
-      browserBaseURL: 'https://api-piscan.plian.org/',
-    },
-  },
+  // publicRuntimeConfig: {
+  //   axios: {
+  //     browserBaseURL: 'https://api-piscan.plian.org/',
+  //   },
+  // },
 
-  privateRuntimeConfig: {
-    axios: {
-      baseURL: 'https://api-piscan.plian.org/',
-    },
-  },
+  // privateRuntimeConfig: {
+  //   axios: {
+  //     baseURL: 'https://api-piscan.plian.org/',
+  //   },
+  // },
   // api proxy
   proxy: {
     '/blockBrowser': {
       changeOrigin: true,
-      target: 'https://api-piscan.plian.org/', // production
+      target: network[process.env.NETWORK].BASE_API, // production
       // pathRewrite: { '^/api': '/' },
     },
   },
