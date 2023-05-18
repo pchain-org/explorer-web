@@ -66,7 +66,7 @@
               </div>
               <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-4 mb-1 md:mb-0 font-medium">Timestamp:</div>
-                <div class="col-span-8">{{ detail.trade_time | timeAgo }} ({{ detail.trade_time }})</div>
+                <div class="col-span-8">{{ detail.time_stamp_interval | timeAgoForSec }} ({{ detail.trade_time }})</div>
               </div>
               <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
               <div class="grid grid-cols-12 gap-4">
@@ -144,7 +144,10 @@
               <div :class="[isShowMore?'max-h-screen':'max-h-0']" class="transition-all overflow-hidden duration-500">
                 <div class="grid grid-cols-1 md:grid-cols-12 mb-4">
                   <div class="col-span-4 mb-1 md:mb-0 font-medium">Gas Limit & Usage by Txn:</div>
-                  <div class="col-span-8">{{ detail.gas_limit }} | {{ detail.gas_used_by_trade}} ({{ (detail.gas_used_by_trade / detail.gas_limit * 100).toFixed(1)  }} %)</div>
+                  <div class="col-span-8">{{ detail.gas_limit }} | {{ detail.gas_used_by_trade}}
+                    <span v-if="detail.gas_limit==0">100%</span>
+                    <span v-else>({{ (detail.gas_used_by_trade / detail.gas_limit * 100).toFixed(1)  }}%)</span>
+                  </div>
                 </div>
                 <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
                 <div class="grid grid-cols-1 md:grid-cols-12 mb-4">
@@ -167,7 +170,7 @@
                     <textarea v-else :value="detail.input_data_decode" readonly rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0x"></textarea>
 
                     <div v-if="detail.input_data_decode" class="mt-2">
-                      <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700  dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" @click="inputDataDefault = !inputDataDefault">{{ inputDataDefault ? 'View Input As Original' : 'Decode Input Data' }}</button>
+                      <button type="button" class="py-2 px-4 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700  dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" @click="inputDataDefault = !inputDataDefault">{{ inputDataDefault ? 'Decode Input Data' : 'View Input As Original' }}</button>
                     </div>
                   </div>
                 </div>

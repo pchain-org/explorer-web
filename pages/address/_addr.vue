@@ -5,7 +5,7 @@
       <div class="py-3 border-b">
         <h1 class="flex items-center flex-wrap">
           <img id="icon" class="w-5 h-5 rounded inline-block mr-2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAAAXNSR0IArs4c6QAAA3BJREFUeF7tnLFtAlEQBf8FLuBCN0Abji1ZpESO3ca14ZgOEBIt0IlDCnCAixhLo68b56tdZof3PyfMcrifngP8bccHqB7j+/cT1c9e/PVyRi9hu6yofkkAxA8XJ0AJgCQqARA+v7gEKAGQhSUAwucXlwAlALKwBED4/OISoARAFpYACJ9fXAKUAMjCEgDh84tLgBIAWVgCIHx+cQlQAiALSwCEzy+ePgF8hE1ACODvA5Dm1foEEsDfgTpBAqj4/eYJ4O9AnSABVPx+8wTwd6BOkAAqfr95Avg7UCdIABW/3zwB/B2oEySAit9vngD+DtQJEkDF7zdPAH8H6gQJoOL3m2MBXt8//Fex4wl+blf06hMA4fOLE8DfgTpBAqj4/eYJ4O9AnSABVPx+8wTwd6BOkAAqfr95Avg7UCdIABW/3zwB/B2oEySAit9vngD+DtQJEkDF7zdPAH8H6gQJoOL3myeAvwN1ggRQ8fvNE8DfgTpBAqj4/eYJ4O9AnSABVPx+8wTwd6BOkAAqfr95Avg7UCdIABW/3zwB/B2oEySAit9vngD+DtQJEkDF7zdPAH8H6gQJoOL3m2MB3tbz03wZ9AXYv08w+/xLAjD9E4DxG7MDnH3+EmDnAidAAnQJJA50BBB6Y3QHkH9lrSNg5wInQAJ0ByAOdAcg9LoDDPtJZkfAzgVOgAToDkAc6A5A6HUH6A4w+zto9vn1OwAMEPwkkfa3b/F0/gSABBMAAqTlNIJp/wSgBGF9AjCAHQGMn36Lh+OPBIAEOwIgQFreEcAIlgCMX0cA5IfLSwCGsARg/EoAyA+XlwAMYQnA+JUAkB8uLwEYwhKA8SsBID9cXgIwhCUA4zd/AhzuJ/T7ANvxgRBulxXV249iaQLZ/JYEQP7hL6QkQAmADKQJWgIg/PyfW0uAEgApWALI/17dJbBPAewdLPPrDoDW1x1g2JeYngOw5yglQAnQk0DiQJdA+RLTEdARQN7AuLYEKAGQRPYluksgWl8fA/sYeLsihfQEsH8uHtH7h18Yof3tSyidv28EQYIJAAHScnoLp/0TgBKE9QnAAHYEMH7zfym0SyAzoCOA8cPVHQEMYUcA49cRAPnh8hKAISwBGL8SAPLD5SUAQ1gCMH4lAOSHy0sAhrAEYPxKAMgPl5cADGEJwPhNnwB/CZQjTiNIxmsAAAAASUVORK5CYII=" alt="">
-          <span class="text-xl mr-2">Address</span>
+          <span class="text-xl mr-2">{{ detail.accountType===2?'Contract':'Address' }}</span>
           <span class="mr-2 text-gray-500 text-sm"> {{ $route.params.addr }}</span>
           <ClipboardIcon :text="$route.params.addr" />
         </h1>

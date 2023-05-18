@@ -50,7 +50,7 @@
               <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
               <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-4 mb-1 md:mb-0">Timestamp:</div>
-                <div class="col-span-8">{{ detail.block_time | timeAgo }} ({{ detail.block_time }})</div>
+                <div class="col-span-8">{{ detail.block_time_interval | timeAgoForSec }} ({{ detail.block_time }})</div>
               </div>
               <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
               <div class="grid grid-cols-12 gap-4 mb-4">
@@ -81,7 +81,7 @@
               </div>
               <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
               <div class="grid grid-cols-12 gap-4">
-                <div class="col-span-4 mb-4">Total Difficulty:</div>
+                <div class="col-span-4">Total Difficulty:</div>
                 <div class="col-span-8">{{ detail.total_difficulty | toThousandFilter(null) }}</div>
               </div>
               <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
