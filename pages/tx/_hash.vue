@@ -316,7 +316,7 @@ export default {
         logs_list: [],
       },
       isShowMore: false,
-      inputDataDefault: true,
+      inputDataDefault: false,
       resCode: '',
     }
   },

@@ -47,7 +47,7 @@
             <a :href="'/tx/' + item.trade_hash" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.trade_hash }}</a>
           </td>
           <td class="px-6 py-4">
-            -
+            <span class="inline-block bg-blue-100 px-2 py-1 rounded">{{ item.method || '-' }}</span>
           </td>
           <td scope="row" class="px-6 py-4">
             <a :href="'/block/' + item.block_no" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.block_no }}</a>
