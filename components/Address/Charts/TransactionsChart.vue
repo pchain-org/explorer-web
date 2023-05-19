@@ -1,31 +1,28 @@
 <template>
   <div>
-    <div>
-
-      <div id="dateRangePickerId" date-rangepicker datepicker-autohide class="flex items-center" @change="handleChange">
+    <div class="flex justify-end">
+      <div id="dateRangePickerId" date-rangepicker datepicker-autohide class="flex items-center">
         <div class="relative">
           <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <svg aria-hidden="true" class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
             </svg>
           </div>
-          <input id="xi" v-model="queryForm.start_date" datepicker-autohide name="start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start" @change="handleChange" @input="handleChange">
+          <input id="startDate" :value="queryForm.start_date" datepicker-autohide name="start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start" @blur="handleChange">
         </div>
         <span class="mx-4 text-gray-500">to</span>
         <div class="relative">
           <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <svg aria-hidden="true" class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
             </svg>
           </div>
-          <input v-model="queryForm.end_date" datepicker-autohide name="end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end" @input="handleChange">
+          <input id="endDate" :value="queryForm.end_date" datepicker-autohide name="end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end" @blur="handleChange">
         </div>
       </div>
-
     </div>
-    <div :id="id" :style="{height:height,width:width}" />
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.4/datepicker.min.js"></script>
 
+    <div :id="id" :style="{height:height,width:width}" />
   </div>
 </template>
 
@@ -64,14 +61,6 @@ export default {
       rangePicker: null,
     }
   },
-  watch: {
-    'queryForm.end_date': {
-      handler(val) {
-        console.log(2323)
-      },
-      deep: true,
-    },
-  },
   mounted() {
     this.$nextTick(() => {
       const dateRangePickerEl = document.getElementById('dateRangePickerId')
@@ -82,18 +71,11 @@ export default {
         clearBtn: true,
         format: 'yyyy-mm-dd',
         maxDate: new Date(),
-        onChange() {
-          console.log(2323)
-        },
       })
     })
 
-    console.log(this.rangePicker, '2323')
-
     this.queryForm.value = this.$route.params.addr
     this.getChartData()
-  
-
   },
   beforeDestroy() {
     if (!this.chart) {
@@ -103,8 +85,22 @@ export default {
     this.chart = null
   },
   methods: {
-    handleChange() {
-      // this.getChartData()
+    handleChange(e) {
+      setTimeout(() => {
+        if (
+          e.target.id === 'startDate' &&
+          e.target.value !== this.queryForm.start_date
+        ) {
+          this.queryForm.start_date = e.target.value
+          this.getChartData()
+        } else if (
+          e.target.id === 'endDate' &&
+          e.target.value !== this.queryForm.end_date
+        ) {
+          this.queryForm.end_date = e.target.value
+          this.getChartData()
+        }
+      }, 1)
     },
     async getChartData() {
       try {
@@ -177,6 +173,7 @@ export default {
           {
             type: 'value',
             name: '',
+            minInterval: 1,
             axisTick: {
               show: false,
             },

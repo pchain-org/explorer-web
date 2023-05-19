@@ -2,19 +2,19 @@
   <div>
     <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
       <li class="mr-2">
-        <a id="an-tab-transactions" href="#" class="inline-block px-4 py-3 text-white bg-blue-600 rounded-lg active">Transactions</a>
+        <a id="an-tab-transactions" href="#" class="inline-block px-3 py-2 text-xs border text-white bg-blue-600 rounded-lg active">Transactions</a>
       </li>
       <li class="mr-2">
-        <a id="an-tab-balance" href="#" class="inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">PI Balance</a>
+        <a id="an-tab-balance" href="#" class="inline-block px-3 py-2 text-xs border rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">PI Balance</a>
       </li>
       <li class="mr-2">
-        <a id="an-tab-txnfees" href="#" class="inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">Txn Fees</a>
+        <a id="an-tab-txnfees" href="#" class="inline-block px-3 py-2 text-xs border rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">Txn Fees</a>
       </li>
       <li class="mr-2">
-        <a id="an-tab-transfers" href="#" class="inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">PI Transfers</a>
+        <a id="an-tab-transfers" href="#" class="inline-block px-3 py-2 text-xs border rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">PI Transfers</a>
       </li>
       <li>
-        <a id="an-tab-tokentran" href="#" class="inline-block px-4 py-3 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">Token Transfers</a>
+        <a id="an-tab-tokentran" href="#" class="inline-block px-3 py-2 text-xs border rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white">Token Transfers</a>
       </li>
     </ul>
     <div id="AnalyticsTabContent" class="w-full">

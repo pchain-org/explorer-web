@@ -1,10 +1,36 @@
 <template>
-  <div :id="id" style="width:100%;height:500px" />
+  <div>
+    <div class="flex justify-end">
+      <div id="dateRangePickerId" date-rangepicker datepicker-autohide class="flex items-center">
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg aria-hidden="true" class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <input id="startDate" :value="queryForm.start_date" datepicker-autohide name="start" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date start" @blur="handleChange">
+        </div>
+        <span class="mx-4 text-gray-500">to</span>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg aria-hidden="true" class="w-4 h-4 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <input id="endDate" :value="queryForm.end_date" datepicker-autohide name="end" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date end" @blur="handleChange">
+        </div>
+      </div>
+    </div>
+
+    <div :id="id" style="width:100%;height:500px" />
+  </div>
 </template>
 
 <script>
 import * as echarts from 'echarts'
+import DateRangePicker from 'flowbite-datepicker/js/DateRangePicker'
 import resize from '@/mixins/resize'
+import { getNowDate } from '@/utils'
 
 export default {
   mixins: [resize],
@@ -19,13 +45,25 @@ export default {
       chart: null,
       queryForm: {
         field: 'address',
-        end_date: '',
-        start_date: '',
+        start_date: '2019-03-29',
+        end_date: getNowDate(),
         value: '',
       },
     }
   },
   mounted() {
+    this.$nextTick(() => {
+      const dateRangePickerEl = document.getElementById('dateRangePickerId')
+      this.rangePicker = new DateRangePicker(dateRangePickerEl, {
+        autohide: true,
+        todayBtn: true,
+        todayBtnMode: 1,
+        clearBtn: true,
+        format: 'yyyy-mm-dd',
+        maxDate: new Date(),
+      })
+    })
+
     this.queryForm.value = this.$route.params.addr
     this.getChartData()
   },
@@ -37,6 +75,23 @@ export default {
     this.chart = null
   },
   methods: {
+    handleChange(e) {
+      setTimeout(() => {
+        if (
+          e.target.id === 'startDate' &&
+          e.target.value !== this.queryForm.start_date
+        ) {
+          this.queryForm.start_date = e.target.value
+          this.getChartData()
+        } else if (
+          e.target.id === 'endDate' &&
+          e.target.value !== this.queryForm.end_date
+        ) {
+          this.queryForm.end_date = e.target.value
+          this.getChartData()
+        }
+      }, 1)
+    },
     async getChartData() {
       try {
         // const data = [
@@ -109,7 +164,7 @@ export default {
         yAxis: [
           {
             type: 'value',
-            name: '(%)',
+            name: '',
             axisTick: {
               show: false,
             },

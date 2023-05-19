@@ -129,6 +129,8 @@ export default {
           'text-gray-500 hover:text-gray-600 dark:text-gray-400 border-gray-100 hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300',
         onShow: (val) => {
           this.activeTab = val._activeTab.id
+          console.log(val, 'val')
+          location.hash = val._activeTab.targetEl.id
         },
       }
       this.tabs = new Tabs(tabElements, options)

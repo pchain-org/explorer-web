@@ -28,7 +28,7 @@
     </div>
 
     <div class="relative w-full">
-      <input id="searchDropdown" v-model="queryForm.key" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg md:border-l-gray-50 md:border-l-2 rounded-l-lg md:rounded-l-none border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search by Address / Txn Hash / Block / Token" @input="inputSearch">
+      <input id="searchDropdown" v-model="queryForm.key" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg md:border-l-gray-50 md:border-l-1 rounded-l-lg md:rounded-l-none border focus:outline-0 border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" :placeholder="inputPlaceholder" @keyup.enter="handleSearch" @input="inputSearch">
       <button type="submit" class="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" @click="handleSearch">
         <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -48,7 +48,7 @@
             <li v-for="(addr) in dataList.tokens.erc20" :key="addr.address">
               <a :href="'/token/'+addr.address" class="flex px-4 py-2 truncate w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                 <img v-if="addr.logo" :src="addr.logo" class="h-4" alt="">
-                <img v-else src="@/static/logo.png" alt="" class="h-4">
+                <img v-else src="@/static/logo_gray.png" alt="" class="h-4">
                 <div class="flex-1 ml-3">
                   <div class="flex justify-between">
                     <div class="truncate w-2/3">
@@ -70,7 +70,7 @@
             <li v-for="(addr) in dataList.tokens.erc721" :key="addr.address">
               <a :href="'/token/'+addr.address" class="flex px-4 py-2 truncate w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                 <img v-if="addr.logo" :src="addr.logo" class="h-4" alt="">
-                <img v-else src="@/static/logo.png" alt="" class="h-4">
+                <img v-else src="@/static/logo_gray.png" alt="" class="h-4">
                 <div class="flex-1 ml-3">
                   <div class="flex justify-between">
                     <div class="truncate w-2/3">
@@ -92,7 +92,7 @@
             <li v-for="(addr) in dataList.tokens.erc1155" :key="addr.address">
               <a :href="'/token/'+addr.address" class="flex px-4 py-2 truncate w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                 <img v-if="addr.logo" :src="addr.logo" class="h-4" alt="">
-                <img v-else src="@/static/logo.png" alt="" class="h-4">
+                <img v-else src="@/static/logo_gray.png" alt="" class="h-4">
                 <div class="flex-1 ml-3">
                   <div class="flex justify-between">
                     <div class="truncate w-2/3">
@@ -140,6 +140,13 @@ export default {
       chainNum: getChainNum(),
     }
   },
+  computed: {
+    inputPlaceholder() {
+      return this.chainNum === '1'
+        ? 'Search by Address / Txn Hash / Block / Token'
+        : 'Search by Address / Txn Hash / Block'
+    },
+  },
   mounted() {
     this.initSearchDropdown()
     this.inputSearch = debounce(this.autoSearch, 300)
@@ -181,7 +188,7 @@ export default {
           this.dataList.addresses ||
           this.dataList.tokens.erc1155 ||
           this.dataList.tokens.erc20 ||
-          this.dataList.erc721
+          this.dataList.tokens.erc721
         ) {
           this.searchDropdown.show()
         } else {
