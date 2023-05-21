@@ -11,7 +11,7 @@
         </h1>
       </div>
       <div class="grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-4 pt-6">
-        <div class="w-full overflow-hidden bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
           <div class="border-b px-4 py-5">Overview</div>
           <div class="p-4 text-sm">
             <div class="grid grid-cols-12">
@@ -26,7 +26,43 @@
             <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
             <div class="grid grid-cols-12">
               <div class="col-span-4">Token</div>
-              <div class="col-span-8">$38.89 (>120)</div>
+              <!-- <div class="col-span-8">$38.89 (>120)</div> -->
+              <div class="col-span-8">
+                <div class="relative w-full">
+                  <div id="small-input" data-dropdown-toggle="token-dropdown" data-dropdown-placement="bottom" readonly class="flex justify-between cursor-pointer w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <span class="ml-1">
+                      <span>{{ detail.tokenTotalPrice | toThousandFilter }}</span>
+                      <span class="px-1 py-0.5 rounded bg-blue-400 font-medium ml-2 text-white">{{ detail.token.length }}</span>
+                    </span>
+                    <svg aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1">
+                      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                  </div>
+
+                  <!-- Dropdown menu -->
+                  <div id="token-dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-full dark:bg-gray-700">
+                    <ul class="max-h-60 overflow-y-auto text-sm text-gray-700 dark:text-gray-200 divide-y" aria-labelledby="dropdownDividerButton" :class="[detail.token.length?'py-2':'']">
+                      <li v-for="(addr) in detail.token" :key="addr.address">
+                        <a :href="'/token/'+addr.address" class="px-4 py-2 block truncate w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                          <div class="flex justify-between">
+                            <span class="flex-1 truncate">
+                              <img v-if="addr.logo" :src="addr.logo" class="h-4 inline-block align-middle" alt="">
+                              <img v-else src="@/static/logo_gray.png" alt="" class="h-4 inline-block align-middle">
+                              <span class="align-middle">{{ addr.name }} ({{ addr.symbol }})</span>
+                            </span>
+
+                            <div class="truncate flex=1">
+                              <span class="text-xs p-0.5 bg-gray-100 ml-1 rounded font-medium">${{ addr.price | toThousandFilter }}</span>
+                            </div>
+                          </div>
+                          <div class="text-xs text-gray-500 mt-1">{{ addr.balance | toThousandFilter(null) }} {{ addr.symbol }}</div>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+              </div>
             </div>
           </div>
         </div>
@@ -102,6 +138,10 @@ export default {
       this.detail = {
         ...data,
         pi_value: (res.data.price_pi * data.balance).toFixed(2),
+        tokenTotalPrice:
+          data.token &&
+          data.token.length &&
+          data.token.reduce((acc, cur) => Number(acc) + Number(cur), 0),
       }
     },
   },

@@ -307,20 +307,36 @@ export default {
     this.initNetworkMenu()
   },
   created() {
-    const chainNum = getChainNum()
+    const chainNum = this.$route.query.chain || getChainNum()
     if (chainNum === undefined) {
       this.chainNum = false
       setChainNum(0)
     } else if (+chainNum === 1) {
       this.chainNum = true
+      setChainNum(1)
     } else {
       this.chainNum = false
+      setChainNum(0)
+    }
+    if (!this.$route.query.chain) {
+      this.setQueryChain(this.chainNum ? 1 : 0)
     }
   },
   methods: {
+    setQueryChain(chain) {
+      this.$router.replace({ query: { ...this.$route.query, chain } })
+    },
     chainNumChange(val) {
-      val.target.checked ? setChainNum(1) : setChainNum(0)
-      location.reload()
+      if (val.target.checked) {
+        setChainNum(1)
+        this.$router.replace({ query: { ...this.$route.query, chain: 1 } })
+      } else {
+        setChainNum(0)
+        this.$router.replace({ query: { ...this.$route.query, chain: 0 } })
+      }
+      setTimeout(() => {
+        location.reload()
+      }, 1)
     },
     initBlockchainMenu() {
       // set the dropdown menu element

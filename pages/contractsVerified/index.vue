@@ -55,7 +55,7 @@
                   <a :href="'/address/' + item.address" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.address }}</a>
                 </td>
                 <td scope="row" class="px-6 py-4">
-                  <a :href="'/block/' + item.block_no" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.contract_name }}</a>
+                  <div :title="item.contract_name" class="inline-block w-36 truncate">{{ item.contract_name }}</div>
                 </td>
                 <td class="px-6 py-4">
                   {{ item.compiler || '-' }}
@@ -84,7 +84,7 @@
                   {{ item.audited || '-' }}
                 </td>
                 <td class="px-6 py-4">
-                  {{ item.license || '-' }}
+                  <div :title="item.license" class="inline-block w-36 truncate">{{ item.license || '-' }}</div>
                 </td>
               </tr>
             </tbody>

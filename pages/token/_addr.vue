@@ -29,8 +29,8 @@
             </div>
             <hr v-if="detail.overview.token_types === 1" class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
             <div class="grid grid-cols-12">
-              <div class="col-span-4">Total Supply::</div>
-              <div class="col-span-8">${{ detail.overview.total_supply }} {{ detail.overview.token_symbol }} <span v-if="detail.overview.circulating_supply" class="text-gray-500">(CSupply: {{ detail.overview.circulating_supply }})</span></div>
+              <div class="col-span-4">Total Supply:</div>
+              <div class="col-span-8">{{ detail.overview.total_supply }} {{ detail.overview.token_symbol }} <span v-if="detail.overview.circulating_supply" class="text-gray-500">(CSupply: {{ detail.overview.circulating_supply }})</span></div>
             </div>
             <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
             <div class="grid grid-cols-12">

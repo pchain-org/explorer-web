@@ -22,7 +22,7 @@
           <th scope="col" class="px-6 py-3">
             Percentage
           </th>
-          <th scope="col" class="px-6 py-3">
+          <th v-if="tokenType === 1" scope="col" class="px-6 py-3">
             Value
           </th>
         </tr>
@@ -53,7 +53,7 @@
           <td class="px-6 py-4">
             {{ item.percentage }}
           </td>
-          <td class="px-6 py-4">
+          <td v-if="tokenType === 1" class="px-6 py-4">
             ${{ item.value }}
           </td>
         </tr>

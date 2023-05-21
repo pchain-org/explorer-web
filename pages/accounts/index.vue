@@ -81,8 +81,11 @@
                 <td class="px-6 py-4">
                   {{ item.order_no }}
                 </td>
-                <td class="px-6 py-4">
-                  <a :href="'/address/' + item.account_address" :title="item.account_address" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.account_address }}</a>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <svg v-if="item.account_type === 2" class="w-5 h-5 inline-block align-middle" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                  </svg>
+                  <a :href="'/address/' + item.account_address" :title="item.account_address" class="inline-block w-36 align-middle truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.account_address }}</a>
                 </td>
                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
                   <div class="w-36">{{ item.name_tag || '-' }}</div>
