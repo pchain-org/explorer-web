@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-white dark:bg-gray-900">
+  <footer class="bg-white dark:bg-gray-900 footer-bg">
     <div class="mx-auto w-full container p-4 sm:p-6">
       <!-- <div class="md:flex md:justify-between">
         <div class="mb-6 md:mb-0">
@@ -144,8 +144,8 @@ export default {
             chainId: '0xfe3005', // 8007736
             chainName: 'Plian Testnet Main', // 16658437
             nativeCurrency: {
-              name: 'PI',
-              symbol: 'PI',
+              name: 'TPI',
+              symbol: 'TPI',
               decimals: 18,
             },
             rpcUrls: ['https://testnet.plian.io/testnet'],
@@ -155,8 +155,8 @@ export default {
             chainId: '0x999d4b', // 10067275
             chainName: 'Plian Testnet Subchain 1', // 16658437
             nativeCurrency: {
-              name: 'PI',
-              symbol: 'PI',
+              name: 'TPI',
+              symbol: 'TPI',
               decimals: 18,
             },
             rpcUrls: ['https://testnet.plian.io/child_test'],

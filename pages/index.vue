@@ -1,9 +1,9 @@
 <template>
   <div class="relative min-h-screen">
-    <section class="h-72 pt-12 bg-gray-100">
+    <section class="h-72 pt-12 bg-gray-900 top-section">
       <div class="container mx-auto px-4">
         <div class="pt-5 md:w-5/12">
-          <h1 class="text-blue-700 mb-3 text-xl">{{ network === 'test' ? 'Plian Testnet Explorer' : 'Plian Explorer' }}</h1>
+          <h1 class="text-blue-500 mb-3 text-xl">{{ network === 'test' ? 'Plian Testnet Explorer' : 'Plian Explorer' }}</h1>
           <SearchBox />
         </div>
 
@@ -527,4 +527,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.top-section {
+  background-image: url('@/static/svg/index_section_bg.svg');
+}
+</style>
