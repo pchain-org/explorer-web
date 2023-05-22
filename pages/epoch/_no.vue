@@ -23,7 +23,7 @@
           <div id="overview" class="p-4 rounded-lg break-words" role="tabpanel" aria-labelledby="overview-tab">
             <div class="text-sm">
               <div class="grid grid-cols-12 gap-4 mb-4">
-                <div class="col-span-4">Number:</div>
+                <div class="col-span-4">Progress:</div>
                 <div class="col-span-8">
                   <div class="w-full inline-flex items-center">
                     <div v-if="psrocess" class="w-2/4 bg-gray-200 rounded-full h-1 dark:bg-gray-700">

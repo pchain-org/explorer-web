@@ -84,7 +84,7 @@
               <path d="M11.8139 16.2485L9.13399 20.2912L12.8867 27.6049L7.72971 27.5398H0.254883L3.07728 18.7922L11.8139 16.2485Z" fill="#F5841F" />
               <path d="M25.5283 5.17383L23.0847 11.7736L22.5661 20.6894L22.3677 23.4839L22.352 30.6225H17.6471L17.6318 23.4973L17.4327 20.6869L16.9139 11.7736L14.4707 5.17383H25.5283Z" fill="#F5841F" />
             </svg>
-            <span class="flex-1 ml-2 whitespace-nowrap"> Add PI Network</span>
+            <span class="flex-1 ml-2 whitespace-nowrap">Add Plian Network</span>
             <!-- <span class="inline-flex items-center justify-center px-2 py-0.5 ml-3 text-xs font-medium text-gray-500 bg-gray-200 rounded dark:bg-gray-700 dark:text-gray-400">Popular</span> -->
           </a>
           <!-- <button >add network</button> -->
@@ -148,8 +148,8 @@ export default {
               symbol: 'PI',
               decimals: 18,
             },
-            rpcUrls: ['https://testnet.plian.io/testnet/'],
-            blockExplorerUrls: ['https://testnet-v2-piscan.plian.org/'],
+            rpcUrls: ['https://testnet.plian.io/testnet'],
+            blockExplorerUrls: ['https://testnet-v2-piscan.plian.org'],
           },
           1: {
             chainId: '0x999d4b', // 10067275
@@ -159,8 +159,8 @@ export default {
               symbol: 'PI',
               decimals: 18,
             },
-            rpcUrls: ['https://testnet.plian.io/child_test/'],
-            blockExplorerUrls: ['https://testnet-v2-piscan.plian.org/'],
+            rpcUrls: ['https://testnet.plian.io/child_test'],
+            blockExplorerUrls: ['https://testnet-v2-piscan.plian.org'],
           },
         },
         main: {
@@ -172,8 +172,8 @@ export default {
               symbol: 'PI',
               decimals: 18,
             },
-            rpcUrls: ['https://mainnet.plian.io/pchain/'],
-            blockExplorerUrls: ['https://v2-piscan.plian.org/'],
+            rpcUrls: ['https://mainnet.plian.io/pchain'],
+            blockExplorerUrls: ['https://v2-piscan.plian.org'],
           },
           1: {
             chainId: '0x7a3038', // 8007736
@@ -183,8 +183,8 @@ export default {
               symbol: 'PI',
               decimals: 18,
             },
-            rpcUrls: ['https://mainnet.plian.io/child_0/'],
-            blockExplorerUrls: ['https://v2-piscan.plian.org/'],
+            rpcUrls: ['https://mainnet.plian.io/child_0'],
+            blockExplorerUrls: ['https://v2-piscan.plian.org'],
           },
         },
       },

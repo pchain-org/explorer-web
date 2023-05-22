@@ -43,15 +43,6 @@
                 <th scope="col" class="px-6 py-3">
                   Name Tag
                 </th>
-                <th scope="col" class="px-6 py-3">
-                  Unstaked
-                  <svg fill="none" class="inline-block ml-1 w-4 cursor-pointer align-top" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" data-tooltip-target="age-tooltip-bottom" data-tooltip-placement="top" @mouseenter="tooltipContent='available balance'">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Percentage
-                </th>
 
                 <th scope="col" class="px-6 py-3">
                   Total PI
@@ -64,6 +55,16 @@
                   <svg fill="none" class="inline-block ml-1 w-4 cursor-pointer align-top" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" data-tooltip-target="age-tooltip-bottom" data-tooltip-placement="top" @mouseenter="tooltipContent='total_delegateBalance + total_depositBalance + total_rewardBalance'">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
+                </th>
+
+                <th scope="col" class="px-6 py-3">
+                  Unstaked
+                  <svg fill="none" class="inline-block ml-1 w-4 cursor-pointer align-top" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" data-tooltip-target="age-tooltip-bottom" data-tooltip-placement="top" @mouseenter="tooltipContent='available balance'">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Percentage
                 </th>
                 <th scope="col" class="px-6 py-3">
                   First Stake Time
@@ -88,30 +89,33 @@
                   <a :href="'/address/' + item.account_address" :title="item.account_address" class="inline-block w-36 align-middle truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.account_address }}</a>
                 </td>
                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
-                  <div class="w-36">{{ item.name_tag || '-' }}</div>
+                  <div class="w-20">{{ item.name_tag || '-' }}</div>
                 </td>
                 <td class="px-6 py-4">
-                  <div class="">{{ item.balance }}</div>
+                  <div class="w-24 break-words">
+                    {{ item.total_balance }}
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <div class="w-28 break-words">{{ item.stake_balance }}</div>
+                </td>
+                <td class="px-6 py-4">
+                  <div class="w-28 break-words">{{ item.balance }}</div>
                 </td>
                 <td class="px-6 py-4">
                   {{ item.percentage }}%
                 </td>
+
                 <td class="px-6 py-4">
-                  {{ item.total_balance }}
-                </td>
-                <td class="px-6 py-4">
-                  {{ item.stake_balance }}
-                </td>
-                <td class="px-6 py-4">
-                  <div v-if="item.first_stake_time" class="w-36" data-tooltip-target="age-tooltip-bottom" data-tooltip-placement="bottom" @mouseenter="tooltipContent=item.first_stake_time">{{ item.first_stake_age | timeAgoForSec }}</div>
+                  <div v-if="item.first_stake_time" class="w-28" data-tooltip-target="age-tooltip-bottom" data-tooltip-placement="bottom" @mouseenter="tooltipContent=item.first_stake_time">{{ item.first_stake_age | timeAgoForSec }}</div>
                   <div v-else>-</div>
                 </td>
                 <td class="px-6 py-4">
-                  <div v-if="item.last_stake_age" class="w-36" data-tooltip-target="age-tooltip-bottom" data-tooltip-placement="bottom" @mouseenter="tooltipContent=item.last_stake_time">{{ item.last_stake_age | timeAgoForSec }}</div>
+                  <div v-if="item.last_stake_age" class="w-28" data-tooltip-target="age-tooltip-bottom" data-tooltip-placement="bottom" @mouseenter="tooltipContent=item.last_stake_time">{{ item.last_stake_age | timeAgoForSec }}</div>
                   <div v-else>-</div>
                 </td>
                 <td class="px-6 py-4">
-                  <div class="w-36 truncate">{{ item.trade_count }}</div>
+                  <div class="w-20 truncate">{{ item.trade_count }}</div>
                 </td>
               </tr>
             </tbody>
