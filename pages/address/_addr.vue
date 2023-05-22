@@ -31,7 +31,7 @@
                 <div class="relative w-full">
                   <div id="small-input" data-dropdown-toggle="token-dropdown" data-dropdown-placement="bottom" readonly class="flex justify-between cursor-pointer w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <span class="ml-1">
-                      <span>{{ detail.tokenTotalPrice | toThousandFilter }}</span>
+                      <span>${{ detail.tokenTotalPrice | toThousandFilter }}</span>
                       <span class="px-1 py-0.5 rounded bg-blue-400 font-medium ml-2 text-white">{{ detail.token.length }}</span>
                     </span>
                     <svg aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1">
@@ -41,23 +41,30 @@
 
                   <!-- Dropdown menu -->
                   <div id="token-dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-full dark:bg-gray-700">
-                    <ul class="max-h-60 overflow-y-auto text-sm text-gray-700 dark:text-gray-200 divide-y" aria-labelledby="dropdownDividerButton" :class="[detail.token.length?'py-2':'']">
-                      <li v-for="(addr) in detail.token" :key="addr.address">
-                        <a :href="'/token/'+addr.address" class="px-4 py-2 block truncate w-full hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                          <div class="flex justify-between">
-                            <span class="flex-1 truncate">
-                              <img v-if="addr.logo" :src="addr.logo" class="h-4 inline-block align-middle" alt="">
-                              <img v-else src="@/static/logo_gray.png" alt="" class="h-4 inline-block align-middle">
-                              <span class="align-middle">{{ addr.name }} ({{ addr.symbol }})</span>
-                            </span>
+                    <ul class="max-h-60 overflow-y-auto text-sm text-gray-700 dark:text-gray-200 divide-y" aria-labelledby="dropdownDividerButton" :class="[detail.token.length?'p-2':'']">
+                      <div v-for="(value, key) in detail.tokenList" :key="key" class="mb-2">
+                        <div class="px-4 py-1 bg-gray-100 font-medium my-2 rounded">{{ key }} Tokens ({{ value.length }})</div>
+                        <li v-for="(addr,index) in detail.tokenList[key]" :key="index">
+                          <a :href="'/token/'+addr.token_address" class="px-4 py-2 block truncate rounded w-full hover:bg-blue-100 dark:hover:bg-blue-600 dark:hover:text-white">
+                            <div class="flex justify-between">
+                              <span class="flex-1 truncate">
+                                <img v-if="addr.logo" :src="addr.logo" class="h-4 inline-block align-middle" alt="">
+                                <img v-else src="@/static/logo_gray.png" alt="" class="h-4 inline-block align-middle">
+                                <span class="align-middle">{{ addr.name }} ({{ addr.symbol }})</span>
+                              </span>
 
-                            <div class="truncate flex=1">
-                              <span class="text-xs p-0.5 bg-gray-100 ml-1 rounded font-medium">${{ addr.price | toThousandFilter }}</span>
+                              <div v-if="addr.price" class="truncate flex=1 text-right">
+                                <span class="text-xs font-medium">${{ addr.price | toThousandFilter }}</span>
+                              </div>
                             </div>
-                          </div>
-                          <div class="text-xs text-gray-500 mt-1">{{ addr.balance | toThousandFilter(null) }} {{ addr.symbol }}</div>
-                        </a>
-                      </li>
+                            <div class="text-xs text-gray-500 mt-1 flex justify-between">
+                              <span class="flex-1 truncate">{{ addr.balance | toThousandFilter(null) }} {{ addr.symbol }}</span>
+                              <span v-if="addr.price" class="flex-1 truncate text-right">@{{ addr.totalPrice }}</span>
+                            </div>
+                          </a>
+                        </li>
+                      </div>
+
                     </ul>
                   </div>
                 </div>
@@ -135,6 +142,28 @@ export default {
     async getAddressDetail(address) {
       const res = await this.$api.getAddressDetail({ address })
       const data = res.data
+      const types = { 1: 'ERC20', 2: 'ERC721', 3: 'ERC1155', 4: 'Others' }
+      const tokenList = {
+        // ERC20: [],
+        // ERC721: [],
+        // ERC1155: [],
+        // Others: [],
+      }
+      const token = data.token.map((item) => ({
+        ...item,
+        totalPrice:
+          (item.price && (item.balance * item.price).toFixed(2)) || '',
+      }))
+
+      token.forEach((item) => {
+        if (tokenList[types[item.type]]) {
+          tokenList[types[item.type]].push(item)
+        } else {
+          tokenList[types[item.type]] = []
+          tokenList[types[item.type]].push(item)
+        }
+      })
+
       this.detail = {
         ...data,
         pi_value: (res.data.price_pi * data.balance).toFixed(2),
@@ -142,6 +171,7 @@ export default {
           data.token &&
           data.token.length &&
           data.token.reduce((acc, cur) => Number(acc) + Number(cur), 0),
+        tokenList,
       }
     },
   },
