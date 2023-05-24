@@ -32,9 +32,9 @@ export default {
         const networkId = await promisify((cb) => web3.eth.getChainId(cb))
         const coinbase = await promisify((cb) => web3.eth.getCoinbase(cb))
 
-        window.ethereum.once('accountsChanged', this.accountsChanged)
-        window.ethereum.on('chainChanged', this.chainChanged)
-        window.ethereum.on('disconnect', this.disconnect)
+        // window.ethereum.once('accountsChanged', this.accountsChanged)
+        // window.ethereum.on('chainChanged', this.chainChanged)
+        // window.ethereum.on('disconnect', this.disconnect)
         const walletType = 'metamask'
         return { networkId, coinbase, walletType }
       } catch (e) {
@@ -114,6 +114,7 @@ export default {
     }
   },
   async changeNetwork(network) {
+    console.log('0x' + network.chainId.toString(16))
     try {
       const result = await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
@@ -125,18 +126,19 @@ export default {
       try {
         const result = await window.ethereum.request({
           method: 'wallet_addEthereumChain',
-          params: [
-            {
-              chainId: '0x' + network.chainId.toString(16),
-              chainName: network.name,
-              nativeCurrency: {
-                name: network.symbol,
-                symbol: network.symbol,
-                decimals: 18,
-              },
-              rpcUrls: [network.rpc],
-            },
-          ],
+          params: network,
+          // [
+          //   {
+          //     chainId: '0x' + network.chainId.toString(16),
+          //     chainName: network.name,
+          //     nativeCurrency: {
+          //       name: network.symbol,
+          //       symbol: network.symbol,
+          //       decimals: 18,
+          //     },
+          //     rpcUrls: [network.rpc],
+          //   },
+          // ],
         })
         return result
       } catch (e) {
