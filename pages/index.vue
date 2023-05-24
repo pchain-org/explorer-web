@@ -152,7 +152,7 @@
               <li v-for="(item, index) in latestTrade" :key="index" class="py-3 sm:pb-4">
 
                 <div class="grid grid-cols-12">
-                  <div class="col-span-4">
+                  <div class="col-span-5">
                     <div class="flex item-center mr-4">
                       <div class="w-10 h-10 rounded-full bg-gray-100 text-center leading-10">TX</div>
                       <div class="min-w-0 ml-3 flex-1">
@@ -165,16 +165,16 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-span-8">
+                  <div class="col-span-7">
                     <div class="flex items-center justify-between">
                       <div class="mr-4 overflow-hidden flex-1">
                         <p class="text-sm font-medium truncate dark:text-white max-w-xs">
                           From
-                          <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" :href="`/address/${item.trade_from}`">{{ item.trade_from }}</a>
+                          <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" :title="item.trade_from" :href="`/address/${item.trade_from}`">{{ item.trade_from | ellipsisAddress}}</a>
                         </p>
                         <p class="text-sm text-gray-500 truncate dark:text-gray-400 max-w-xs">
                           To
-                          <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" :href="`/address/${item.trade_to}`">{{ item.trade_to }}</a>
+                          <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" :title="item.trade_to" :href="`/address/${item.trade_to}`">{{ item.trade_to | ellipsisAddress }}</a>
                         </p>
                       </div>
                       <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white text-right">

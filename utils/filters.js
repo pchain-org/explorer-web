@@ -127,3 +127,7 @@ export function str2num(n) {
   }
   return _n
 }
+
+export function ellipsisAddress(address) {
+  return address.slice(0, 8) + '...' + address.slice(-8)
+}
