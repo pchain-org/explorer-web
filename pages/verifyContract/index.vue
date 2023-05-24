@@ -20,7 +20,7 @@
           </div>
         </div>
 
-        <form class="md:w-1/3 lg:w-50 md:mx-auto mt-2" action="/verifyContract-solc-multiple">
+        <form class="md:w-1/3 lg:w-50 md:mx-auto mt-2" :action="formData.compiler_type === '1' ? '/verifyContract-solc' : '/verifyContract-solc-multiple'">
           <div class="mb-6">
             <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Please enter the Contract Address you would like to verify</label>
             <input id="address" v-model="formData.contract_address" name="a" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0x..." required>
@@ -30,7 +30,8 @@
             <label for="compilerType" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Please select Compiler Type</label>
             <select id="compilerType" v-model="formData.compiler_type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
               <option selected="selected" value="">[Please Select]</option>
-              <option value="Solidity">Solidity (Multi-Part files)</option>
+              <option value="1">Solidity (Single file)</option>
+              <option value="2">Solidity (Multi-Part files)</option>
             </select>
           </div>
 
@@ -73,7 +74,7 @@ export default {
       compilerVersionList: [],
       compilerLicenseList: [],
       formData: {
-        compiler_type: 'Solidity',
+        compiler_type: '1',
         compiler_version: '',
         contract_address: '',
         license_type: '',
