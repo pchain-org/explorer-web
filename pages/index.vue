@@ -126,7 +126,7 @@
                   </div>
 
                   <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                    {{ item.block_trade_amount }} PI
+                    {{ item.block_reward }} PI
                   </div>
                 </div>
               </li>

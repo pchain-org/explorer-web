@@ -72,7 +72,7 @@
                 </td>
 
                 <td class="px-6 py-4">
-                  <div class="w-36">{{ item.trade_amount }} PI</div>
+                  <div class="cursor-pointer" data-tooltip-target="age-tooltip-bottom" data-tooltip-placement="bottom" @mouseenter="tooltipContent=item.trade_amount + ' PI'">{{ item.trade_amount | maxDecimalFilter(9) }} PI</div>
                 </td>
                 <td class="px-6 py-4">
                   {{ item.trade_fee }}

@@ -80,6 +80,20 @@ export function toThousandFilter(num, digits = 2) {
   }
 }
 
+export function maxDecimalFilter(num, maxDigits) {
+  if (
+    num.toString().includes('.') &&
+    num.toString().split('.')[1].length >= maxDigits
+  ) {
+    return (+num || 0)
+      .toFixed(maxDigits)
+      .toString()
+      .replace(/(\d{1,2})(?=(\d{3})+\.)/g, '$1,')
+  } else {
+    return num
+  }
+}
+
 /**
  * Upper case first char
  * @param {String} string
