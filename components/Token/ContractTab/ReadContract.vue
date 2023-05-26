@@ -24,7 +24,7 @@
           <input v-model="i.value" type="text" :placeholder="`${i.name}(${i.type})`" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
         </div>
 
-        <div v-if="item.args.input && item.args.input.length" class="p-2">
+        <div class="p-2">
           <button type="button" class="py-2 px-3 text-xs font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" @click="handleRead(item,index)">
             Query
           </button>
@@ -151,7 +151,8 @@ export default {
     async handleRead(item, index) {
       this.data[index].isLoading = true
       const methodName = item.function_name
-      const args = item.args.input.map((item) => item.value)
+      const args =
+        (item.args.input && item.args.input.map((item) => item.value)) || []
       try {
         const result = await this.contractInstance.methods[methodName](
           ...args

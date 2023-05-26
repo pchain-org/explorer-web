@@ -59,7 +59,7 @@
                   {{ item.block_trade_amount }}
                 </td>
                 <td class="px-6 py-4">
-                  <a :href="'/address/' + item.block_miner" :title="item.block_miner" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.block_miner }}</a>
+                  <a :href="'/address/' + item.block_miner" :title="item.block_miner" class="inline-block truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.block_miner | ellipsisAddress }}</a>
                 </td>
                 <td class="px-6 py-4">
                   <div class="">{{ item.gas_used }}</div>

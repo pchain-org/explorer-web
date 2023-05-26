@@ -51,8 +51,8 @@
                 <td scope="row" class="px-6 py-4">
                   <a :href="'/tx/' + item.trade_hash" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.trade_hash }}</a>
                 </td>
-                <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
-                  <div class="w-36">{{ item.method || '-' }}</div>
+                <td scope="row" class="px-6 py-4">
+                  <span class="inline-block bg-blue-100 px-2 py-1 rounded">{{ item.method || '-' }}</span>
                 </td>
                 <td class="px-6 py-4">
                   <a :href="'/block/' + item.block_no" :title="item.block_no" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.block_no }}</a>
@@ -65,10 +65,10 @@
                 </td>
 
                 <td class="px-6 py-4">
-                  <a :href="'/address/' + item.trade_from" :title="item.trade_from" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.trade_from }}</a>
+                  <a :href="'/address/' + item.trade_from" :title="item.trade_from" class="inline-block truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.trade_from | ellipsisAddress }}</a>
                 </td>
                 <td class="px-6 py-4">
-                  <a :href="'/address/' + item.trade_to" :title="item.trade_to" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.trade_to }}</a>
+                  <a :href="'/address/' + item.trade_to" :title="item.trade_to" class="inline-block truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.trade_to | ellipsisAddress }}</a>
                 </td>
 
                 <td class="px-6 py-4">

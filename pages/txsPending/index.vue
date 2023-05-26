@@ -51,7 +51,7 @@
                   <a :href="'/tx/' + item.hash" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.hash }}</a>
                 </td>
                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
-                  <div class="w-36">{{ item.nonce }}</div>
+                  {{ item.nonce }}
                 </td>
                 <td class="px-6 py-4">
                   <span class="inline-block bg-blue-100 px-2 py-1 rounded">{{ item.method }}</span>
@@ -68,10 +68,10 @@
                   {{ item.gas_price }}
                 </td>
                 <td class="px-6 py-4">
-                  <a :href="'/address/' + item.from" :title="item.from" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.from }}</a>
+                  <a :href="'/address/' + item.from" :title="item.from" class="inline-block truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.from | ellipsisAddress }}</a>
                 </td>
                 <td class="px-6 py-4">
-                  <a :href="'/address/' + item.to" :title="item.to" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.to }}</a>
+                  <a :href="'/address/' + item.to" :title="item.to" class="inline-block truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.to | ellipsisAddress }}</a>
                 </td>
                 <td class="px-6 py-4">
                   {{ item.value }}

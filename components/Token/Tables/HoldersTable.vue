@@ -37,12 +37,13 @@
               <svg class="w-5 h-5 inline-block align-middle" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
               </svg>
-              <a :href="`/token/${$route.params.addr}?a=${item.holder_address}`" :title="item.holder_address" class="inline-block align-middle w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                {{ item.token_name || item.holder_address }}
+              <a :href="`/token/${$route.params.addr}?a=${item.holder_address}`" :title="item.holder_address" class="inline-block align-middle truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                <span v-if="item.token_name">{{ item.token_name }}</span>
+                <span v-else>{{ item.holder_address | ellipsisAddress }}</span>
               </a>
             </div>
-            <a v-else :href="`/token/${$route.params.addr}?a=${item.holder_address}`" :title="item.holder_address" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">
-              {{ item.holder_address }}
+            <a v-else :href="`/token/${$route.params.addr}?a=${item.holder_address}`" :title="item.holder_address" class="inline-block truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">
+              {{ item.holder_address | ellipsisAddress }}
             </a>
           </td>
 

@@ -45,8 +45,8 @@
             <div class="inline-block w-40">{{ item.trade_time | timeAgo }}</div>
           </td>
           <td class="px-6 py-4">
-            <div v-if="item.trade_from === queryForm.value" :title="item.trade_from" class="inline-block w-36 truncate">{{ item.trade_from }}</div>
-            <a v-else :href="'/address/' + item.trade_from" :title="item.trade_from" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.trade_from }}</a>
+            <div v-if="item.trade_from === queryForm.value" :title="item.trade_from" class="inline-block truncate">{{ item.trade_from | ellipsisAddress}}</div>
+            <a v-else :href="'/address/' + item.trade_from" :title="item.trade_from" class="inline-block truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.trade_from | ellipsisAddress }}</a>
           </td>
           <td class="px-6 py-4">
             <span class="bg-green-100 rounded-2xl w-5 h-5 flex justify-center items-center">
@@ -57,8 +57,8 @@
           </td>
 
           <td class="px-6 py-4">
-            <div v-if="item.trade_to === queryForm.value" :title="item.trade_to" class="inline-block w-36 truncate">{{ item.trade_to }}</div>
-            <a v-else :href="'/address/' + item.trade_to" :title="item.trade_to" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.trade_to }}</a>
+            <div v-if="item.trade_to === queryForm.value" :title="item.trade_to" class="inline-block truncate">{{ item.trade_to | ellipsisAddress}}</div>
+            <a v-else :href="'/address/' + item.trade_to" :title="item.trade_to" class="inline-block truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.trade_to | ellipsisAddress}}</a>
           </td>
           <td v-if="tokenType !== 1" class="px-6 py-4">
             {{ item.token_id | hexToNumber }}

@@ -1,6 +1,6 @@
 <template>
   <div class="relative min-h-screen bg-gray-100 pb-6">
-    <div class="container mx-auto px-4 mt-6">
+    <div class="container mx-auto px-4">
       <div class="py-3 border-b">
         <h1 class="flex items-center flex-wrap">
           <span class="text-xl mr-2">Contracts</span>
@@ -52,7 +52,7 @@
             <tbody>
               <tr v-for="item in data.contracts_verified_list" :key="item.block_no" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
-                  <a :href="'/address/' + item.address" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.address }}</a>
+                  <a :href="'/address/' + item.address" class="inline-block truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.address | ellipsisAddress }}</a>
                 </td>
                 <td scope="row" class="px-6 py-4">
                   <div :title="item.contract_name" class="inline-block w-36 truncate">{{ item.contract_name }}</div>

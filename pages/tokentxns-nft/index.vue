@@ -53,10 +53,10 @@
                 </td>
 
                 <td class="px-6 py-4">
-                  <a :href="'/address/' + item.trade_from" :title="item.trade_from" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.trade_from }}</a>
+                  <a :href="'/address/' + item.trade_from" :title="item.trade_from" class="inline-block truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.trade_from | ellipsisAddress }}</a>
                 </td>
                 <td class="px-6 py-4">
-                  <a :href="'/address/' + item.trade_to" :title="item.trade_to" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.trade_to }}</a>
+                  <a :href="'/address/' + item.trade_to" :title="item.trade_to" class="inline-block truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.trade_to | ellipsisAddress }}</a>
                 </td>
 
                 <td class="px-6 py-4">

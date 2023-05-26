@@ -117,7 +117,7 @@
                     <tbody>
                       <tr v-for="item in detail.validator_list" :key="item.number" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <td scope="row" class="px-6 py-4">
-                          <a :href="'/address/' + item.address" class="inline-block w-36 truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.address }}</a>
+                          <a :href="'/address/' + item.address" :title="item.address" class="inline-block truncate font-medium text-blue-600 dark:text-blue-500 hover:underline">{{ item.address | ellipsisAddress }}</a>
                         </td>
                         <td scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white">
                           <div class="w-60 cursor-pointer" :title="item.voting_power">{{ item.voting_power }}</div>

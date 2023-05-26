@@ -206,7 +206,8 @@ export default {
     async handleWrite(item, index) {
       this.data[index].isLoading = true
       const methodName = item.function_name
-      const args = item.args.input.map((item) => item.value)
+      const args =
+        (item.args.input && item.args.input.map((item) => item.value)) || []
       try {
         console.log(args, '2')
         const contractInstance = await this.initContractInstance()
