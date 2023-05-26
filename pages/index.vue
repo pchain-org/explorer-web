@@ -3,7 +3,7 @@
     <section class="h-72 pt-12 bg-gray-900 top-section">
       <div class="container mx-auto px-4">
         <div class="pt-5 md:w-5/12">
-          <h1 class="text-blue-500 mb-3 text-xl">{{ network === 'test' ? 'Plian Testnet Explorer' : 'Plian Explorer' }}</h1>
+          <h1 class="text-white mb-3 text-xl">{{ network === 'test' ? 'Plian Testnet Explorer' : 'Plian Explorer' }}</h1>
           <SearchBox />
         </div>
 
@@ -47,7 +47,9 @@
             </figure>
             <div class="flex-1">
               <h2 class="text-sm text-gray-500">Transactions</h2>
-              <a href="/txs" class="text-size-1 text-link" rel="tooltip" data-toggle="tooltip" data-placement="left" data-html="true" title="" data-original-title="Total Transactions Counter<br>(Update every 5 mins)">{{ dashboard.trade_total | numberFormatter }}</a><span class="text-gray-500 text-sm"> ({{ dashboard.trade_total_tps }} TPS)</span>
+              <a href="/txs" class="text-size-1 text-link" rel="tooltip" data-toggle="tooltip" data-placement="left" data-html="true" title="" data-original-title="Total Transactions Counter<br>(Update every 5 mins)">{{ dashboard.trade_total | numberFormatter }}</a>
+              <!-- 5-26/暂时隐藏 -->
+              <!-- <span class="text-gray-500 text-sm"> ({{ dashboard.trade_total_tps }} TPS)</span> -->
             </div>
             <div class="text-right">
               <h2 class="text-sm text-gray-500">Med Gas Price</h2>
@@ -60,7 +62,7 @@
             <figure class="mr-2">
               <img :src="iconBlock" class="w-7 h-7 rounded" alt="block">
             </figure>
-            <div class="flex-1 truncate">
+            <div class="truncate">
               <h2 class="text-sm text-gray-500">Latest Block</h2>
               <a class="text-size-1 text-link" href="/blocks" rel="tooltip" data-placement="bottom" title="The latest Block No"><span id="lastblock">{{ dashboard.latest_block }}</span></a>
               <span class="text-sm text-gray-500">({{ dashboard.avg_block_time }} s)</span>
@@ -70,7 +72,7 @@
               <a class="text-size-1 text-link" :title="dashboard.current_epoch.total_voting_power" href="#">
                 {{ dashboard.current_epoch.total_voting_power | toThousandFilter }} PI
               </a>
-              <a class="text-size-1 text-link text-gray-500" :title="dashboard.current_epoch.total_voting_power" :href="'/epoch/'+dashboard.current_epoch.number">
+              <a class="text-sm text-gray-500" :title="dashboard.current_epoch.total_voting_power" :href="'/epoch/'+dashboard.current_epoch.number">
                 (Ep. {{ dashboard.current_epoch.number }})
               </a>
             </div>
@@ -136,10 +138,7 @@
           </div>
 
           <div class="px-2 py-5 text-center border-t">
-
-            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View all
-              blocks</a>
-
+            <a href="/blocks" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View all blocks</a>
           </div>
         </div>
 
@@ -188,8 +187,7 @@
           </div>
 
           <div class="px-2 py-5 text-center border-t">
-            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline inline-block">View all
-              transactions</a>
+            <a href="/txs" class="font-medium text-blue-600 dark:text-blue-500 hover:underline inline-block">View all transactions</a>
           </div>
         </div>
 
