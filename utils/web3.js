@@ -75,7 +75,15 @@ export default {
     }
   },
   getWeb3() {
-    return window.wallet
+    // return window.wallet
+    // let error = ''
+    // if (window.ethereum) {
+    const web3 = new Web3(window.ethereum)
+    return web3
+    // } else {
+    //   error = 'MetaMask not Install'
+    // }
+    // return { error }
   },
   async sign(message, address) {
     const web3 = window.wallet
@@ -93,12 +101,7 @@ export default {
     return window.ethereum && window.ethereum.isConnected()
   },
   async getChainId() {
-    const web3 = window.wallet
-    if (typeof web3 === 'undefined' || !web3) return
-    const result = await this.checkWeb3(web3)
-    if (!result) {
-      return
-    }
+    const web3 = new Web3(window.ethereum)
     const networkId = await promisify((cb) => web3.eth.getChainId(cb))
     return networkId
   },

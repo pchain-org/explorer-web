@@ -6,7 +6,9 @@
         <svg class="w-5 h-5 inline-block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"></path>
         </svg>
-        Latest {{ data.validated_block_count }} (From a total of {{ data.counts | toThousandFilter(null) }} blocks with {{ data.validated_block_pi | toThousandFilter }} PI in fees)
+        Latest {{ queryForm.length }} (From a total of {{ data.counts | toThousandFilter(null) }} blocks)
+        <!-- 无数据，展示隐藏 -->
+        <!-- with {{ data.validated_block_pi | toThousandFilter }} PI in fees) -->
       </div>
     </div>
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">

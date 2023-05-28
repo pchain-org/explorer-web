@@ -188,7 +188,6 @@ export default {
   },
   methods: {
     async addNetwork() {
-      console.log(checkWeb3)
       const hasWeb3 = checkWeb3()
       if (hasWeb3) {
         let network = 0
@@ -196,10 +195,15 @@ export default {
         const chainParams = this.params[this.network][this.chainNum]
         let params = null
         if (network === Number(chainParams.chainId)) {
-          this.$message.error('PI Network has already been added to Metamask')
+          this.$message.error(
+            'Plian Network has already been added to Metamask'
+          )
         } else {
           params = [chainParams]
-          addNetwork(params)
+          const result = await addNetwork(params)
+          if (result.error) {
+            this.$message.error(result.error)
+          }
         }
       } else {
         this.$message.error('MetaMask not Install')
