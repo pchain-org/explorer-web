@@ -76,6 +76,15 @@ export default class CreateApi {
     return response
   }
 
+  // fullBalance
+  async getFullBalance(data) {
+    const response = await this.$axios.$post(
+      '/blockBrowser/blockChain/address/fullBalance',
+      data
+    )
+    return response
+  }
+
   // Transactions
   async getContractTradeList(data) {
     const response = await this.$axios.$post(

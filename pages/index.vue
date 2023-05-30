@@ -20,7 +20,7 @@
             </figure>
             <div class="flex-1">
               <h2 class="text-sm text-gray-500">PI Price</h2>
-              <a class="text-size-1 text-link" href="/chart/bnbprice">
+              <a class="text-size-1 text-link" href="/chart">
                 ${{ +dashboard.current_price }}<span class="text-gray-500"> @ {{ dashboard.pi_btc }} BTC</span>
 
                 <span v-if="pricePercentage>0" class="text-xs text-green-600">(+{{ pricePercentage }}%)</span>

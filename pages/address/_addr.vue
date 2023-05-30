@@ -16,7 +16,10 @@
           <div class="p-4 text-sm">
             <div class="grid grid-cols-12">
               <div class="col-span-4">Balance:</div>
-              <div class="col-span-8">{{ detail.balance }} PI</div>
+              <div class="col-span-8 flex justify-between">
+                <span>{{ detail.balance }} PI</span>
+                <span class="text-blue-600 cursor-pointer hover:text-blue-800 font-medium" @click="getFullBalance">Fullbalance</span>
+              </div>
             </div>
             <hr class="my-2 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4">
             <div class="grid grid-cols-12">
@@ -102,6 +105,93 @@
 
           </div>
         </div>
+
+      </div>
+
+      <div v-if="showFullBalance" class="w-full mt-6 overflow-y-auto max-h-96 relative bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <!-- Full Balance -->
+        <div class="border-b px-4 py-5 sticky top-0 z-10 bg-white">Full Balance</div>
+        <div class="p-5">
+          <table class="w-full text-sm border text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" class="px-6 py-3">
+                  Type
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Balance
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <template v-for="(v,k) in fullBalance">
+                <tr v-if="k !== 'proxied_detail' && k !== 'reward_detail'" :key="k" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  <td class="px-6 py-4">
+                    {{ k }}
+                  </td>
+                  <td class="px-6 py-4">
+                    {{ v }}
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Proxied Detail -->
+        <div class="border-b px-4 py-5 sticky top-0 z-10 bg-white">Proxied Detail</div>
+        <div v-for="(value,key) in fullBalance.proxied_detail" :key="key" class="p-5">
+          <div class="mb-3 text-gray-600">{{ key }}</div>
+          <table class="w-full border text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" class="px-6 py-3">
+                  Type
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Balance
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(v,k) in value" :key="k" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <td class="px-6 py-4">
+                  {{ k }}
+                </td>
+                <td class="px-6 py-4">
+                  {{ v }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Reward Detail -->
+        <div class="border-b px-4 py-5 sticky top-0 z-10 bg-white">Reward Detail</div>
+        <div class="p-5">
+          <table class="w-full border text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" class="px-6 py-3">
+                  Type
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Balance
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(v,k) in fullBalance.reward_detail" :key="k" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <td class="px-6 py-4">
+                  {{ k }}
+                </td>
+                <td class="px-6 py-4">
+                  {{ v }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -132,6 +222,8 @@ export default {
           totalReward: '',
         },
       },
+      fullBalance: {},
+      showFullBalance: false,
     }
   },
   created() {
@@ -173,6 +265,14 @@ export default {
           data.token.reduce((acc, cur) => Number(acc) + Number(cur), 0),
         tokenList,
       }
+    },
+    async getFullBalance() {
+      if (this.showFullBalance) return
+      const res = await this.$api.getFullBalance({
+        address: this.$route.params.addr,
+      })
+      this.fullBalance = res.data
+      this.showFullBalance = true
     },
   },
 }
