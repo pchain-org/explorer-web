@@ -75,15 +75,7 @@ export default {
     }
   },
   getWeb3() {
-    // return window.wallet
-    // let error = ''
-    // if (window.ethereum) {
-    const web3 = new Web3(window.ethereum)
-    return web3
-    // } else {
-    //   error = 'MetaMask not Install'
-    // }
-    // return { error }
+    return window.wallet
   },
   async sign(message, address) {
     const web3 = window.wallet
@@ -117,7 +109,6 @@ export default {
     }
   },
   async changeNetwork(network) {
-    console.log('0x' + network.chainId.toString(16))
     try {
       const result = await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
@@ -130,18 +121,6 @@ export default {
         const result = await window.ethereum.request({
           method: 'wallet_addEthereumChain',
           params: network,
-          // [
-          //   {
-          //     chainId: '0x' + network.chainId.toString(16),
-          //     chainName: network.name,
-          //     nativeCurrency: {
-          //       name: network.symbol,
-          //       symbol: network.symbol,
-          //       decimals: 18,
-          //     },
-          //     rpcUrls: [network.rpc],
-          //   },
-          // ],
         })
         return result
       } catch (e) {

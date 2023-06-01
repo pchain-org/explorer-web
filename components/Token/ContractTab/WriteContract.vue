@@ -22,7 +22,7 @@
           <input v-model="i.value" type="text" :placeholder="`${i.name}(${i.type})`" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
         </div>
 
-        <div v-if="item.args.input && item.args.input.length" class="p-2">
+        <div class="p-2">
           <button type="button" :disabled="!wallet.coinbase" class="py-2 px-3 text-xs font-medium disabled:cursor-not-allowed text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" @click="handleWrite(item,index)">
             Write
           </button>
@@ -47,7 +47,7 @@
             <svg class="inline-block h-3 mr-1 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
             </svg>
-            <span class="text-gray-500">{{ item.args.output[0].type }}:</span>
+            <span class="text-gray-500">{{ Array.isArray(item.args.output) && item.args.output.length ? item.args.output[0].type : 'Tx' }}:</span>
             <span v-html="item.result"></span>
           </div>
         </div>
@@ -59,7 +59,8 @@
 <script>
 import utilsWeb3 from '@/utils/web3'
 import { getChainNum } from '@/utils/chain'
-import { formatresult } from '@/utils/contract'
+import { formatresultTx } from '@/utils/contract'
+import sdk from '@/utils/sdk'
 const { connectWeb3, changeNetwork } = utilsWeb3
 const NETWORKS = {
   test: {
@@ -179,52 +180,55 @@ export default {
     async handleConnect() {
       try {
         const result = await connectWeb3()
-        this.wallet = result
-        console.log('%cresult: ', 'color: pink; background: #aaa;', result)
-        this.initContractInstance()
-        if (result.networkId !== NETWORKS[this.network].chainId) {
-          const network = await changeNetwork(
-            NETWORKS[this.network][this.chainNum]
-          )
-          console.log('%cnetwork: ', 'color: pink; background: #aaa;', network)
+        if (!result.error) {
+          this.wallet = result
+          this.initContractInstance()
+          if (
+            result.networkId !== NETWORKS[this.network][this.chainNum].chainId
+          ) {
+            const network = await changeNetwork(
+              NETWORKS[this.network][this.chainNum]
+            )
+            console.log(network)
+          }
+        } else {
+          this.$message.error(result.error)
         }
       } catch (error) {
         this.$message.error(error)
       }
     },
-    initContractInstance(abi, address) {
-      try {
-        const contractInstance = new window.wallet.eth.Contract(
-          this.abi,
-          this.queryForm.contract_address
-        )
-        return contractInstance
-      } catch (error) {
-        return { error }
-      }
+    async initContractInstance() {
+      return await sdk.contractAt(
+        this.abi,
+        this.queryForm.contract_address,
+        this.wallet.coinbase
+      )
     },
     async handleWrite(item, index) {
       this.data[index].isLoading = true
       const methodName = item.function_name
       const args =
         (item.args.input && item.args.input.map((item) => item.value)) || []
+      const contract = await this.initContractInstance()
+      if (contract.error) {
+        this.$message.error(contract.error)
+        return contract
+      }
       try {
-        console.log(args, '2')
-        const contractInstance = await this.initContractInstance()
-        const result = await contractInstance.methods[methodName](...args).send(
-          {
-            from: this.wallet.coinbase,
-          }
-        )
-        const outputType = item.args.output ? item.args.output[0].type : ''
-        this.data[index].result = formatresult(result, outputType)
+        const result = await contract[methodName](...args, {
+          from: this.wallet.coinbase,
+        })
+        if (result.error) {
+          this.data[index].isLoading = false
+          this.data[index].result = formatresultTx(result.error, '')
+          return
+        }
+        this.data[index].result = formatresultTx('', result)
         this.data[index].isLoading = false
-      } catch (error) {
-        console.log(error, 'error')
-        this.data[
-          index
-        ].result = `<span class="text-red-500">${error.message}</span>`
+      } catch (e) {
         this.data[index].isLoading = false
+        this.data[index].result = formatresultTx(e.message, '')
       }
     },
   },
