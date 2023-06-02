@@ -58,7 +58,7 @@ export function formatresult(strResult, resulttype) {
     return strResult
   } else if (resulttype === 'address') {
     if (strResult !== '0x0000000000000000000000000000000000000000') {
-      return `<a href="/address/${strResult}" class="inline-block text-blue-600 dark:text-blue-500 hover:underline">${strResult}</a>`
+      return `<a href="/address/${strResult}" class="inline-block text-blue-600 dark:text-blue-500 hover:underline" target="_blank">${strResult}</a>`
     } else {
       return strResult
     }
@@ -80,5 +80,13 @@ export function formatresult(strResult, resulttype) {
     return strResult
   } else {
     return strResult
+  }
+}
+
+export function formatresultTx(err, txHash) {
+  if (err) {
+    return `<span class="text-red-600">${filterXSS(err)} </span>`
+  } else {
+    return `<a href="/tx/${txHash}" class="inline-block text-blue-600 dark:text-blue-500 hover:underline" target="_blank">View your transaction</a>`
   }
 }
