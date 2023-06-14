@@ -28,7 +28,7 @@
               <ul class="list-unstyled list-xs-space alert-text mb-0 mt-2 text-sm">
                 <li class="mb-2">1. If it compiles correctly at <a rel="nofollow noopener" href="https://remix.ethereum.org/" class="inline truncate text-blue-600 dark:text-blue-500 hover:underline" target="_blank">REMIX</a>, it should also compile correctly here.</li>
                 <li class="mb-2">2. As this is an beta release module, there is limited support for external libraries</li>
-                <li>3. There is a timeout of up to 45 seconds for each contract compiled, if you need longer compilation times (up to 3 mins) check out this <a href="https://docs.bscscan.com/api-endpoints/contracts" target="_blank">API endpoint</a></li>
+                <li>3. There is a timeout of up to 45 seconds for each contract compiled, if you need longer compilation times (up to 3 mins) check out this <a href="javascript:;" target="_blank">API endpoint</a></li>
               </ul>
               <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-gray-50 text-gray-500 rounded-lg focus:ring-2 focus:ring-gray-400 p-1.5 hover:bg-gray-200 inline-flex h-8 w-8 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white" data-dismiss-target="#alert-5" aria-label="Close">
                 <span class="sr-only">Dismiss</span>

@@ -14,7 +14,7 @@
           </div>
           <div class="md:col-span-9 col-span-12 text-secondary text-sm text-gray-500 mt-3 mb-2 ml-2">
             Source code verification provides <b>transparency</b> for users interacting with smart contracts.
-            By uploading the source code, BscScan will match the compiled code with that on the blockchain.
+            By uploading the source code, PiScan will match the compiled code with that on the blockchain.
             Just like contracts, a "smart contract" should provide end users with more information on what they are "digitally signing" for and give users an opportunity to audit the code to independently verify that it actually does what it is supposed to do.
             <p><br>Please be informed that advanced settings (e.g. bytecodeHash: "none" or viaIR: "true") can be accessed via Solidity (Standard-Json-Input) verification method. More information can be found under Solidity's "Compiler Input and Output JSON Description" documentation section.</p>
           </div>
