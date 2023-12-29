@@ -61,6 +61,7 @@ export default {
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
+    //!!network[process.env.NETWORK].BASE_API -- /blockBrowser
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: network[process.env.NETWORK].BASE_API,
     browserBaseURL: network[process.env.NETWORK].BASE_API,

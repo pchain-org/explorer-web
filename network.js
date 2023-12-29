@@ -8,7 +8,7 @@ module.exports = {
   // 主网
   main: {
     BASE_API: 'https://api-piscan.plian.org/', // 主网接口地址
-    NAV_DOMAIN: 'https://v2-piscan.plian.org', // 主网导航地址
+    NAV_DOMAIN: 'https://piscan.plian.org/?chain=0', // 主网导航地址
     NETWORK: 'main',
   },
 }
