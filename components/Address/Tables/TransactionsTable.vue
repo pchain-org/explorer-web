@@ -20,8 +20,8 @@
       <div class="bg-white border-solid border-slate-300 px-3 py-2 rounded-lg">
         <button id="filterBtn" data-dropdown-toggle="filter-menu"
           class="flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-gray-700 border-gray-100 md:w-auto hover:bg-gray-50 md:hover:bg-transparent md:hover:text-blue-600 md:p-0 dark:text-gray-400 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-blue-500 md:dark:hover:bg-transparent dark:border-gray-700">
-          {{ filter }} <svg aria-hidden="true" class="w-5 h-5 ml-1 md:w-4 md:h-4" fill="currentColor"
-            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          {{ filter }} <svg aria-hidden="true" class="w-5 h-5 ml-1 md:w-4 md:h-4" fill="currentColor" viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd"
               d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
               clip-rule="evenodd"></path>
@@ -140,7 +140,8 @@
         </tr>
       </tbody>
     </table>
-    <p @click="viewAllTransaction" v-if="!all && data.counts != ''" class="view-all-text hover:select-all">VIEW ALL TRANSACTIONS&nbsp;&rarr;</p>
+    <p @click="viewAllTransaction" v-if="!all && data.counts != ''" class="view-all-text hover:select-all">VIEW ALL
+      TRANSACTIONS&nbsp;&rarr;</p>
     <div v-if="all && data.counts != ''" class="flex flex-wrap justify-end text-sm font-medium px-4 py-5 text-center">
       <Pagination :total="+data.counts" :page-num="+queryForm.start" :page-size="+queryForm.length"
         @change="pageChange" />
@@ -162,7 +163,7 @@ export default {
         contract_trade_count: '',
         trade_list: [],
       },
-      filter:'View Completed Txns'
+      filter: 'View Completed Txns'
     }
   },
   computed: {
@@ -171,8 +172,16 @@ export default {
     }
   },
   created() {
-    this.queryForm.value = this.$route.params.addr || this.$route.params.transaction
-    this.getContractTradeList()
+    this.queryForm.value = this.$route.params.addr || this.$route.params.transaction;
+    if(!this.all){
+      this.getContractTradeList()
+    }
+  },
+  mounted() {
+    if (window.sessionStorage.getItem('list-type') && !!this.all) {
+      this.filter = window.sessionStorage.getItem('list-type') === 'completed' ? 'View Completed Txns' : 'View Pending Txns';
+      window.sessionStorage.getItem('list-type') === 'completed' ? this.getContractTradeList() : this.getPendingTradeList()
+    }
   },
   methods: {
     async getContractTradeList() {
@@ -181,25 +190,28 @@ export default {
         this.data = res.data;
       } catch (error) { }
     },
-    async getPendingTradeList(){
-      try{
+    async getPendingTradeList() {
+      try {
         const res = await this.$api.getPendingTradeList(this.queryForm);
         this.data = res.data;
-      }catch (error) {  }
+      } catch (error) { }
     },
     viewAllTransaction() {
-      window.sessionStorage.setItem('title-tr','Transactions')
+      window.sessionStorage.setItem('title-tr', 'Transactions')
       window.location.href = `/transaction/${this.queryForm.value}`
     },
     pageChange(page) {
       this.queryForm.start = String(page.page);
       this.getContractTradeList();
     },
-    selectFilter(filter){
+    selectFilter(filter) {
       const element = document.getElementsByClassName('mine-control');
       element[0].classList.add('hidden');
       this.filter = filter;
-      filter === 'View Completed Txns' ? this.getContractTradeList() : this.getPendingTradeList()
+      window.sessionStorage.setItem('title-tr', 'Transactions')
+      window.sessionStorage.setItem('list-type', filter === 'View Completed Txns' ? 'completed' : 'pending');
+      !this.all && (window.location.href = `/transaction/${this.queryForm.value}`);
+        (!!this.all && filter) === 'View Completed Txns' ? this.getContractTradeList() : this.getPendingTradeList()
     }
   },
 }
