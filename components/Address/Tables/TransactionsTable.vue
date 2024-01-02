@@ -93,7 +93,7 @@
                 item.block_no }}</a>
           </td>
           <td class="px-6 py-4">
-            <div class="inline-block w-40" :title="item.trade_time">{{ item.trade_time_interval | timeAgoForSec }}</div>
+            <div class="inline-block w-40" :title="item.trade_time">{{ item.trade_interval_time | timeAgoForSec }}</div>
           </td>
           <td class="px-6 py-4 whitespace-nowrap">
             <svg v-if="item.trade_from_type === 2" class="w-5 h-5 inline-block align-middle" fill="none"
